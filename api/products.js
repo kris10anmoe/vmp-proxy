@@ -1,21 +1,20 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Ocp-Apim-Subscription-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  const { q, pageSize = 30 } = req.query;
+  if (!q) return res.status(400).json({ error: 'Missing query parameter q' });
 
-  const params = new URLSearchParams(req.query);
-  const url = `https://apis.vinmonopolet.no/products/v0/details-normal?${params}`;
+  const params = new URLSearchParams({ fields: 'FULL', query: q, pageSize });
+  const url = `https://www.vinmonopolet.no/vmpws/v2/vmp/search?${params}`;
 
   try {
     const r = await fetch(url, {
       headers: {
-        'Ocp-Apim-Subscription-Key': process.env.VINMONOPOLET_API_KEY,
         'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
       }
     });
     const data = await r.json();
