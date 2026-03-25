@@ -1,147 +1,273 @@
-// agent.js – hjernen i appen
-// Systemprompt, tool-definisjoner og agent-løkken.
-// Fri på vinforståelse, stram på fakta og verktøybruk.
-
-import { searchProducts, getStock } from './vin.js';
-
-// ── Systemprompt ──────────────────────────────────────────────────────────────
-
-const SYSTEM = `Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
-
-REGLER:
-- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.
-- Pris, varenummer og tilgjengelighet må alltid komme fra API-et – aldri gjett.
-- Bruk alltid søkeverktøyet før du anbefaler noe konkret.
-- Maks 4 søk per forespørsel. Stopp når treffene er gode nok.
-- Svar kort og konkret på norsk.
-
-SØKELOGIKK:
-Bruk fagkunnskapen din til å utlede riktig søkenavn FØR du søker.
-Eksempler:
-- "Angerville i Jura" → produsentnavnet er Domaine du Pélican → søk "Pélican" OG "Pelican"
-- "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"
-- "Coche" → søk "Coche-Dury"
-- "Pingus" / "Peter Sisseck" → søk "Pingus"
-- "Unico" → søk "Vega Sicilia"
-- Navn med aksenter: søk alltid med og uten aksent (to søk)
-
-BUTIKKBEHOLDNING:
-Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.
-Presenter resultatet som en sortert liste med butikknavn og antall.
-
-SVARFORMAT:
-- 2–5 anbefalinger med navn, varenummer og pris
-- Kort begrunnelse for hvert valg basert på din fagkunnskap`;
-
-// ── Tool-definisjoner ─────────────────────────────────────────────────────────
-
-const TOOLS = [
-  {
-    name: 'search_vinmonopolet',
-    description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
-    input_schema: {
-      type: 'object',
-      properties: {
-        q: {
-          type: 'string',
-          description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
-        }
-      },
-      required: ['q']
-    }
-  },
-  {
-    name: 'get_store_stock',
-    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
-    input_schema: {
-      type: 'object',
-      properties: {
-        productCode: {
-          type: 'string',
-          description: 'Vinmonopolets varenummer, f.eks. "19921901".'
-        }
-      },
-      required: ['productCode']
-    }
-  }
-];
-
-// ── Agent-løkke ───────────────────────────────────────────────────────────────
-
-export async function runAgent(history, onStatus) {
-  let allProducts = [];
-  let allStores   = [];
-  let finalText   = '';
-
-  for (let i = 0; i < 8; i++) {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model:     'claude-sonnet-4-20250514',
-        max_tokens: 1500,
-        system:    SYSTEM,
-        tools:     TOOLS,
-        messages:  history
-      })
-    });
-
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const toolBlocks = data.content?.filter(b => b.type === 'tool_use') || [];
-    const textBlock  = data.content?.find(b => b.type === 'text');
-
-    if (toolBlocks.length === 0) {
-      finalText = textBlock?.text || 'Beklager, noe gikk galt.';
-      history.push({ role: 'assistant', content: finalText });
-      break;
-    }
-
-    history.push({ role: 'assistant', content: data.content });
-    const results = [];
-
-    for (const tb of toolBlocks) {
-      try {
-        if (tb.name === 'search_vinmonopolet') {
-          onStatus?.('Søker...');
-          const products = await searchProducts(tb.input.q);
-          allProducts = [...allProducts, ...products];
-          results.push({
-            type: 'tool_result',
-            tool_use_id: tb.id,
-            content: JSON.stringify({ found: products.length, products })
-          });
-
-        } else if (tb.name === 'get_store_stock') {
-          onStatus?.('Sjekker butikkbeholdning...');
-          const stores = await getStock(tb.input.productCode);
-          allStores = stores;
-          results.push({
-            type: 'tool_result',
-            tool_use_id: tb.id,
-            content: JSON.stringify({ storesWithStock: stores.length, stores })
-          });
-        }
-      } catch (e) {
-        results.push({
-          type: 'tool_result',
-          tool_use_id: tb.id,
-          content: `Feil: ${e.message}`
-        });
-      }
-    }
-
-    history.push({ role: 'user', content: results });
-  }
-
-  // Dedupliser produkter
-  const seen    = new Set();
-  const unique  = allProducts.filter(p => {
-    if (!p.id || seen.has(p.id)) return false;
-    seen.add(p.id);
-    return true;
-  });
-
-  return { text: finalText, products: unique, stores: allStores };
+/* styles.css – layout, typografi, kort, UI */
+ 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+:root {
+  --bg:       #faf9f7;
+  --surface:  #ffffff;
+  --text:     #1a1a18;
+  --text-2:   #6b6b66;
+  --text-3:   #9b9b95;
+  --border:   rgba(0,0,0,0.09);
+  --border-2: rgba(0,0,0,0.18);
+  --accent:   #8b1a1a;
+  --r:        10px;
+  --r-lg:     14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
+ 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #181817;
+    --surface:  #222220;
+    --text:     #f0efe8;
+    --text-2:   #9b9b93;
+    --text-3:   #6b6b65;
+    --border:   rgba(255,255,255,0.08);
+    --border-2: rgba(255,255,255,0.16);
+  }
+}
+ 
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+ 
+body {
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+ 
+/* ── Header ──────────────────────────────────────────────────────────────── */
+ 
+header {
+  padding: 13px 20px;
+  border-bottom: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+header h1 { font-size: 15px; font-weight: 500; }
+header p  { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+ 
+/* ── Chat ────────────────────────────────────────────────────────────────── */
+ 
+#chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+}
+ 
+/* Brukermelding */
+.mu {
+  align-self: flex-end;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  max-width: 72%;
+  font-size: 14px;
+  line-height: 1.5;
+}
+ 
+/* Botmelding */
+.mb { align-self: flex-start; width: 100%; }
+ 
+.mb-text {
+  font-size: 14px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+}
+.mb-text:last-child { margin-bottom: 0; }
+ 
+.mb-text.thinking {
+  color: var(--text-3);
+  font-style: italic;
+  font-size: 13px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mb-text.thinking::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-3);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: .3; transform: scale(.8); }
+  50%      { opacity: 1;  transform: scale(1);  }
+}
+ 
+/* ── Produktkort ─────────────────────────────────────────────────────────── */
+ 
+.cards {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.cards::-webkit-scrollbar       { height: 4px; }
+.cards::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+ 
+.card {
+  flex: 0 0 200px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .15s, box-shadow .15s;
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover {
+  border-color: var(--border-2);
+  box-shadow: 0 2px 14px rgba(0,0,0,.07);
+}
+ 
+/* Kortelementer – matcher Vinmonopolets stil */
+.c-type {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.c-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 3px;
+}
+.c-id {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.c-origin {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+.c-abv { font-size: 11px; color: var(--text-3); }
+.c-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+.c-pval {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+}
+.c-vol { font-size: 12px; color: var(--text-2); }
+ 
+/* ── Butikkliste ─────────────────────────────────────────────────────────── */
+ 
+.store-list {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.store-row:last-child { border-bottom: none; }
+.store-city { font-size: 11px; color: var(--text-3); margin-left: 6px; }
+.store-qty  { font-size: 12px; color: var(--text-3); }
+ 
+/* ── Chips ───────────────────────────────────────────────────────────────── */
+ 
+.chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 2px 0; }
+.chip {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border-2);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, color .12s;
+}
+.chip:hover { background: var(--surface); color: var(--text); }
+ 
+/* ── Footer / input ──────────────────────────────────────────────────────── */
+ 
+footer {
+  flex-shrink: 0;
+  padding: 12px 20px 16px;
+  border-top: 0.5px solid var(--border);
+}
+.inp-row {
+  display: flex;
+  gap: 8px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+input[type=text] {
+  flex: 1;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 0 14px;
+  height: 40px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+  transition: border-color .15s;
+}
+input:focus       { border-color: var(--border-2); }
+input::placeholder { color: var(--text-3); }
+ 
+button.send {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--r);
+  padding: 0 18px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity .15s;
+}
+button.send:disabled { opacity: 0.35; cursor: default; }
+ 
