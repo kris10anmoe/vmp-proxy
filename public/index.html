@@ -9,48 +9,64 @@
 :root {
   --bg: #faf9f7; --surface: #ffffff; --text: #1a1a18;
   --text-2: #6b6b66; --text-3: #9b9b95;
-  --border: rgba(0,0,0,0.1); --border-2: rgba(0,0,0,0.18);
+  --border: rgba(0,0,0,0.09); --border-2: rgba(0,0,0,0.18);
+  --accent: #8b1a1a;
   --r: 10px; --r-lg: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #181817; --surface: #222220; --text: #f0efe8; --text-2: #9b9b93; --text-3: #6b6b65; --border: rgba(255,255,255,0.08); --border-2: rgba(255,255,255,0.16); }
+  :root {
+    --bg: #181817; --surface: #222220; --text: #f0efe8;
+    --text-2: #9b9b93; --text-3: #6b6b65;
+    --border: rgba(255,255,255,0.08); --border-2: rgba(255,255,255,0.16);
+  }
 }
 body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-header { padding: 14px 20px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.logo { width: 34px; height: 34px; border-radius: 8px; background: #7a1a1a; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+header { padding: 13px 20px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.logo { width: 32px; height: 32px; border-radius: 8px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 header h1 { font-size: 15px; font-weight: 500; }
 header p { font-size: 11px; color: var(--text-3); margin-top: 1px; }
 #chat { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; max-width: 860px; width: 100%; margin: 0 auto; }
 .mu { align-self: flex-end; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 10px 14px; max-width: 72%; font-size: 14px; line-height: 1.5; }
 .mb { align-self: flex-start; width: 100%; }
 .mb-text { font-size: 14px; line-height: 1.75; white-space: pre-wrap; margin-bottom: 10px; }
-.mb-text.thinking { color: var(--text-3); font-style: italic; font-size: 13px; margin-bottom: 0; }
+.mb-text:last-child { margin-bottom: 0; }
+.mb-text.thinking { color: var(--text-3); font-style: italic; font-size: 13px; margin-bottom: 0; display: flex; align-items: center; gap: 8px; }
+.mb-text.thinking::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
 .cards { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; }
-.card { flex: 0 0 185px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 13px; display: flex; flex-direction: column; gap: 2px; }
-.c-type { font-size: 9px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 3px; }
-.c-name { font-size: 13px; font-weight: 500; line-height: 1.35; }
-.c-id { font-size: 11px; color: var(--text-3); margin-top: 1px; }
-.c-origin { font-size: 11px; color: var(--text-2); margin-top: 5px; line-height: 1.4; }
-.c-imp { font-size: 10px; color: var(--text-3); margin-top: 2px; }
-.c-price { display: flex; align-items: baseline; gap: 5px; margin-top: auto; padding-top: 10px; }
-.c-pval { font-size: 19px; font-weight: 500; }
-.c-vol { font-size: 11px; color: var(--text-2); }
+.cards::-webkit-scrollbar { height: 4px; }
+.cards::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+.card { flex: 0 0 200px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 14px; display: flex; flex-direction: column; gap: 0; transition: border-color .15s, box-shadow .15s; text-decoration: none; color: inherit; }
+.card:hover { border-color: var(--border-2); box-shadow: 0 2px 14px rgba(0,0,0,.07); }
+.c-type { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.c-name { font-size: 13.5px; font-weight: 600; line-height: 1.35; margin-bottom: 3px; }
+.c-id { font-size: 11px; color: var(--text-3); margin-bottom: 8px; }
+.c-origin { font-size: 12px; color: var(--text-2); line-height: 1.4; margin-bottom: 2px; }
+.c-abv { font-size: 11px; color: var(--text-3); }
+.c-price { display: flex; align-items: baseline; gap: 6px; margin-top: auto; padding-top: 12px; }
+.c-pval { font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
+.c-vol { font-size: 12px; color: var(--text-2); }
+.store-list { margin-top: 6px; display: flex; flex-direction: column; gap: 0; }
+.store-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
+.store-row:last-child { border-bottom: none; }
+.store-city { font-size: 11px; color: var(--text-3); margin-left: 6px; }
+.store-qty { font-size: 12px; color: var(--text-3); }
 .chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 2px 0; }
-.chip { font-size: 12px; padding: 5px 12px; border-radius: 999px; border: 0.5px solid var(--border-2); background: transparent; color: var(--text-2); cursor: pointer; white-space: nowrap; }
+.chip { font-size: 12px; padding: 5px 12px; border-radius: 999px; border: 0.5px solid var(--border-2); background: transparent; color: var(--text-2); cursor: pointer; white-space: nowrap; transition: background .12s, color .12s; }
 .chip:hover { background: var(--surface); color: var(--text); }
 footer { flex-shrink: 0; padding: 12px 20px 16px; border-top: 0.5px solid var(--border); }
 .inp-row { display: flex; gap: 8px; max-width: 860px; margin: 0 auto; }
-input[type=text] { flex: 1; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); padding: 0 14px; height: 40px; font-size: 14px; color: var(--text); outline: none; font-family: inherit; }
+input[type=text] { flex: 1; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); padding: 0 14px; height: 40px; font-size: 14px; color: var(--text); outline: none; font-family: inherit; transition: border-color .15s; }
 input:focus { border-color: var(--border-2); }
 input::placeholder { color: var(--text-3); }
-button.send { background: var(--text); color: var(--bg); border: none; border-radius: var(--r); padding: 0 18px; height: 40px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; }
+button.send { background: var(--text); color: var(--bg); border: none; border-radius: var(--r); padding: 0 18px; height: 40px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity .15s; }
 button.send:disabled { opacity: 0.35; cursor: default; }
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">🍷</div>
+  <div class="logo">&#x1F377;</div>
   <div>
     <h1>Vinrådgiver</h1>
     <p>Søker direkte i Vinmonopolets katalog</p>
@@ -58,13 +74,13 @@ button.send:disabled { opacity: 0.35; cursor: default; }
 </header>
 <div id="chat">
   <div class="mb">
-    <div class="mb-text">Hei! Fortell meg hva du er ute etter – en vin til middag, en bestemt produsent, et område, eller et budsjett. Jeg søker direkte i Vinmonopolets katalog.</div>
+    <div class="mb-text">Hei! Fortell meg hva du er ute etter – en vin til middag, en bestemt produsent, et område, eller et budsjett. Du kan også spørre «Hvilke butikker har denne vinen?» etter at jeg har funnet en vin.</div>
     <div class="chips" id="chips">
+      <button class="chip" onclick="qs('Finn viner fra Domaine du Pélican i Jura')">Pélican i Jura</button>
       <button class="chip" onclick="qs('Frisk hvitvin til sjømat under 200 kr')">Hvitvin til sjømat</button>
       <button class="chip" onclick="qs('Kraftig rødvin fra Italia')">Kraftig italiensk rødvin</button>
-      <button class="chip" onclick="qs('Champagne til fest')">Champagne til fest</button>
-      <button class="chip" onclick="qs('Angerville har et prosjekt i Jura – finn disse vinene')">Angerville i Jura</button>
-      <button class="chip" onclick="qs('Naturvin eller biodynamisk')">Naturvin</button>
+      <button class="chip" onclick="qs('Champagne til fest')">Champagne</button>
+      <button class="chip" onclick="qs('Naturvin eller biodynamisk vin')">Naturvin</button>
       <button class="chip" onclick="qs('Rødvin fra Portugal under 300 kr')">Portugisisk rødvin</button>
     </div>
   </div>
@@ -77,109 +93,179 @@ button.send:disabled { opacity: 0.35; cursor: default; }
 </footer>
 <script>
 const PROXY = '/api/products';
+const STOCK = '/api/stock';
 const CHAT  = '/api/chat';
 let history = [];
 
 const SYSTEM = `Du er en meget kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
-Bruk vinkunnskapen din til å finne riktig søkenavn FØR du søker:
-- "Angerville i Jura" → Domaine du Pélican → søk "Pélican" OG "Pelican"
-- "DRC" → "Romanée-Conti"
-- "Coche" → "Coche-Dury"
-- "Pingus" → "Pingus"
-- "Unico" → "Vega Sicilia"
-Søkeparametere: searchWord, varetype (Rødvin/Hvitvin/Rosévin/Musserende vin/Sterkvin/Brennevin/Øl/Alkoholfritt), land (norsk), distrikt, pris_min, pris_max, alkohol_min, alkohol_max, aargang, limit.
-Gjør gjerne 2 søk. "frisk"→alkohol_max:12.5 | "billig"→pris_max:180 | "premium"→pris_min:300 | "sjømat"→Hvitvin | "biff"→Rødvin | "champagne"→Musserende vin
-Svar STRENGT basert på faktiske søkeresultater. Aldri finn på produkter. Presenter 2-4 anbefalinger med navn, varenummer og pris. Svar på norsk.`;
 
-const TOOLS = [{
-  name: 'search_vinmonopolet',
-  description: 'Søk i Vinmonopolets produktkatalog.',
-  input_schema: { type: 'object', properties: {
-    searchWord:{type:'string'}, varetype:{type:'string'}, land:{type:'string'}, distrikt:{type:'string'},
-    pris_min:{type:'number'}, pris_max:{type:'number'}, alkohol_min:{type:'number'}, alkohol_max:{type:'number'},
-    aargang:{type:'number'}, limit:{type:'number'}
-  }}
-}];
+VIKTIG – SØKELOGIKK:
+Bruk vinkunnskapen din til å utlede riktig søkeord FØR du søker. Eksempler:
+- "Angerville i Jura" → produsentnavnet er "Domaine du Pélican" → søk "Pélican" OG "Pelican" (to søk)
+- "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"
+- "Coche" → søk "Coche-Dury"
+- "Pingus" / "Peter Sisseck" → søk "Pingus"
+- "Unico" → søk "Vega Sicilia"
+- Navn med aksenter: søk alltid med OG uten aksent siden APIet kan matche ulikt
 
-async function vSearch(p) {
-  const ps = new URLSearchParams({start:0, limit:p.limit||20});
-  ['searchWord','varetype','land','distrikt'].forEach(k => { if(p[k]) ps.set(k,p[k]); });
-  ['pris_min','pris_max','alkohol_min','alkohol_max','aargang'].forEach(k => { if(p[k]!=null) ps.set(k,p[k]); });
-  const r = await fetch(`${PROXY}?${ps}`);
+Søket er fritekst mot produktnavn og produsent. Gjør gjerne 2–3 søk for å dekke ulike stavemåter.
+
+BUTIKKBEHOLDNING:
+Hvis brukeren spør hvilke butikker som har en vin, bruk get_store_stock med produktets varenummer.
+Presenter en liste over butikker med antall på lager.
+
+SVAR:
+- Basér deg utelukkende på faktiske søkeresultater – finn aldri på produkter
+- Presenter 2–5 anbefalinger med navn, varenummer og pris
+- Bruk din fagkunnskap til å forklare kort hvorfor du anbefaler akkurat disse
+- Svar på norsk`;
+
+const TOOLS = [
+  {
+    name: 'search_vinmonopolet',
+    description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        q: { type: 'string', description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.' }
+      },
+      required: ['q']
+    }
+  },
+  {
+    name: 'get_store_stock',
+    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall enheter per butikk.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        productCode: { type: 'string', description: 'Vinmonopolets varenummer, f.eks. "19921901".' }
+      },
+      required: ['productCode']
+    }
+  }
+];
+
+async function vSearch(q) {
+  const r = await fetch(`${PROXY}?q=${encodeURIComponent(q)}`);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return await r.json();
 }
+async function vStock(productCode) {
+  const r = await fetch(`${STOCK}?productCode=${encodeURIComponent(productCode)}`);
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return await r.json();
+}
+function extractProducts(data) { return data?.productSearchResult?.products || []; }
 
-function summarize(wines) {
-  return wines.slice(0,20).map(p => ({
-    id: p.basic?.productId, name: p.basic?.productLongName||p.basic?.productShortName,
-    producer: p.basic?.producerName, country: p.origins?.country?.name,
-    region: p.origins?.region?.name, subregion: p.origins?.subRegion?.name,
-    type: p.classification?.mainProductTypeCodeName, subtype: p.classification?.productTypeName,
-    price: p.prices?.[0]?.salesPrice, volume: p.logistics?.volume,
-    abv: p.basic?.alcoholContent, grapes: p.grapes?.map(g=>g.grapeVariety).join(', '),
-    vintage: p.basic?.vintage, importer: p.logistics?.distributorName
+function summarizeProducts(products) {
+  return products.slice(0, 25).map(p => ({
+    id: p.code,
+    name: p.name,
+    mainCategory: p.main_category?.name,
+    subCategory: p.main_sub_category?.name,
+    country: p.main_country?.name,
+    region: p.district?.name,
+    subRegion: p.sub_District?.name,
+    price: p.price?.value,
+    volume: p.volume?.value,
+    abv: p.alcohol?.value,
+    vintage: p.vintage,
+    grapes: p.grapes?.map(g => g.grapeVariety).join(', '),
+    importer: p.distributor,
+    url: p.url ? 'https://www.vinmonopolet.no' + p.url : null
   }));
 }
 
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function makeCard(p) {
-  const nm = p.basic?.productLongName||p.basic?.productShortName||'';
-  const id = p.basic?.productId||'';
-  const ty = p.classification?.mainProductTypeCodeName||'';
-  const loc = [p.origins?.country?.name, p.origins?.region?.name, p.origins?.subRegion?.name].filter(Boolean).join(', ');
-  const px = p.prices?.[0]?.salesPrice;
-  const vl = p.logistics?.volume;
-  const imp = p.logistics?.distributorName||'';
-  const vol = vl ? Math.round(vl*100)+' cl' : '';
-  const d = document.createElement('div'); d.className = 'card';
-  d.innerHTML = [
-    ty ? `<div class="c-type">${esc(ty)}</div>` : '',
-    `<div class="c-name">${esc(nm)}</div>`,
-    id ? `<div class="c-id">${esc(id)}</div>` : '',
-    loc ? `<div class="c-origin">${esc(loc)}</div>` : '',
-    imp ? `<div class="c-imp">Importør: ${esc(imp)}</div>` : '',
-    px != null ? `<div class="c-price"><span class="c-pval">Kr ${px.toLocaleString('nb',{minimumFractionDigits:2})}</span>${vol?`<span class="c-vol">${vol}</span>`:''}</div>` : ''
-  ].join('');
-  return d;
+function summarizeStock(data) {
+  const stores = data?.stores || data?.pointOfServices || [];
+  return stores
+    .filter(s => (s.stockInfo?.stockLevel ?? s.stockLevel ?? 0) > 0)
+    .map(s => ({
+      name: s.displayName || s.name,
+      city: s.address?.town || s.address?.postalAddresses?.[0]?.town || '',
+      stock: s.stockInfo?.stockLevel ?? s.stockLevel ?? null
+    }))
+    .sort((a, b) => (b.stock ?? 0) - (a.stock ?? 0));
 }
 
-function addMsg(role, text, wines) {
+function esc(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function makeCard(p) {
+  const loc = [p.country, p.region, p.subRegion].filter(Boolean).join(', ');
+  const vol = p.volume ? Math.round(p.volume * 100) + ' cl' : '';
+  const a = document.createElement('a');
+  a.className = 'card';
+  if (p.url) { a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; }
+  a.innerHTML = [
+    p.mainCategory ? '<div class="c-type">' + esc(p.mainCategory) + '</div>' : '',
+    '<div class="c-name">' + esc(p.name) + '</div>',
+    p.id ? '<div class="c-id">' + esc(p.id) + '</div>' : '',
+    loc ? '<div class="c-origin">' + esc(loc) + '</div>' : '',
+    p.abv ? '<div class="c-abv">' + esc(p.abv) + ' %</div>' : '',
+    p.price != null
+      ? '<div class="c-price"><span class="c-pval">Kr ' + Number(p.price).toLocaleString('nb', {minimumFractionDigits:2}) + '</span>' + (vol ? '<span class="c-vol">' + vol + '</span>' : '') + '</div>'
+      : ''
+  ].join('');
+  return a;
+}
+
+function makeStoreList(stores) {
+  const div = document.createElement('div');
+  div.className = 'store-list';
+  stores.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'store-row';
+    row.innerHTML = '<span>' + esc(s.name) + (s.city ? '<span class="store-city">' + esc(s.city) + '</span>' : '') + '</span><span class="store-qty">' + (s.stock != null ? s.stock + ' stk' : '') + '</span>';
+    div.appendChild(row);
+  });
+  return div;
+}
+
+function addMsg(role, text, products, stores) {
   const chat = document.getElementById('chat');
   const d = document.createElement('div');
-  if (role === 'user') { d.className = 'mu'; d.textContent = text; }
-  else {
+  if (role === 'user') {
+    d.className = 'mu';
+    d.textContent = text;
+  } else {
     d.className = 'mb';
     const t = document.createElement('div');
-    const thinking = text === '__thinking__' || text === '__searching__';
+    const thinking = text === '__thinking__' || text === '__searching__' || text === '__stock__';
     t.className = 'mb-text' + (thinking ? ' thinking' : '');
-    t.textContent = text === '__thinking__' ? 'Tenker...' : text === '__searching__' ? 'Søker i katalogen...' : text;
+    if (text === '__thinking__') t.textContent = 'Tenker...';
+    else if (text === '__searching__') t.textContent = 'Søker...';
+    else if (text === '__stock__') t.textContent = 'Sjekker butikkbeholdning...';
+    else t.textContent = text;
     d.appendChild(t);
-    if (wines?.length) {
-      const row = document.createElement('div'); row.className = 'cards';
-      wines.forEach(p => row.appendChild(makeCard(p)));
+    if (products && products.length > 0) {
+      const row = document.createElement('div');
+      row.className = 'cards';
+      products.forEach(p => row.appendChild(makeCard(p)));
       d.appendChild(row);
+    }
+    if (stores && stores.length > 0) {
+      d.appendChild(makeStoreList(stores));
     }
   }
   chat.appendChild(d);
-  d.scrollIntoView({behavior:'smooth', block:'end'});
+  d.scrollIntoView({ behavior: 'smooth', block: 'end' });
   return d;
 }
 
 async function runAgent(userMsg) {
-  history.push({role:'user', content:userMsg});
+  history.push({ role: 'user', content: userMsg });
   const el = addMsg('bot', '__thinking__');
   const tEl = el.querySelector('.mb-text');
-  let allWines = [], finalText = '';
+  let allProducts = [], allStores = [], finalText = '';
+
   try {
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       const res = await fetch(CHAT, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
-          max_tokens: 1200,
+          max_tokens: 1500,
           system: SYSTEM,
           tools: TOOLS,
           messages: history
@@ -187,33 +273,48 @@ async function runAgent(userMsg) {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error.message);
-      const toolBlocks = data.content?.filter(b=>b.type==='tool_use')||[];
-      const textBlock = data.content?.find(b=>b.type==='text');
+
+      const toolBlocks = data.content?.filter(b => b.type === 'tool_use') || [];
+      const textBlock  = data.content?.find(b => b.type === 'text');
+
       if (toolBlocks.length > 0) {
-        history.push({role:'assistant', content:data.content});
-        tEl.textContent = 'Søker i katalogen...';
+        history.push({ role: 'assistant', content: data.content });
         const results = [];
         for (const tb of toolBlocks) {
           try {
-            const wines = await vSearch(tb.input);
-            allWines = [...allWines, ...wines];
-            results.push({type:'tool_result', tool_use_id:tb.id, content:JSON.stringify({found:wines.length, products:summarize(wines)})});
-          } catch(e) {
-            results.push({type:'tool_result', tool_use_id:tb.id, content:`Feil: ${e.message}`});
+            if (tb.name === 'search_vinmonopolet') {
+              tEl.className = 'mb-text thinking';
+              tEl.textContent = 'Søker...';
+              const raw = await vSearch(tb.input.q);
+              const products = extractProducts(raw);
+              allProducts = [...allProducts, ...products];
+              results.push({ type: 'tool_result', tool_use_id: tb.id, content: JSON.stringify({ found: products.length, products: summarizeProducts(products) }) });
+            } else if (tb.name === 'get_store_stock') {
+              tEl.className = 'mb-text thinking';
+              tEl.textContent = 'Sjekker butikkbeholdning...';
+              const raw = await vStock(tb.input.productCode);
+              const stores = summarizeStock(raw);
+              allStores = stores;
+              results.push({ type: 'tool_result', tool_use_id: tb.id, content: JSON.stringify({ storesWithStock: stores.length, stores }) });
+            }
+          } catch (e) {
+            results.push({ type: 'tool_result', tool_use_id: tb.id, content: 'Feil: ' + e.message });
           }
         }
-        history.push({role:'user', content:results});
+        history.push({ role: 'user', content: results });
       } else {
         finalText = textBlock?.text || 'Beklager, noe gikk galt.';
-        history.push({role:'assistant', content:finalText});
+        history.push({ role: 'assistant', content: finalText });
         break;
       }
     }
-  } catch(e) { finalText = 'En feil oppstod: ' + e.message; }
+  } catch (e) { finalText = 'En feil oppstod: ' + e.message; }
+
   const unique = [], seen = new Set();
-  for (const w of allWines) { const id = w.basic?.productId; if (id && !seen.has(id)) { seen.add(id); unique.push(w); } }
+  for (const p of allProducts) { if (p.code && !seen.has(p.code)) { seen.add(p.code); unique.push(p); } }
+
   el.remove();
-  addMsg('bot', finalText, unique);
+  addMsg('bot', finalText, summarizeProducts(unique), allStores.length ? allStores : null);
   document.getElementById('sbtn').disabled = false;
   document.getElementById('sbtn').textContent = 'Send';
 }
@@ -228,7 +329,6 @@ async function send() {
   document.getElementById('sbtn').textContent = '...';
   await runAgent(msg);
 }
-
 function qs(msg) { document.getElementById('inp').value = msg; send(); }
 document.getElementById('inp').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 </script>
