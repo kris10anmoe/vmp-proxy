@@ -105,9 +105,10 @@
     a.innerHTML = [
       p.mainCategory ? '<div class="c-type">' + esc(p.mainCategory) + '</div>' : '',
       '<div class="c-name">' + esc(p.name) + '</div>',
-      p.id     ? '<div class="c-id">'     + esc(p.id)  + '</div>' : '',
-      loc      ? '<div class="c-origin">' + esc(loc)   + '</div>' : '',
-      p.abv    ? '<div class="c-abv">'    + esc(p.abv) + ' %</div>' : '',
+      p.id      ? '<div class="c-id">'      + esc(p.id)      + '</div>' : '',
+      loc       ? '<div class="c-origin">' + esc(loc)       + '</div>' : '',
+      p.vintage ? '<div class="c-vintage">' + esc(p.vintage) + '</div>' : '',
+      p.abv     ? '<div class="c-abv">'    + esc(p.abv)     + ' %</div>' : '',
       p.price != null
         ? '<div class="c-price"><span class="c-pval">Kr ' +
           Number(p.price).toLocaleString('nb', { minimumFractionDigits: 2 }) +
