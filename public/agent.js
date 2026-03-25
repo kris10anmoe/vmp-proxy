@@ -1,147 +1,155 @@
-// agent.js – hjernen i appen
-// Systemprompt, tool-definisjoner og agent-løkken.
-// Fri på vinforståelse, stram på fakta og verktøybruk.
+// agent.js – agentlogikk, systemprompt og tool-løkke
+// Avhenger av: vin.js (window.Vin)
+// Eksponeres som window.Agent
 
-import { searchProducts, getStock } from './vin.js';
+window.Agent = (function () {
 
-// ── Systemprompt ──────────────────────────────────────────────────────────────
+  const SYSTEM = `Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
 
-const SYSTEM = `Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
+REGLER FOR VERKTØYBRUK:
+- Du skal ALLTID bruke search_vinmonopolet-verktøyet når brukeren spør om viner, produsenter eller anbefalinger.
+- Du skal ALDRI oppgi pris, lagerstatus eller produktdetaljer uten å hente det fra API-et først.
+- Du skal ALDRI finne på produkter eller gi generelle råd basert på egne antagelser – kun faktiske søkeresultater.
+- Hvis søket returnerer 0 treff eller feil, si NØYAKTIG det: "Søket på '[søkeord]' ga 0 treff." Ikke lag forklaringer.
+- Prøv alternative stavemåter ved 0 treff – gjør opptil 3 søk før du gir opp.
+- Hvis ALLE søk feiler teknisk (ikke 0 treff, men faktisk feil), si: "Søketjenesten svarte ikke – prøv igjen."
 
-REGLER:
-- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.
-- Pris, varenummer og tilgjengelighet må alltid komme fra API-et – aldri gjett.
-- Bruk alltid søkeverktøyet før du anbefaler noe konkret.
-- Maks 4 søk per forespørsel. Stopp når treffene er gode nok.
-- Svar kort og konkret på norsk.
-
-SØKELOGIKK:
-Bruk fagkunnskapen din til å utlede riktig søkenavn FØR du søker.
-Eksempler:
-- "Angerville i Jura" → produsentnavnet er Domaine du Pélican → søk "Pélican" OG "Pelican"
+SØKESTRATEGI:
+Bruk fagkunnskapen din til å utlede riktig søkeord. Eksempler:
+- "Felsina" → søk "Felsina", prøv også "Fèlsina"
+- "Angerville i Jura" → søk "Pélican" OG "Pelican"
 - "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"
 - "Coche" → søk "Coche-Dury"
-- "Pingus" / "Peter Sisseck" → søk "Pingus"
-- "Unico" → søk "Vega Sicilia"
-- Navn med aksenter: søk alltid med og uten aksent (to søk)
+- "sjømat under 200" → søk "hvitvin" eller "Sauvignon Blanc" eller "Albariño"
+- Navn med aksenter: søk alltid med OG uten aksent
 
-BUTIKKBEHOLDNING:
-Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.
-Presenter resultatet som en sortert liste med butikknavn og antall.
+SVAR:
+- Basér deg utelukkende på faktiske søkeresultater
+- Presenter 2–5 anbefalinger med navn, varenummer og pris
+- Forklar kort hvorfor disse passer
+- Svar alltid på norsk`;
 
-SVARFORMAT:
-- 2–5 anbefalinger med navn, varenummer og pris
-- Kort begrunnelse for hvert valg basert på din fagkunnskap`;
-
-// ── Tool-definisjoner ─────────────────────────────────────────────────────────
-
-const TOOLS = [
-  {
-    name: 'search_vinmonopolet',
-    description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
-    input_schema: {
-      type: 'object',
-      properties: {
-        q: {
-          type: 'string',
-          description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
-        }
-      },
-      required: ['q']
-    }
-  },
-  {
-    name: 'get_store_stock',
-    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
-    input_schema: {
-      type: 'object',
-      properties: {
-        productCode: {
-          type: 'string',
-          description: 'Vinmonopolets varenummer, f.eks. "19921901".'
-        }
-      },
-      required: ['productCode']
-    }
-  }
-];
-
-// ── Agent-løkke ───────────────────────────────────────────────────────────────
-
-export async function runAgent(history, onStatus) {
-  let allProducts = [];
-  let allStores   = [];
-  let finalText   = '';
-
-  for (let i = 0; i < 8; i++) {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model:     'claude-sonnet-4-20250514',
-        max_tokens: 1500,
-        system:    SYSTEM,
-        tools:     TOOLS,
-        messages:  history
-      })
-    });
-
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const toolBlocks = data.content?.filter(b => b.type === 'tool_use') || [];
-    const textBlock  = data.content?.find(b => b.type === 'text');
-
-    if (toolBlocks.length === 0) {
-      finalText = textBlock?.text || 'Beklager, noe gikk galt.';
-      history.push({ role: 'assistant', content: finalText });
-      break;
-    }
-
-    history.push({ role: 'assistant', content: data.content });
-    const results = [];
-
-    for (const tb of toolBlocks) {
-      try {
-        if (tb.name === 'search_vinmonopolet') {
-          onStatus?.('Søker...');
-          const products = await searchProducts(tb.input.q);
-          allProducts = [...allProducts, ...products];
-          results.push({
-            type: 'tool_result',
-            tool_use_id: tb.id,
-            content: JSON.stringify({ found: products.length, products })
-          });
-
-        } else if (tb.name === 'get_store_stock') {
-          onStatus?.('Sjekker butikkbeholdning...');
-          const stores = await getStock(tb.input.productCode);
-          allStores = stores;
-          results.push({
-            type: 'tool_result',
-            tool_use_id: tb.id,
-            content: JSON.stringify({ storesWithStock: stores.length, stores })
-          });
-        }
-      } catch (e) {
-        results.push({
-          type: 'tool_result',
-          tool_use_id: tb.id,
-          content: `Feil: ${e.message}`
-        });
+  const TOOLS = [
+    {
+      name: 'search_vinmonopolet',
+      description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          q: {
+            type: 'string',
+            description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
+          }
+        },
+        required: ['q']
+      }
+    },
+    {
+      name: 'get_store_stock',
+      description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          productCode: {
+            type: 'string',
+            description: 'Vinmonopolets varenummer, f.eks. "19921901".'
+          }
+        },
+        required: ['productCode']
       }
     }
+  ];
 
-    history.push({ role: 'user', content: results });
+  async function run(history, onStatus) {
+    const MAX_ITERATIONS = 8;
+    let allProducts = [];
+    let allStores   = [];
+    let finalText   = '';
+
+    for (let i = 0; i < MAX_ITERATIONS; i++) {
+      const toolChoice = i === 0 ? { type: 'any' } : { type: 'auto' };
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 1500,
+          system: SYSTEM,
+          tools: TOOLS,
+          tool_choice: toolChoice,
+          messages: history
+        })
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error('API-feil ' + res.status + ': ' + errText);
+      }
+
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+
+      const toolBlocks = (data.content || []).filter(b => b.type === 'tool_use');
+      const textBlock  = (data.content || []).find(b => b.type === 'text');
+
+      if (toolBlocks.length === 0) {
+        finalText = textBlock?.text || 'Beklager, noe gikk galt.';
+        history.push({ role: 'assistant', content: finalText });
+        break;
+      }
+
+      history.push({ role: 'assistant', content: data.content });
+
+      const toolResults = [];
+      for (const tb of toolBlocks) {
+        try {
+          if (tb.name === 'search_vinmonopolet') {
+            onStatus('Søker etter «' + tb.input.q + '»...');
+            const products = await window.Vin.searchProducts(tb.input.q);
+            allProducts = allProducts.concat(products);
+            // Send alltid faktisk antall tilbake – modellen skal ikke gjette
+            toolResults.push({
+              type: 'tool_result',
+              tool_use_id: tb.id,
+              content: JSON.stringify({
+                query: tb.input.q,
+                found: products.length,
+                products: products
+              })
+            });
+          } else if (tb.name === 'get_store_stock') {
+            onStatus('Sjekker butikkbeholdning...');
+            const stores = await window.Vin.getStock(tb.input.productCode);
+            allStores = stores;
+            toolResults.push({
+              type: 'tool_result',
+              tool_use_id: tb.id,
+              content: JSON.stringify({ storesWithStock: stores.length, stores: stores })
+            });
+          }
+        } catch (e) {
+          // Send faktisk feilmelding tilbake til modellen
+          toolResults.push({
+            type: 'tool_result',
+            tool_use_id: tb.id,
+            content: JSON.stringify({ error: e.message, found: 0, products: [] })
+          });
+        }
+      }
+
+      history.push({ role: 'user', content: toolResults });
+    }
+
+    const seen = new Set();
+    const uniqueProducts = allProducts.filter(p => {
+      if (!p.id || seen.has(p.id)) return false;
+      seen.add(p.id);
+      return true;
+    });
+
+    return { text: finalText, products: uniqueProducts, stores: allStores };
   }
 
-  // Dedupliser produkter
-  const seen    = new Set();
-  const unique  = allProducts.filter(p => {
-    if (!p.id || seen.has(p.id)) return false;
-    seen.add(p.id);
-    return true;
-  });
-
-  return { text: finalText, products: unique, stores: allStores };
-}
+  return { run };
+})();
