@@ -35,7 +35,7 @@ window.Vin = (function () {
       region:       p.district?.name,
       subRegion:    p.subDistrict?.name,
       price:        p.price,
-      volume:       p.volume?.value,
+      volume:       p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
       abv:          p.abv,
       vintage:      p.vintage,
       grapes:       p.rawMaterial?.map(r => r.rawMaterial).join(', ') || null,
