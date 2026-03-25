@@ -37,12 +37,18 @@ window.Vin = (function () {
       price:        p.price,
       volume:       p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
       abv:          p.abv,
-      vintage:      p.vintage,
+      vintage:      p.vintage || extractVintage(p.name),
       grapes:       p.rawMaterial?.map(r => r.rawMaterial).join(', ') || null,
       importer:     p.distributor || null,
       available:    p.productAvailability?.storeAvailability?.available ?? null,
       url:          p.url ? 'https://www.vinmonopolet.no' + p.url : null,
     };
+  }
+
+  function extractVintage(name) {
+    if (!name) return null;
+    const match = name.match(/\b(19|20)[0-9]{2}\b/);
+    return match ? parseInt(match[0]) : null;
   }
 
   return { searchProducts, getStock };
