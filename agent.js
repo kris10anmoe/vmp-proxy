@@ -23,6 +23,13 @@ Bruk fagkunnskapen din til å utlede riktig søkeord. Eksempler:
 - "sjømat under 200" → søk "hvitvin" eller "Sauvignon Blanc" eller "Albariño"
 - Navn med aksenter: søk alltid med OG uten aksent
 
+ÅRGANGSSPØRSMÅL:
+Når brukeren spør om eldste, nyeste eller spesifikk årgang:
+- Bruk sortBy="vintage_asc" for eldste årganger, "vintage_desc" for nyeste
+- Bruk pageSize=200 for å få nok resultater
+- API-et sorterer da for deg – presenter de øverste treffene som har en vintage-verdi
+- Spesifikk årgang (f.eks. "2015 Barolo"): søk "Barolo 2015" uten sortBy
+
 SVAR:
 - Basér deg utelukkende på faktiske søkeresultater
 - Presenter 2–5 anbefalinger med navn, varenummer og pris
@@ -39,6 +46,14 @@ SVAR:
           q: {
             type: 'string',
             description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
+          },
+          pageSize: {
+            type: 'number',
+            description: 'Antall resultater (standard: 30). Bruk 200 ved årgangsspørsmål.'
+          },
+          sortBy: {
+            type: 'string',
+            description: 'Sortering. Bruk "vintage_asc" for eldste årganger øverst, "vintage_desc" for nyeste øverst.'
           }
         },
         required: ['q']
@@ -106,7 +121,7 @@ SVAR:
         try {
           if (tb.name === 'search_vinmonopolet') {
             onStatus('Søker etter «' + tb.input.q + '»...');
-            const products = await window.Vin.searchProducts(tb.input.q);
+            const products = await window.Vin.searchProducts(tb.input.q, tb.input.pageSize, tb.input.sortBy);
             allProducts = allProducts.concat(products);
             // Send alltid faktisk antall tilbake – modellen skal ikke gjette
             toolResults.push({
