@@ -96,7 +96,7 @@
   // ── Produktkort ──────────────────────────────────────────────────────────────
   function makeCard(p) {
     const loc = [p.country, p.region, p.subRegion].filter(Boolean).join(', ');
-    const vol = p.volume ? Math.round(p.volume * 100) + ' cl' : '';
+    const vol = p.volume || '';
 
     const a = document.createElement('a');
     a.className = 'card';
