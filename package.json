@@ -1,0 +1,7 @@
+{
+  "name": "vmp-proxy",
+  "version": "1.0.0",
+  "dependencies": {
+    "vinmonopolet-ts": "^5.2.4"
+  }
+}
