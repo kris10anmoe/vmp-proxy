@@ -1,4 +1,4 @@
-import { getProducts } from 'vinmonopolet-ts';
+import { getProducts, getProductsById } from 'vinmonopolet-ts';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -51,7 +51,16 @@ export default async function handler(req, res) {
     const withoutSpirits = allProducts.filter(p => !isSpirit(p));
     const products = withoutSpirits.length >= 5 ? withoutSpirits : allProducts;
 
-    return res.status(200).json({ products });
+    // Hent detaljert info (smak, aroma, druer) for de første 10 produktene
+    // populate() gir taste, aroma, rawMaterial, abv, sugar, acid m.m.
+    const toPopulate = products.slice(0, 10);
+    const rest = products.slice(10);
+    const populated = await Promise.all(
+      toPopulate.map(p => p.populate().catch(() => p))
+    );
+    const final = [...populated, ...rest];
+
+    return res.status(200).json({ products: final });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
