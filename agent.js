@@ -1,41 +1,37 @@
 // agent.js – hjernen i appen
 // Systemprompt, tool-definisjoner og agent-løkken.
-// Fri på vinforståelse, stram på fakta og verktøybruk.
+// Eksponeres som window.Agent
 
-import { searchProducts, getStock } from './vin.js';
+window.Agent = (function () {
 
 // ── Systemprompt ──────────────────────────────────────────────────────────────
 
-const SYSTEM = `Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
-
-REGLER:
-- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.
-- Pris, varenummer og tilgjengelighet må alltid komme fra API-et – aldri gjett.
-- Bruk alltid søkeverktøyet før du anbefaler noe konkret.
-- Maks 4 søk per forespørsel. Stopp når treffene er gode nok.
-- Svar kort og konkret på norsk.
-
-SØKELOGIKK:
-Bruk fagkunnskapen din til å utlede riktig søkenavn FØR du søker.
-Eksempler:
-- "Angerville i Jura" → produsentnavnet er Domaine du Pélican → søk "Pélican" OG "Pelican"
-- "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"
-- "Coche" → søk "Coche-Dury"
-- "Pingus" / "Peter Sisseck" → søk "Pingus"
-- "Unico" → søk "Vega Sicilia"
-- Navn med aksenter: søk alltid med og uten aksent (to søk)
-
-BUTIKKBEHOLDNING:
-Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.
-Presenter resultatet som en sortert liste med butikknavn og antall.
-
-SVARFORMAT:
-- 2–5 anbefalinger med navn, varenummer og pris
-- Kort begrunnelse for hvert valg basert på din fagkunnskap`;
+var SYSTEM = 'Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.\n\n' +
+'REGLER:\n' +
+'- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.\n' +
+'- Pris, varenummer og tilgjengelighet må alltid komme fra API-et – aldri gjett.\n' +
+'- Bruk alltid søkeverktøyet før du anbefaler noe konkret.\n' +
+'- Maks 4 søk per forespørsel. Stopp når treffene er gode nok.\n' +
+'- Svar kort og konkret på norsk.\n\n' +
+'SØKELOGIKK:\n' +
+'Bruk fagkunnskapen din til å utlede riktig søkenavn FØR du søker.\n' +
+'Eksempler:\n' +
+'- "Angerville i Jura" → produsentnavnet er Domaine du Pélican → søk "Pélican" OG "Pelican"\n' +
+'- "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"\n' +
+'- "Coche" → søk "Coche-Dury"\n' +
+'- "Pingus" / "Peter Sisseck" → søk "Pingus"\n' +
+'- "Unico" → søk "Vega Sicilia"\n' +
+'- Navn med aksenter: søk alltid med og uten aksent (to søk)\n\n' +
+'BUTIKKBEHOLDNING:\n' +
+'Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.\n' +
+'Presenter resultatet som en sortert liste med butikknavn og antall.\n\n' +
+'SVARFORMAT:\n' +
+'- 2–5 anbefalinger med navn, varenummer og pris\n' +
+'- Kort begrunnelse for hvert valg basert på din fagkunnskap';
 
 // ── Tool-definisjoner ─────────────────────────────────────────────────────────
 
-const TOOLS = [
+var TOOLS = [
   {
     name: 'search_vinmonopolet',
     description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
@@ -68,66 +64,68 @@ const TOOLS = [
 
 // ── Agent-løkke ───────────────────────────────────────────────────────────────
 
-export async function runAgent(history, onStatus) {
-  let allProducts = [];
-  let allStores   = [];
-  let finalText   = '';
+async function run(history, onStatus) {
+  var allProducts = [];
+  var allStores   = [];
+  var finalText   = '';
 
-  for (let i = 0; i < 8; i++) {
-    const res = await fetch('/api/chat', {
+  for (var i = 0; i < 8; i++) {
+    var res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:     'claude-sonnet-4-6',
+        model:      'claude-sonnet-4-6',
         max_tokens: 1500,
-        system:    SYSTEM,
-        tools:     TOOLS,
-        messages:  history
+        system:     SYSTEM,
+        tools:      TOOLS,
+        messages:   history
       })
     });
 
-    const data = await res.json();
+    var data = await res.json();
     if (data.error) throw new Error(data.error.message);
 
-    const toolBlocks = data.content?.filter(b => b.type === 'tool_use') || [];
-    const textBlock  = data.content?.find(b => b.type === 'text');
+    var toolBlocks = (data.content || []).filter(function (b) { return b.type === 'tool_use'; });
+    var textBlock  = (data.content || []).find(function (b) { return b.type === 'text'; });
 
     if (toolBlocks.length === 0) {
-      finalText = textBlock?.text || 'Beklager, noe gikk galt.';
+      finalText = (textBlock && textBlock.text) || 'Beklager, noe gikk galt.';
       history.push({ role: 'assistant', content: finalText });
       break;
     }
 
     history.push({ role: 'assistant', content: data.content });
-    const results = [];
+    var results = [];
 
-    for (const tb of toolBlocks) {
+    for (var j = 0; j < toolBlocks.length; j++) {
+      var tb = toolBlocks[j];
       try {
         if (tb.name === 'search_vinmonopolet') {
-          onStatus?.('Søker...');
-          const products = await searchProducts(tb.input.q);
-          allProducts = [...allProducts, ...products];
+          if (onStatus) onStatus('Søker...');
+          var products = await window.Vin.searchProducts(tb.input.q);
+          allProducts = allProducts.concat(products);
           results.push({
             type: 'tool_result',
             tool_use_id: tb.id,
-            content: JSON.stringify({ found: products.length, products })
+            content: JSON.stringify({ found: products.length, products: products })
           });
 
         } else if (tb.name === 'get_store_stock') {
-          onStatus?.('Sjekker butikkbeholdning...');
-          const stores = await getStock(tb.input.productCode);
-          allStores = stores;
+          if (onStatus) onStatus('Sjekker butikkbeholdning...');
+          var storeId = tb.input.storeId || null;
+          var stores  = await window.Vin.getStock(tb.input.productCode, storeId);
+          allStores   = stores;
           results.push({
             type: 'tool_result',
             tool_use_id: tb.id,
-            content: JSON.stringify({ storesWithStock: stores.length, stores })
+            content: JSON.stringify({ storesWithStock: stores.length, stores: stores })
           });
         }
       } catch (e) {
         results.push({
           type: 'tool_result',
           tool_use_id: tb.id,
-          content: `Feil: ${e.message}`
+          content: 'Feil: ' + e.message
         });
       }
     }
@@ -136,12 +134,16 @@ export async function runAgent(history, onStatus) {
   }
 
   // Dedupliser produkter
-  const seen    = new Set();
-  const unique  = allProducts.filter(p => {
-    if (!p.id || seen.has(p.id)) return false;
-    seen.add(p.id);
+  var seen   = {};
+  var unique = allProducts.filter(function (p) {
+    if (!p.id || seen[p.id]) return false;
+    seen[p.id] = true;
     return true;
   });
 
   return { text: finalText, products: unique, stores: allStores };
 }
+
+return { run: run };
+
+})();
