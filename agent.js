@@ -1,260 +1,149 @@
-// agent.js – agentlogikk, systemprompt og tool-løkke
-// Avhenger av: vin.js (window.Vin)
+// agent.js – hjernen i appen
+// Systemprompt, tool-definisjoner og agent-løkken.
 // Eksponeres som window.Agent
 
 window.Agent = (function () {
 
-  const SYSTEM = `Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.
+// ── Systemprompt ──────────────────────────────────────────────────────────────
 
-BRUKERPROFIL (bruk aktivt i alle anbefalinger):
-{"core_style":{"freshness":10,"acidity":10,"precision":9,"terroir_transparency":9,"food_friendliness":9,"power":4,"oak_tolerance":3,"ripeness_preference":"moderate"},"preferred_styles":["acid-driven","mineral","elegant","transparent","low-to-moderate extraction","fine-boned but intense","gastronomic"],"avoid_styles":["overripe","jammy","heavily oaked","high-alcohol-low-acid","thick/extracted","generic international style"],"preferred_regions":{"very_high_priority":["Champagne","Chablis","Cote de Beaune white Burgundy","German Riesling","Red Burgundy","Northern Rhone","Piedmont"],"medium_priority":["Classic Bordeaux","Cool-climate Chardonnay","Cool-climate Pinot Noir","Tuscan fine wine"]},"red_wine_preferences":{"pinot_noir":{"preference":"very high","notes":["prefer red and fresh styles","avoid dark tannic nebbiolo-like pinot"]},"nebbiolo":{"preference":"high","notes":["prefers elegance and energy","sensitive to price/value"]},"syrah_northern_rhone":{"preference":"high","notes":["likes structure plus freshness","not overly sweet-fruited"]},"bordeaux":{"preference":"medium-high","notes":["classic left-bank profile","often better with some age"]}},"buying_logic":{"prioritize":["style match","acidity/freshness","producer quality","terroir clarity","food compatibility","price-quality ratio"],"value_sensitive_regions":["Piedmont","Burgundy","Champagne"]}}
+var SYSTEM = 'Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.\n\n' +
+'REGLER:\n' +
+'- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.\n' +
+'- Pris, varenummer og tilgjengelighet må alltid komme fra API-et – aldri gjett.\n' +
+'- Bruk alltid søkeverktøyet før du anbefaler noe konkret.\n' +
+'- Maks 4 søk per forespørsel. Stopp når treffene er gode nok.\n' +
+'- Svar kort og konkret på norsk.\n\n' +
+'SØKELOGIKK:\n' +
+'Bruk fagkunnskapen din til å utlede riktig søkenavn FØR du søker.\n' +
+'Eksempler:\n' +
+'- "Angerville i Jura" → produsentnavnet er Domaine du Pélican → søk "Pélican" OG "Pelican"\n' +
+'- "DRC" → søk "Romanee-Conti" OG "Romanée-Conti"\n' +
+'- "Coche" → søk "Coche-Dury"\n' +
+'- "Pingus" / "Peter Sisseck" → søk "Pingus"\n' +
+'- "Unico" → søk "Vega Sicilia"\n' +
+'- Navn med aksenter: søk alltid med og uten aksent (to søk)\n\n' +
+'BUTIKKBEHOLDNING:\n' +
+'Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.\n' +
+'Presenter resultatet som en sortert liste med butikknavn og antall.\n\n' +
+'SVARFORMAT:\n' +
+'- 2–5 anbefalinger med navn, varenummer og pris\n' +
+'- Kort begrunnelse for hvert valg basert på din fagkunnskap';
 
+// ── Tool-definisjoner ─────────────────────────────────────────────────────────
 
-
-REGLER FOR VERKTØYBRUK:
-- Du skal ALLTID bruke search_vinmonopolet-verktøyet når brukeren spør om viner, produsenter eller anbefalinger.
-- Du skal ALDRI oppgi pris, lagerstatus eller produktdetaljer uten å hente det fra API-et først.
-- Du skal ALDRI finne på produkter eller gi generelle råd basert på egne antagelser – kun faktiske søkeresultater.
-- Hvis søket returnerer 0 treff eller feil, si NØYAKTIG det: "Søket på '[søkeord]' ga 0 treff." Ikke lag forklaringer.
-- Prøv alternative stavemåter ved 0 treff – gjør opptil 3 søk før du gir opp.
-- Hvis ALLE søk feiler teknisk (ikke 0 treff, men faktisk feil), si: "Søketjenesten svarte ikke – prøv igjen."
-
-SØKESTRATEGI:
-Søk ALLTID først – aldri svar fra eget minne uten å ha søkt. Selv om du kjenner svaret, søk for å bekrefte at produktet faktisk finnes på Vinmonopolet.
-
-Løs aliaser og referanser til produsentnavn FØR du søker:
-- Bruk vinkunnskapen din til å løse opp aliaser, kallenavn og forkortelser før du søker
-  eks. "DRC" → "Romanee-Conti", "Coche" → "Coche-Dury", "Angerville i Jura" → "Pélican"
-- Navn med aksenter: søk alltid med OG uten aksent
-- Når brukeren spør om en produsent og deres prosjekter/sideprosjekter:
-  Bruk din kunnskap om produsentens HELE univers – inkludert sideprosjekter, samarbeidsprosjekter
-  og viner i andre land eller regioner. Søk på ALLE relevante navn.
-  Eksempler:
-  - Rayas → Château Rayas, Ch. de Tours, Fonsalette (alle Reynaud)
-  - de Montille → Dom. de Montille, Maison de Montille, Racines (California, m/ Rajat Parr)
-  Hvis noen av disse ikke finnes på Vinmonopolet, nevn dem likevel og si at de ikke er tilgjengelige.
-  Ikke vent på at brukeren skal spørre spesifikt – ta initiativ til å dekke hele bildet.
-
-Oppklaringsspørsmål er IKKE tillatt som første respons. Hvis du er usikker på hva brukeren mener, gjør ditt beste gjetning og søk – presiser eventuelt hva du søkte på i svaret.
-
-ÅRGANGSSPØRSMÅL:
-Når brukeren spør om eldste, nyeste eller spesifikk årgang:
-- Bruk sortBy="vintage_asc" for eldste årganger, "vintage_desc" for nyeste
-- Søk SPESIFIKT: "eldste Barolo" → søk "Barolo DOCG" eller "Barolo Nebbiolo", IKKE bare "Barolo"
-  (bare "Barolo" gir Grappa di Barolo og andre urelaterte produkter)
-- Filtrer mentalt på produkttype: se på mainCategory og name for å luke ut brennevin, grappa, etc.
-- Presenter kun viner (Rødvin/Hvitvin) med faktisk vintage-verdi
-- Spesifikk årgang (f.eks. "Barolo 2004"): søk "Barolo 2004" uten sortBy
-
-SVAR:
-- Du snakker til en ekspert – utelat generiske forklaringer om druer, regioner og klassifiseringer
-- Basér deg på faktiske søkeresultater fra Vinmonopolet
-- Presenter 2–4 viner med navn, varenummer og pris
-- Hvis brukeren spør om en produsent eller et prosjekt som ikke finnes på Vinmonopolet, si det eksplisitt
-  og nevn gjerne hvilke beslektede eller tilgrensende produkter som faktisk finnes
-- For hver vin:
-  1. Bruk feltene taste, aroma og grapes fra søkeresultatet (Vinmonopolets egen beskrivelse)
-  2. Bruk web_search for å hente nyere smaksnotater og score fra CellarTracker
-     eksempel: søk "Fèlsina Fontalloro 2019 cellartracker tasting notes"
-  3. Sammenstill VMP-beskrivelsen med CellarTracker-notatene – noter evt. avvik
-  4. Bruk web_search for prisvurdering: søk "[vinnavn] [årgang] wine searcher price"
-     og sammenlign med Vinmonopolets pris
-- Vær konkret og kortfattet. Ingen superlativer, ingen generiske betraktninger
-- Svar alltid på norsk`;
-
-  const TOOLS = [
-    {
-      name: 'search_vinmonopolet',
-      description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
-      input_schema: {
-        type: 'object',
-        properties: {
-          q: {
-            type: 'string',
-            description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
-          },
-          pageSize: {
-            type: 'number',
-            description: 'Antall resultater (standard: 30). Bruk 200 ved årgangsspørsmål.'
-          },
-          sortBy: {
-            type: 'string',
-            description: 'Sortering. Bruk "vintage_asc" for eldste årganger øverst, "vintage_desc" for nyeste øverst.'
-          }
-        },
-        required: ['q']
-      }
-    },
-    {
-      name: 'search_stores',
-      description: 'Søk etter Vinmonopol-butikker på navn eller by. Returnerer storeId som brukes i get_store_stock.',
-      input_schema: {
-        type: 'object',
-        properties: {
-          q: { type: 'string', description: 'Butikknavn eller by, f.eks. "Aker Brygge" eller "Oslo".' }
-        },
-        required: ['q']
-      }
-    },
-    {
-      name: 'get_store_stock',
-      description: 'Sjekker om et produkt er på lager i en spesifikk butikk. Bruk search_stores først for å finne storeId.',
-      input_schema: {
-        type: 'object',
-        properties: {
-          productCode: {
-            type: 'string',
-            description: 'Vinmonopolets varenummer, f.eks. "19921901".'
-          }
-        },
-        required: ['productCode']
-      }
+var TOOLS = [
+  {
+    name: 'search_vinmonopolet',
+    description: 'Søk i Vinmonopolets produktkatalog med fritekst mot produktnavn og produsent.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        q: {
+          type: 'string',
+          description: 'Søketekst – produktnavn, produsent eller kombinasjon. Søk med og uten aksenter ved usikkerhet.'
+        }
+      },
+      required: ['q']
     }
-  ];
-
-  // Komprimer gamle tool-results i historikken for å spare input-tokens.
-  // Beholder kun id og found-count – ikke hele produktlisten.
-  function compressHistory(history) {
-    return history.map(msg => {
-      if (msg.role !== 'user') return msg;
-      if (!Array.isArray(msg.content)) return msg;
-      const compressed = msg.content.map(block => {
-        if (block.type !== 'tool_result') return block;
-        try {
-          const parsed = JSON.parse(block.content);
-          if (parsed.products && parsed.products.length > 0) {
-            return {
-              ...block,
-              content: JSON.stringify({
-                query: parsed.query,
-                found: parsed.found,
-                note: '[produktliste komprimert for å spare tokens]'
-              })
-            };
-          }
-        } catch (_) {}
-        return block;
-      });
-      return { ...msg, content: compressed };
-    });
+  },
+  {
+    name: 'get_store_stock',
+    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        productCode: {
+          type: 'string',
+          description: 'Vinmonopolets varenummer, f.eks. "19921901".'
+        }
+      },
+      required: ['productCode']
+    }
   }
+];
 
-  async function run(history, onStatus) {
-    const MAX_ITERATIONS = 8;
-    let allProducts = [];
-    let allStores   = [];
-    let finalText   = '';
+// ── Agent-løkke ───────────────────────────────────────────────────────────────
 
-    for (let i = 0; i < MAX_ITERATIONS; i++) {
-      const toolChoice = i === 0 ? { type: 'any' } : { type: 'auto' };
+async function run(history, onStatus) {
+  var allProducts = [];
+  var allStores   = [];
+  var finalText   = '';
 
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-5-20251001',
-          max_tokens: 6000,
-          system: SYSTEM,
-          tools: [...TOOLS, { type: 'web_search_20250305', name: 'web_search' }],
-          tool_choice: toolChoice,
-          messages: (() => {
-            // Komprimer alt unntatt de to siste user/assistant-rundene
-            const keep = 4; // siste 4 meldinger beholdes ukomprimert
-            if (history.length <= keep) return history;
-            return [
-              ...compressHistory(history.slice(0, -keep)),
-              ...history.slice(-keep)
-            ];
-          })()
-        })
-      });
+  for (var i = 0; i < 8; i++) {
+    var res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model:      'claude-sonnet-4-6',
+        max_tokens: 1500,
+        system:     SYSTEM,
+        tools:      TOOLS,
+        messages:   history
+      })
+    });
 
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error('API-feil ' + res.status + ': ' + errText);
-      }
+    var data = await res.json();
+    if (data.error) throw new Error(data.error.message);
 
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
+    var toolBlocks = (data.content || []).filter(function (b) { return b.type === 'tool_use'; });
+    var textBlock  = (data.content || []).find(function (b) { return b.type === 'text'; });
 
-      const toolBlocks = (data.content || []).filter(b => b.type === 'tool_use');
-      const textBlock  = (data.content || []).find(b => b.type === 'text');
+    if (toolBlocks.length === 0) {
+      finalText = (textBlock && textBlock.text) || 'Beklager, noe gikk galt.';
+      history.push({ role: 'assistant', content: finalText });
+      break;
+    }
 
-      if (toolBlocks.length === 0) {
-        finalText = textBlock?.text || 'Beklager, noe gikk galt.';
-        history.push({ role: 'assistant', content: finalText });
-        break;
-      }
+    history.push({ role: 'assistant', content: data.content });
+    var results = [];
 
-      history.push({ role: 'assistant', content: data.content });
-
-      const toolResults = [];
-      for (const tb of toolBlocks) {
-        try {
-          if (tb.name === 'search_vinmonopolet') {
-            onStatus('Søker etter «' + tb.input.q + '»...');
-            const products = await window.Vin.searchProducts(tb.input.q, tb.input.pageSize, tb.input.sortBy);
-            allProducts = allProducts.concat(products);
-            // Send alltid faktisk antall tilbake – modellen skal ikke gjette
-            // Slanket versjon til modellen – kun felt modellen trenger
-            const slim = products.slice(0, 20).map(p => ({
-              id:      p.id,
-              name:    p.name,
-              cat:     p.mainCategory,
-              country: p.country,
-              region:  p.region,
-              vintage: p.vintage,
-              price:   p.price,
-              abv:     p.abv,
-              grapes:  p.grapes,
-              taste:   p.taste ? p.taste.slice(0, 120) : null,
-              aroma:   p.aroma ? p.aroma.slice(0, 80) : null,
-            }));
-            toolResults.push({
-              type: 'tool_result',
-              tool_use_id: tb.id,
-              content: JSON.stringify({ query: tb.input.q, found: products.length, products: slim })
-            });
-          } else if (tb.name === 'search_stores') {
-            onStatus('Søker etter butikk...');
-            const stores = await window.Vin.searchStores(tb.input.q);
-            toolResults.push({
-              type: 'tool_result',
-              tool_use_id: tb.id,
-              content: JSON.stringify({ stores })
-            });
-          } else if (tb.name === 'get_store_stock') {
-            onStatus('Sjekker butikkbeholdning...');
-            const stores = await window.Vin.getStock(tb.input.productCode);
-            allStores = stores;
-            toolResults.push({
-              type: 'tool_result',
-              tool_use_id: tb.id,
-              content: JSON.stringify({ storesWithStock: stores.length, stores: stores })
-            });
-          }
-        } catch (e) {
-          // Send faktisk feilmelding tilbake til modellen
-          toolResults.push({
+    for (var j = 0; j < toolBlocks.length; j++) {
+      var tb = toolBlocks[j];
+      try {
+        if (tb.name === 'search_vinmonopolet') {
+          if (onStatus) onStatus('Søker...');
+          var products = await window.Vin.searchProducts(tb.input.q);
+          allProducts = allProducts.concat(products);
+          results.push({
             type: 'tool_result',
             tool_use_id: tb.id,
-            content: JSON.stringify({ error: e.message, found: 0, products: [] })
+            content: JSON.stringify({ found: products.length, products: products })
+          });
+
+        } else if (tb.name === 'get_store_stock') {
+          if (onStatus) onStatus('Sjekker butikkbeholdning...');
+          var storeId = tb.input.storeId || null;
+          var stores  = await window.Vin.getStock(tb.input.productCode, storeId);
+          allStores   = stores;
+          results.push({
+            type: 'tool_result',
+            tool_use_id: tb.id,
+            content: JSON.stringify({ storesWithStock: stores.length, stores: stores })
           });
         }
+      } catch (e) {
+        results.push({
+          type: 'tool_result',
+          tool_use_id: tb.id,
+          content: 'Feil: ' + e.message
+        });
       }
-
-      history.push({ role: 'user', content: toolResults });
     }
 
-    const seen = new Set();
-    const uniqueProducts = allProducts.filter(p => {
-      if (!p.id || seen.has(p.id)) return false;
-      seen.add(p.id);
-      return true;
-    });
-
-    return { text: finalText, products: uniqueProducts, stores: allStores };
+    history.push({ role: 'user', content: results });
   }
 
-  return { run };
+  // Dedupliser produkter
+  var seen   = {};
+  var unique = allProducts.filter(function (p) {
+    if (!p.id || seen[p.id]) return false;
+    seen[p.id] = true;
+    return true;
+  });
+
+  return { text: finalText, products: unique, stores: allStores };
+}
+
+return { run: run };
+
 })();
