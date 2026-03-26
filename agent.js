@@ -33,13 +33,14 @@ Når brukeren spør om eldste, nyeste eller spesifikk årgang:
 - Spesifikk årgang (f.eks. "Barolo 2004"): søk "Barolo 2004" uten sortBy
 
 SVAR:
-- Basér deg utelukkende på faktiske søkeresultater
-- Presenter 2–5 anbefalinger med navn, varenummer og pris
-- Vær saklig og konsis – ingen skryt, ingen superlativer
-- For hver vin: beskriv kort hva man kan forvente av smak og stil (druer, region, modning)
-- Gi en kort prisvurdering basert på din kunnskap om markedsnivå:
-  eks. "Rimelig for nivået", "På linje med markedet", "Premium, men rettferdiggjort av årgangen"
-- Unngå fraser som "perfekt til", "ideell for", "du vil elske" – beskriv vinen, ikke kjøperen
+- Du snakker til en ekspert – utelat generiske forklaringer om druer, regioner og klassifiseringer
+- Basér deg på faktiske søkeresultater fra Vinmonopolet
+- Presenter 2–4 viner med navn, varenummer og pris
+- For hver vin: bruk web_search til å slå opp spesifikk informasjon fra CellarTracker og Wine Searcher
+  – hent score, drikkevindu, konkrete smaksnotater og markedspris internasjonalt
+  – eksempel: søk "Fèlsina Fontalloro 2019 cellartracker" eller "Borgogno Barolo 2004 wine searcher price"
+- Prisvurdering: sammenlign Vinmonopolets pris mot internasjonalt markedsnivå fra Wine Searcher
+- Vær konkret og kortfattet. Ingen superlativer, ingen generiske betraktninger
 - Svar alltid på norsk`;
 
   const TOOLS = [
@@ -97,7 +98,7 @@ SVAR:
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 1500,
           system: SYSTEM,
-          tools: TOOLS,
+          tools: [...TOOLS, { type: 'web_search_20250305', name: 'web_search' }],
           tool_choice: toolChoice,
           messages: history
         })
