@@ -36,10 +36,13 @@ SVAR:
 - Du snakker til en ekspert – utelat generiske forklaringer om druer, regioner og klassifiseringer
 - Basér deg på faktiske søkeresultater fra Vinmonopolet
 - Presenter 2–4 viner med navn, varenummer og pris
-- For hver vin: bruk web_search til å slå opp spesifikk informasjon fra CellarTracker og Wine Searcher
-  – hent score, drikkevindu, konkrete smaksnotater og markedspris internasjonalt
-  – eksempel: søk "Fèlsina Fontalloro 2019 cellartracker" eller "Borgogno Barolo 2004 wine searcher price"
-- Prisvurdering: sammenlign Vinmonopolets pris mot internasjonalt markedsnivå fra Wine Searcher
+- For hver vin:
+  1. Bruk feltene taste, aroma og grapes fra søkeresultatet (Vinmonopolets egen beskrivelse)
+  2. Bruk web_search for å hente nyere smaksnotater og score fra CellarTracker
+     eksempel: søk "Fèlsina Fontalloro 2019 cellartracker tasting notes"
+  3. Sammenstill VMP-beskrivelsen med CellarTracker-notatene – noter evt. avvik
+  4. Bruk web_search for prisvurdering: søk "[vinnavn] [årgang] wine searcher price"
+     og sammenlign med Vinmonopolets pris
 - Vær konkret og kortfattet. Ingen superlativer, ingen generiske betraktninger
 - Svar alltid på norsk`;
 
@@ -143,6 +146,9 @@ SVAR:
               volume:   p.volume,
               abv:      p.abv,
               grapes:   p.grapes,
+              taste:    p.taste,
+              aroma:    p.aroma,
+              storable: p.storable,
               url:      p.url
             }));
             toolResults.push({
