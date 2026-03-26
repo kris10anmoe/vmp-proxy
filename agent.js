@@ -86,8 +86,19 @@ SVAR:
       }
     },
     {
+      name: 'search_stores',
+      description: 'Søk etter Vinmonopol-butikker på navn eller by. Returnerer storeId som brukes i get_store_stock.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          q: { type: 'string', description: 'Butikknavn eller by, f.eks. "Aker Brygge" eller "Oslo".' }
+        },
+        required: ['q']
+      }
+    },
+    {
       name: 'get_store_stock',
-      description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
+      description: 'Sjekker om et produkt er på lager i en spesifikk butikk. Bruk search_stores først for å finne storeId.',
       input_schema: {
         type: 'object',
         properties: {
@@ -100,6 +111,33 @@ SVAR:
       }
     }
   ];
+
+  // Komprimer gamle tool-results i historikken for å spare input-tokens.
+  // Beholder kun id og found-count – ikke hele produktlisten.
+  function compressHistory(history) {
+    return history.map(msg => {
+      if (msg.role !== 'user') return msg;
+      if (!Array.isArray(msg.content)) return msg;
+      const compressed = msg.content.map(block => {
+        if (block.type !== 'tool_result') return block;
+        try {
+          const parsed = JSON.parse(block.content);
+          if (parsed.products && parsed.products.length > 0) {
+            return {
+              ...block,
+              content: JSON.stringify({
+                query: parsed.query,
+                found: parsed.found,
+                note: '[produktliste komprimert for å spare tokens]'
+              })
+            };
+          }
+        } catch (_) {}
+        return block;
+      });
+      return { ...msg, content: compressed };
+    });
+  }
 
   async function run(history, onStatus) {
     const MAX_ITERATIONS = 8;
@@ -114,12 +152,20 @@ SVAR:
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 3000,
+          model: 'claude-sonnet-4-5-20251001',
+          max_tokens: 6000,
           system: SYSTEM,
           tools: [...TOOLS, { type: 'web_search_20250305', name: 'web_search' }],
           tool_choice: toolChoice,
-          messages: history
+          messages: (() => {
+            // Komprimer alt unntatt de to siste user/assistant-rundene
+            const keep = 4; // siste 4 meldinger beholdes ukomprimert
+            if (history.length <= keep) return history;
+            return [
+              ...compressHistory(history.slice(0, -keep)),
+              ...history.slice(-keep)
+            ];
+          })()
         })
       });
 
@@ -151,26 +197,31 @@ SVAR:
             allProducts = allProducts.concat(products);
             // Send alltid faktisk antall tilbake – modellen skal ikke gjette
             // Slanket versjon til modellen – kun felt modellen trenger
-            const slim = products.slice(0, 25).map(p => ({
-              id:       p.id,
-              name:     p.name,
-              category: p.mainCategory,
-              country:  p.country,
-              region:   p.region,
-              vintage:  p.vintage,
-              price:    p.price,
-              volume:   p.volume,
-              abv:      p.abv,
-              grapes:   p.grapes,
-              taste:    p.taste,
-              aroma:    p.aroma,
-              storable: p.storable,
-              url:      p.url
+            const slim = products.slice(0, 20).map(p => ({
+              id:      p.id,
+              name:    p.name,
+              cat:     p.mainCategory,
+              country: p.country,
+              region:  p.region,
+              vintage: p.vintage,
+              price:   p.price,
+              abv:     p.abv,
+              grapes:  p.grapes,
+              taste:   p.taste ? p.taste.slice(0, 120) : null,
+              aroma:   p.aroma ? p.aroma.slice(0, 80) : null,
             }));
             toolResults.push({
               type: 'tool_result',
               tool_use_id: tb.id,
               content: JSON.stringify({ query: tb.input.q, found: products.length, products: slim })
+            });
+          } else if (tb.name === 'search_stores') {
+            onStatus('Søker etter butikk...');
+            const stores = await window.Vin.searchStores(tb.input.q);
+            toolResults.push({
+              type: 'tool_result',
+              tool_use_id: tb.id,
+              content: JSON.stringify({ stores })
             });
           } else if (tb.name === 'get_store_stock') {
             onStatus('Sjekker butikkbeholdning...');
