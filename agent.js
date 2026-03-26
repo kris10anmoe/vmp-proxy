@@ -130,14 +130,24 @@ SVAR:
             const products = await window.Vin.searchProducts(tb.input.q, tb.input.pageSize, tb.input.sortBy);
             allProducts = allProducts.concat(products);
             // Send alltid faktisk antall tilbake – modellen skal ikke gjette
+            // Slanket versjon til modellen – kun felt modellen trenger
+            const slim = products.slice(0, 25).map(p => ({
+              id:       p.id,
+              name:     p.name,
+              category: p.mainCategory,
+              country:  p.country,
+              region:   p.region,
+              vintage:  p.vintage,
+              price:    p.price,
+              volume:   p.volume,
+              abv:      p.abv,
+              grapes:   p.grapes,
+              url:      p.url
+            }));
             toolResults.push({
               type: 'tool_result',
               tool_use_id: tb.id,
-              content: JSON.stringify({
-                query: tb.input.q,
-                found: products.length,
-                products: products
-              })
+              content: JSON.stringify({ query: tb.input.q, found: products.length, products: slim })
             });
           } else if (tb.name === 'get_store_stock') {
             onStatus('Sjekker butikkbeholdning...');
