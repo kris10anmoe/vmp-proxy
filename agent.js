@@ -26,9 +26,11 @@ Bruk fagkunnskapen din til å utlede riktig søkeord. Eksempler:
 ÅRGANGSSPØRSMÅL:
 Når brukeren spør om eldste, nyeste eller spesifikk årgang:
 - Bruk sortBy="vintage_asc" for eldste årganger, "vintage_desc" for nyeste
-- Bruk pageSize=200 for å få nok resultater
-- API-et sorterer da for deg – presenter de øverste treffene som har en vintage-verdi
-- Spesifikk årgang (f.eks. "2015 Barolo"): søk "Barolo 2015" uten sortBy
+- Søk SPESIFIKT: "eldste Barolo" → søk "Barolo DOCG" eller "Barolo Nebbiolo", IKKE bare "Barolo"
+  (bare "Barolo" gir Grappa di Barolo og andre urelaterte produkter)
+- Filtrer mentalt på produkttype: se på mainCategory og name for å luke ut brennevin, grappa, etc.
+- Presenter kun viner (Rødvin/Hvitvin) med faktisk vintage-verdi
+- Spesifikk årgang (f.eks. "Barolo 2004"): søk "Barolo 2004" uten sortBy
 
 SVAR:
 - Basér deg utelukkende på faktiske søkeresultater
