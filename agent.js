@@ -22,10 +22,13 @@ Løs aliaser og referanser til produsentnavn FØR du søker:
   eks. "DRC" → "Romanee-Conti", "Coche" → "Coche-Dury", "Angerville i Jura" → "Pélican"
 - Navn med aksenter: søk alltid med OG uten aksent
 - Når brukeren spør om en produsent og deres prosjekter/sideprosjekter:
-  Bruk din kunnskap om produsentens hele univers og søk på ALLE relevante navn du kjenner til.
-  Eksempel: spørsmål om Rayas → søk på Château Rayas, men vit også at Emmanuel Reynaud
-  driver Ch. de Tours og Fonsalette – søk på disse også.
-  Denne logikken gjelder generelt: tenk gjennom hva produsenten er kjent for å eie eller samarbeide med.
+  Bruk din kunnskap om produsentens HELE univers – inkludert sideprosjekter, samarbeidsprosjekter
+  og viner i andre land eller regioner. Søk på ALLE relevante navn.
+  Eksempler:
+  - Rayas → Château Rayas, Ch. de Tours, Fonsalette (alle Reynaud)
+  - de Montille → Dom. de Montille, Maison de Montille, Racines (California, m/ Rajat Parr)
+  Hvis noen av disse ikke finnes på Vinmonopolet, nevn dem likevel og si at de ikke er tilgjengelige.
+  Ikke vent på at brukeren skal spørre spesifikt – ta initiativ til å dekke hele bildet.
 
 Oppklaringsspørsmål er IKKE tillatt som første respons. Hvis du er usikker på hva brukeren mener, gjør ditt beste gjetning og søk – presiser eventuelt hva du søkte på i svaret.
 
@@ -107,7 +110,7 @@ SVAR:
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: 1500,
+          max_tokens: 3000,
           system: SYSTEM,
           tools: [...TOOLS, { type: 'web_search_20250305', name: 'web_search' }],
           tool_choice: toolChoice,
