@@ -14,11 +14,13 @@ export default async function handler(req, res) {
     return m ? parseInt(m[0]) : null;
   };
 
+  const isSpirit = p => p.mainCategory?.code === 'brennevin';
+
   try {
     let allProducts = [];
 
     if (sortBy) {
-      // Hent alle sider for å kunne sortere på tvers
+      // Hent alle sider for å sortere på tvers
       let page = 1;
       let totalPages = 1;
       do {
@@ -27,7 +29,7 @@ export default async function handler(req, res) {
         allProducts = allProducts.concat(products);
         totalPages = pagination.totalPages;
         page++;
-      } while (page <= totalPages && page <= 20); // maks 20 sider = 1000 produkter
+      } while (page <= totalPages && page <= 20);
 
       if (sortBy === 'vintage_asc' || sortBy === 'vintage_desc') {
         allProducts.sort((a, b) => {
@@ -44,7 +46,12 @@ export default async function handler(req, res) {
       allProducts = products;
     }
 
-    return res.status(200).json({ products: allProducts });
+    // Filtrer vekk brennevin (>20% ABV) med fallback:
+    // Hvis færre enn 5 ikke-brennevin-treff, vis alt
+    const withoutSpirits = allProducts.filter(p => !isSpirit(p));
+    const products = withoutSpirits.length >= 5 ? withoutSpirits : allProducts;
+
+    return res.status(200).json({ products });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
