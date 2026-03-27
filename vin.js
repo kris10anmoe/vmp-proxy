@@ -46,14 +46,20 @@ window.Vin = (function () {
     const stores = data?.stores || data?.pointOfServices || [];
     return stores
       .map(function (s) {
+        // Ny struktur: { pointOfService: { displayName, address }, stockInfo: { stockLevel } }
+        // Gammel struktur: { displayName, address, stockLevel }
+        var pos   = s.pointOfService || s;
+        var stock = s.stockInfo?.stockLevel ?? pos.stockInfo?.stockLevel ?? s.stockLevel ?? 0;
+        var addr  = pos.address || {};
+        var city  = addr.town || (addr.formattedAddress || '').split(',').pop().trim() || '';
         return {
-          name:  s.displayName || s.name,
-          city:  s.address?.town || s.address?.postalAddresses?.[0]?.town || '',
-          stock: s.stockInfo?.stockLevel ?? s.stockLevel ?? 0,
+          name:  pos.displayName || pos.name || s.displayName || s.name || '',
+          city:  city,
+          stock: stock,
         };
       })
       .filter(function (s) { return s.stock > 0; })
-      .sort(function (a, b) { return b.stock - a.stock; });
+      .sort(function (a, b) { return (b.stock || 0) - (a.stock || 0); });
   }
 
   function extractVintage(name) {
