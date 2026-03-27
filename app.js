@@ -4,6 +4,13 @@
 (function () {
   var history = [];
 
+  window.newChat = function () {
+    history = [];
+    var chat = document.getElementById('chat');
+    while (chat.firstChild) chat.removeChild(chat.firstChild);
+    addWelcome();
+  };
+
   // ── Init ──────────────────────────────────────────────────────────────────
   document.getElementById('inp').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') send();
