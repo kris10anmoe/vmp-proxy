@@ -35,13 +35,25 @@ export default async function handler(req, res) {
       ({ lat, lon } = CITY_COORDS[cityKey]);
     } else {
       // Dynamic lookup via Vinmonopolet's own userlocation API
+      // For neighbourhoods like 'røa', try 'oslo, <name>' if direct lookup fails
+      let lookupCity = city;
       const locR = await fetch(
-        `https://www.vinmonopolet.no/vmpws/v2/vmp/search/userlocation?query=${encodeURIComponent(city)}`,
+        `https://www.vinmonopolet.no/vmpws/v2/vmp/search/userlocation?query=${encodeURIComponent(lookupCity)}`,
         { headers: HEADERS }
       );
       const locData = await locR.json();
-      lat = locData?.latitude ?? 59.9099584;
-      lon = locData?.longitude ?? 10.7258052;
+      lat = locData?.latitude;
+      lon = locData?.longitude;
+      // Retry with 'oslo, <city>' if no result
+      if (!lat || !lon) {
+        const retryR = await fetch(
+          `https://www.vinmonopolet.no/vmpws/v2/vmp/search/userlocation?query=${encodeURIComponent('oslo, ' + city)}`,
+          { headers: HEADERS }
+        );
+        const retryData = await retryR.json();
+        lat = retryData?.latitude ?? 59.9099584;
+        lon = retryData?.longitude ?? 10.7258052;
+      }
     }
 
     // Step 2: Get stores with stock sorted by distance
