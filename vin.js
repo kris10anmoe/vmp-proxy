@@ -23,25 +23,29 @@ window.Vin = (function () {
     return normalizeStock(data);
   }
 
-  function normalizeProduct(p) {
-    return {
-      id:           p.code || p.productCode || p.id || null,
-      name:         p.name,
-      mainCategory: p.mainCategory?.name,
-      subCategory:  p.mainSubCategory?.name,
-      country:      p.mainCountry?.name,
-      region:       p.district?.name,
-      subRegion:    p.subDistrict?.name,
-      price:        p.price,
-      volume:       p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
-      abv:          p.abv,
-      vintage:      p.vintage || extractVintage(p.name) || null,
-      grapes:       p.rawMaterial?.map(function (r) { return r.rawMaterial; }).join(', ') || null,
-      importer:     p.distributor || null,
-      available:    p.productAvailability?.storeAvailability?.available ?? null,
-      url:          p.url ? 'https://www.vinmonopolet.no' + p.url : null,
-    };
-  }
+function normalizeProduct(p) {
+  return {
+    id:           p.code || p.productCode || p.id || null,
+    name:         p.name || null,
+    mainCategory: p.mainCategory?.name || p.category || null,
+    subCategory:  p.mainSubCategory?.name || p.subCategory || null,
+    country:      p.mainCountry?.name || p.country || null,
+    region:       p.district?.name || p.region || null,
+    subRegion:    p.subDistrict?.name || p.subRegion || null,
+    price:        p.price || null,
+    volume:       p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
+    abv:          p.abv || null,
+    vintage:      p.vintage || extractVintage(p.name) || null,
+    grapes:       Array.isArray(p.rawMaterial)
+      ? p.rawMaterial.map(function (r) { return r.rawMaterial || r.name || null; }).filter(Boolean).join(', ')
+      : Array.isArray(p.grapes)
+        ? p.grapes.join(', ')
+        : null,
+    importer:     p.distributor || p.importer || null,
+    available:    p.productAvailability?.storeAvailability?.available ?? null,
+    url:          p.url ? (p.url.indexOf('http') === 0 ? p.url : 'https://www.vinmonopolet.no' + p.url) : null,
+  };
+}
 
   function normalizeStock(data) {
     const stores = data?.stores || data?.pointOfServices || [];
