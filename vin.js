@@ -11,7 +11,7 @@ window.Vin = (function () {
     if (!r.ok) throw new Error('Søk feilet (HTTP ' + r.status + ')');
     const data = await r.json();
     if (data.error) throw new Error(data.error);
-    const raw = data.products || [];
+    const raw = data?.products || data?.productSearchResult?.products || [];
     return raw.map(normalizeProduct);
   }
 
