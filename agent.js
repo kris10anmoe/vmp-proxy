@@ -31,7 +31,11 @@ PROFILE + '\n\n' +
 'Kombiner alltid regionsnavn med produsenttype eller kjennetegn, f.eks.:\n' +
 '"Barolo biologisk", "Barolo tradisjonell", "Cote-Rotie grower", "Gevrey premier cru".\n' +
 'Bruk fagkunnskapen din om hvilke produsenter som finnes i sortimentet.\n' +
-'Maks 6 søk. Ved matspørsmål: minst 4 ulike stiler/regioner.\n\n';
+'KRITISK: search_targets er søk i Vinmonopolets produktkatalog.\n' +
+'Verdiene MÅ være vinnavn, produsentnavn, regionsnavn eller vintyper – aldri matnavn.\n' +
+'Feil: "and i appelsinsaus" Riktig: "Pinot Noir Burgund", "Riesling trocken", "Gewurztraminer"\n' +
+'For matspørsmål: oversett retten til passende vinstiler FØR du fyller inn search_targets.\n' +
+'Maks 6 søk. Ved matspørsmål: minst 4 ulike vinstiler/regioner.\n\n';
 
 // ── Batchrangering prompt ─────────────────────────────────────────────────────
 var BATCH_SYSTEM =
