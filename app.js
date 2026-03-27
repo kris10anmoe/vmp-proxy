@@ -104,7 +104,19 @@
     if (p.url) { a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; }
 
     a.innerHTML = [
-      p.mainCategory ? '<div class="c-type">' + esc(p.mainCategory) + '</div>' : '',
+      (function() {
+      var sel = p.productSelection;
+      if (!sel) return '';
+      var label = sel === 'Basisutvalget' ? 'I butikk' : 'Kan bestilles';
+      var cls   = sel === 'Basisutvalget' ? 'c-avail-store' : 'c-avail-order';
+      return '<div class="c-avail ' + cls + '">' + label + '</div>';
+    })(),
+    (p.status === 'utgatt'
+      ? '<div class="c-avail c-avail-gone">Kun i butikk</div>'
+      : p.status === 'aktiv'
+        ? '<div class="c-avail c-avail-ok">Kan bestilles</div>'
+        : ''),
+    p.mainCategory ? '<div class="c-type">' + esc(p.mainCategory) + '</div>' : '',
       '<div class="c-name">' + esc(p.name) + '</div>',
       p.id      ? '<div class="c-id">'     + esc(p.id)      + '</div>' : '',
       loc       ? '<div class="c-origin">' + esc(loc)        + '</div>' : '',
