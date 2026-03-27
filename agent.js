@@ -20,16 +20,14 @@ PROFILE + '\n\n' +
 'Format:\n' +
 '{\n' +
 '  "reasoning": "kort faglig begrunnelse",\n' +
-'  "search_targets": ["søkestreng1", "søkestreng2", ...],\n' +
-'  "food_pairing_filter": "identifier eller null"\n' +
+'  "search_targets": ["søkestreng1", "søkestreng2", ...]\n' +
 '}\n\n' +
 'KRITISK: Regionssøk alene gir kooperativer og masseproduenter øverst.\n' +
 'Kombiner alltid regionsnavn med produsenttype eller kjennetegn, f.eks.:\n' +
 '"Barolo biologisk", "Barolo tradisjonell", "Cote-Rotie grower", "Gevrey premier cru".\n' +
 'Bruk fagkunnskapen din om hvilke produsenter som finnes i sortimentet.\n' +
 'Maks 6 søkestrenger. Ved matspørsmål: minst 4 ulike stiler/regioner.\n\n' +
-'food_pairing_filter: mutton, beef, pork, poultry, small_game, large_game, ' +
-'fish, shellfish, pasta, cheese, dessert, aperitif, spicy_food';
+'';
 
 // ── Agentprompt ───────────────────────────────────────────────────────────────
 var AGENT_SYSTEM =
@@ -39,7 +37,8 @@ PROFILE + '\n\n' +
 '- Basér deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.\n' +
 '- Svar kort og konkret på norsk.\n' +
 '- Filtrer bort viner som ikke passer profilen.\n' +
-'- Aldri mer enn 2 anbefalinger fra samme region.\n\n' +
+'- Aldri mer enn 2 anbefalinger fra samme region.\n' +
+'- Aldri mer enn 1 anbefaling fra samme produsent.\n\n' +
 'ARBEIDSFLYT:\n' +
 '1. Utfør alle søk fra planen\n' +
 '2. Gå gjennom ALLE søkeresultater og ranger dem mot brukerprofilen\n' +
@@ -52,16 +51,26 @@ PROFILE + '\n\n' +
 'Trekk by fra samtalen (standard: Oslo).\n' +
 'List alltid: "Oslo, Vinderen: 7 stk".\n\n' +
 'RANGERING – recommend_products:\n' +
-'Ranger etter denne vektingen (høyest vekt øverst):\n' +
-'1. Produsentkvalitet og presisjon (viktigst) – kjente enkeltprodusenter over kooperativer og handelshusnavn\n' +
-'2. Stilmatch mot brukerprofil – friskhet, syre, terroirtransparens\n' +
+'\n' +
+'VED MATSPØRSMÅL – matmatch er primærkriteriet:\n' +
+'Gjør en semantisk vurdering av hvor godt hver vin passer til retten – ikke bare sjekk tags.\n' +
+'Ta hensyn til: tilberedningsmetode, saus, intensitet, fett, og syrebalanse i retten.\n' +
+'foodPairing-tags fra API-et er ett datapunkt, men din faglige vurdering veier tyngre.\n' +
+'Eksempel: grillet lam med urter passer bedre til en frisk, strukturert rødvin enn til en tung,\n' +
+'selv om begge har "mutton"-tag. Langtidsbrasert lam tåler mer tannin og fylde.\n' +
+'Ranger etter: (1) grad av matmatch, (2) stilmatch mot profil, (3) produsentkvalitet.\n' +
+'\n' +
+'UNIVERSELLE RANGERINGSPRINSIPPER:\n' +
+'1. Produsentkvalitet og presisjon – enkeltprodusenter over kooperativer og handelshusnavn\n' +
+'2. Stilmatch mot profil innenfor vinens egne premisser:\n' +
+'   Vurder hver vin i sin kategori: hva er friskhet, presisjon og balanse for denne stilen?\n' +
+'   En frisk Dão vinner over et tungt Alentejo. En mineralsk Saumur rouge vinner over en fet Côtes du Rhône.\n' +
+'   En tradisjonell Barolo med god syre og tanninstruktur vinner over en moderne, myk Barolo.\n' +
+'   Fellesnevnerne gjelder alltid: friskhet, presisjon, terroirklarhet og balanse – uansett kategori.\n' +
 '3. Årgangskvalitet og drikkevindu\n' +
-'4. Pris/kvalitet-ratio (lavest vekt) – kan løfte to ellers likeverdige viner, men aldri erstatte de tre over\n' +
-'En god produsent til 700kr skal alltid rangeres over en kooperativ til 300kr.\n' +
-'Kooperativer, store handelshusnavn og generiske DOC-viner skal ned, selv om prisene er gunstige.\n' +
-'Ved samme prispunkt: en enklere vin (eks. Langhe Nebbiolo, villages-Burgund) fra en topprodusent\n' +
-'foretrekkes alltid over en toppvin (eks. Barolo Riserva, premier cru) fra en middelmådig produsent.\n' +
-'Produsentens håndverk og presisjon er viktigere enn etikettens hierarkiske posisjon.\n\n' +
+'4. Pris/kvalitet-ratio (lavest vekt) – tiebreaker, aldri primærkriterium\n' +
+'\n' +
+'Enklere vin fra topprodusent > toppvin fra middelmådig produsent ved samme prispunkt.\n\n' +
 'TEKSTSTIL – anta at brukeren er ekspert:\n' +
 'IKKE forklar hva Barolo, Côte-Rôtie eller Gevrey er – det vet brukeren.\n' +
 'IKKE skriv "klassisk nebbiolo-stil" eller "typisk for regionen" – det er meningsløst.\n' +
@@ -83,8 +92,7 @@ var TOOLS = [
     input_schema: {
       type: 'object',
       properties: {
-        q: { type: 'string', description: 'Søketekst – produsent eller regionsnavn.' },
-        foodFilter: { type: 'string', description: 'Matparing-identifier, f.eks. "mutton".' }
+        q: { type: 'string', description: 'Søketekst – produsent eller regionsnavn.' }
       },
       required: ['q']
     }
@@ -192,9 +200,7 @@ async function run(history, onStatus) {
       try {
         if (tb.name === 'search_vinmonopolet') {
           onStatus && onStatus('Søker ' + tb.input.q + '...');
-          var products = await window.Vin.searchProducts(
-            tb.input.q, null, null, tb.input.foodFilter || null
-          );
+          var products = await window.Vin.searchProducts(tb.input.q);
           allProducts = allProducts.concat(products);
           results.push({
             type: 'tool_result',
