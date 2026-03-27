@@ -3,10 +3,11 @@
 
 window.Vin = (function () {
 
-  async function searchProducts(query, pageSize, sortBy) {
+  async function searchProducts(query, pageSize, sortBy, foodFilter) {
     var ps = pageSize ? '&pageSize=' + pageSize : '';
     var sb = sortBy ? '&sortBy=' + sortBy : '';
-    const r = await fetch('/api/products?q=' + encodeURIComponent(query) + ps + sb);
+    var ff = foodFilter ? '&foodFilter=' + encodeURIComponent(foodFilter) : '';
+    const r = await fetch('/api/products?q=' + encodeURIComponent(query) + ps + sb + ff);
     if (!r.ok) throw new Error('Søk feilet (HTTP ' + r.status + ')');
     const data = await r.json();
     if (data.error) throw new Error(data.error);
