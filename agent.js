@@ -246,7 +246,10 @@ async function finalRound(finalists, history, userQuery, onStatus) {
   var finalText        = '';
 
   var productMap = {};
-  finalists.forEach(function(p) { if (p.id) productMap[p.id] = p; });
+  finalists.forEach(function(p) {
+    if (p.id)   productMap[p.id]   = p;
+    if (p.code) productMap[p.code] = p;
+  });
 
   var thinList = finalists.map(thinCandidate);
   var agentHistory = history.concat([
