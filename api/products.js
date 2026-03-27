@@ -26,6 +26,7 @@ const compactForAgent = p => ({
   fullness:    p.fullness || null,
   tannins:     p.tannins || null,
   storable:    p.storable || null,
+  status:      p.status   || null,
   food:        (p.foodPairing || []).map(f => f.identifier || f.name || null).filter(Boolean),
   category:    p.mainCategory?.name || null,
   url:         p.url ? 'https://www.vinmonopolet.no' + p.url : null
