@@ -126,13 +126,17 @@ header p  { font-size: 11px; color: var(--text-3); margin-top: 1px; }
 /* ── Produktkort ─────────────────────────────────────────────────────────── */
 
 .cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  overflow-x: auto;
   padding-bottom: 8px;
 }
-.cards::-webkit-scrollbar       { height: 4px; }
-.cards::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 .card {
   flex: 0 0 200px;
@@ -178,7 +182,6 @@ header p  { font-size: 11px; color: var(--text-3); margin-top: 1px; }
   margin-bottom: 2px;
 }
 .c-abv { font-size: 11px; color: var(--text-3); }
-.c-vintage { font-size: 11px; color: var(--text-2); font-weight: 500; margin-top: 2px; }
 .c-price {
   display: flex;
   align-items: baseline;
