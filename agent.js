@@ -4,8 +4,6 @@
 
 window.Agent = (function () {
 
-// ── Systemprompt ──────────────────────────────────────────────────────────────
-
 var SYSTEM = 'Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i Norge.\n\n' +
 'REGLER:\n' +
 '- Du baserer deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.\n' +
@@ -23,13 +21,15 @@ var SYSTEM = 'Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i
 '- "Unico" → søk "Vega Sicilia"\n' +
 '- Navn med aksenter: søk alltid med og uten aksent (to søk)\n\n' +
 'BUTIKKBEHOLDNING:\n' +
-'Bruk get_store_stock når brukeren spør hvilke butikker som har en bestemt vin.\n' +
+'Bruk get_store_stock KUN når brukeren eksplisitt spør om butikker/lagerstatus.\n' +
+'Du MÅ ha et konkret varenummer (productCode) – søk etter produktet først om nødvendig.\n' +
+'Kall get_store_stock MAKS 10 GANGER per forespørsel.\n' +
+'Ikke sjekk lager for et bredt søk (f.eks. "alle barberaer") – begrens til de mest relevante produktene (maks 5).\n' +
+'Trekk ut by fra samtalen (f.eks. "Oslo", "Bergen"). Standard er "Oslo".\n' +
 'Presenter resultatet som en sortert liste med butikknavn og antall.\n\n' +
 'SVARFORMAT:\n' +
 '- 2–5 anbefalinger med navn, varenummer og pris\n' +
 '- Kort begrunnelse for hvert valg basert på din fagkunnskap';
-
-// ── Tool-definisjoner ─────────────────────────────────────────────────────────
 
 var TOOLS = [
   {
@@ -48,21 +48,23 @@ var TOOLS = [
   },
   {
     name: 'get_store_stock',
-    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, med antall per butikk.',
+    description: 'Henter hvilke Vinmonopol-butikker som har et bestemt produkt på lager, sortert etter nærhet til angitt by.',
     input_schema: {
       type: 'object',
       properties: {
         productCode: {
           type: 'string',
-          description: 'Vinmonopolets varenummer, f.eks. "19921901".'
+          description: 'Vinmonopolets varenummer, f.eks. "2758401".'
+        },
+        city: {
+          type: 'string',
+          description: 'By å sortere butikker etter nærhet til. Standard: "Oslo".'
         }
       },
       required: ['productCode']
     }
   }
 ];
-
-// ── Agent-løkke ───────────────────────────────────────────────────────────────
 
 async function run(history, onStatus) {
   var allProducts = [];
@@ -111,10 +113,10 @@ async function run(history, onStatus) {
           });
 
         } else if (tb.name === 'get_store_stock') {
-          if (onStatus) onStatus('Sjekker butikkbeholdning...');
-          var storeId = tb.input.storeId || null;
-          var stores  = await window.Vin.getStock(tb.input.productCode, storeId);
-          allStores   = stores;
+          var city = tb.input.city || 'oslo';
+          if (onStatus) onStatus('Sjekker butikkbeholdning i ' + city + '...');
+          var stores = await window.Vin.getStock(tb.input.productCode, city);
+          allStores = stores;
           results.push({
             type: 'tool_result',
             tool_use_id: tb.id,
@@ -133,7 +135,6 @@ async function run(history, onStatus) {
     history.push({ role: 'user', content: results });
   }
 
-  // Dedupliser produkter
   var seen   = {};
   var unique = allProducts.filter(function (p) {
     if (!p.id || seen[p.id]) return false;
