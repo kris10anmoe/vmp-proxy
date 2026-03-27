@@ -14,6 +14,7 @@ const compactForAgent = p => ({
   id:          p.code || p.id || null,
   name:        p.name || null,
   price:       p.price || null,
+  volume:      p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
   vintage:     p.vintage || extractYear(p.name) || null,
   country:     p.mainCountry?.name || null,
   region:      p.district?.name || null,
