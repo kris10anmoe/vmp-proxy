@@ -1,6 +1,22 @@
-import { getProducts, getProductsById } from 'vinmonopolet-ts';
+import { getProducts } from 'vinmonopolet-ts';
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://vmp-proxy-4u1l.vercel.app';
+
+// ── Profilscore ───────────────────────────────────────────────────────────────
+// Scorer produkter mot brukerprofil: friskhet + syre høyt, fylde + alkohol lavt.
+// Bare meningsfull for viner med populerte smaksverdier (0 = ikke tilgjengelig).
+function profileScore(p) {
+  if (!p.freshness && !p.acid) return 0; // Ikke nok data
+  var freshness = p.freshness || 0;      // 0-100, høyt er bra
+  var acid      = p.acid      || 0;      // 0-100, høyt er bra
+  var fullness  = p.fullness  || 50;     // 0-100, lavt er bra (power 4/10)
+  var abv       = p.abv       || 13;     // %, over 13.5 trekker ned
+
+  return (freshness * 0.4)
+       + (acid      * 0.4)
+       - (fullness  * 0.25)
+       - (Math.max(0, abv - 13.5) * 8);
+}
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
@@ -20,14 +36,14 @@ export default async function handler(req, res) {
 
   const matchesFood = (p, filter) => {
     if (!filter) return true;
-    const pairing = p.foodPairing || [];
-    return pairing.some(f => f.identifier === filter || f.code === filter);
+    return (p.foodPairing || []).some(f => f.identifier === filter || f.code === filter);
   };
 
   try {
     let allProducts = [];
 
     if (sortBy) {
+      // Vintage-sortering: hent alt, sorter på årstall
       let page = 1, totalPages = 1;
       do {
         const { products, pagination } = await getProducts({ query: q, limit: 50, page });
@@ -37,41 +53,41 @@ export default async function handler(req, res) {
         page++;
       } while (page <= totalPages && page <= 20);
 
-      if (sortBy === 'vintage_asc' || sortBy === 'vintage_desc') {
-        allProducts.sort((a, b) => {
-          const ya = a.vintage, yb = b.vintage;
-          if (ya == null && yb == null) return 0;
-          if (ya == null) return 1;
-          if (yb == null) return -1;
-          return sortBy === 'vintage_asc' ? ya - yb : yb - ya;
-        });
-      }
+      allProducts.sort((a, b) => {
+        const ya = a.vintage, yb = b.vintage;
+        if (ya == null && yb == null) return 0;
+        if (ya == null) return 1;
+        if (yb == null) return -1;
+        return sortBy === 'vintage_asc' ? ya - yb : yb - ya;
+      });
     } else {
       const { products } = await getProducts({ query: q, limit: parseInt(pageSize) });
       products.forEach(p => { if (!p.vintage) p.vintage = extractYear(p.name); });
       allProducts = products;
     }
 
-    // Filtrer brennevin
+    // Fjern brennevin
     const withoutSpirits = allProducts.filter(p => !isSpirit(p));
     let products = withoutSpirits.length >= 5 ? withoutSpirits : allProducts;
 
+    // Populer topp 25 for å få smaksverdier
+    const toPopulate = products.slice(0, 25);
+    const rest       = products.slice(25);
+    const populated  = await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
+
     // Filtrer på matparing hvis oppgitt
+    let scored = populated;
     if (foodFilter) {
-      const toPopulate = products.slice(0, 20);
-      const rest = products.slice(20);
-      const populated = await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
       const withFood = populated.filter(p => matchesFood(p, foodFilter));
-      // Fall tilbake til alle hvis for få treff
-      products = withFood.length >= 3 ? [...withFood, ...rest] : [...populated, ...rest];
+      scored = withFood.length >= 3 ? withFood : populated;
     }
 
-    const toPopulate = products.slice(0, 10);
-    const rest = products.slice(10);
-    const populated = await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
-    const final = [...populated, ...rest];
+    // Sorter etter profilscore (høyest først)
+    scored.sort((a, b) => profileScore(b) - profileScore(a));
 
+    const final = [...scored, ...rest];
     return res.status(200).json({ products: final });
+
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
