@@ -65,9 +65,17 @@
     d.appendChild(t);
 
     if (opts.products && opts.products.length > 0) {
+      var all = opts.products;
+      var shown = all.slice(0, 12);
+      if (all.length > 12) {
+        var note = document.createElement('div');
+        note.className = 'mb-note';
+        note.textContent = 'Fant ' + all.length + ' treff – viser de 12 beste basert på din profil.';
+        d.appendChild(note);
+      }
       var row = document.createElement('div');
       row.className = 'cards';
-      opts.products.forEach(function (p) { row.appendChild(makeCard(p)); });
+      shown.forEach(function (p) { row.appendChild(makeCard(p)); });
       d.appendChild(row);
     }
 
