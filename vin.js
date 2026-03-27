@@ -14,8 +14,8 @@ window.Vin = (function () {
     return raw.map(normalizeProduct);
   }
 
-  async function getStock(productCode) {
-    const r = await fetch('/api/stock?productCode=' + encodeURIComponent(productCode));
+  async function getStock(productCode, city) {
+    const r = await fetch('/api/stock?productCode=' + encodeURIComponent(productCode) + (city ? '&city=' + encodeURIComponent(city) : ''));
     if (!r.ok) throw new Error('Lagersøk feilet (HTTP ' + r.status + ')');
     const data = await r.json();
     if (data.error) throw new Error(data.error);
