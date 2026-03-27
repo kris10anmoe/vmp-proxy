@@ -74,7 +74,7 @@ async function run(history, onStatus) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:      'claude-sonnet-4-6',
+        model:      'claude-sonnet-4-5-20250929',
         max_tokens: 1500,
         system:     SYSTEM,
         tools:      TOOLS,
