@@ -282,3 +282,43 @@ button.send:disabled { opacity: 0.35; cursor: default; }
   margin-bottom: 8px;
   font-style: italic;
 }
+
+/* ── Tilgjengelighetstag ───────────────────────────────────────────────────── */
+.c-avail {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.c-avail-store {
+  background: var(--bg-3, #eee);
+  color: var(--text-2, #555);
+}
+.c-avail-order {
+  background: #f0ebe0;
+  color: #7a5c2a;
+}
+
+/* ── Tilgjengelighetstag ───────────────────────────────────────────────────── */
+.c-avail {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.c-avail-ok {
+  background: #e8f4ea;
+  color: #2d6e3a;
+}
+.c-avail-gone {
+  background: #f5efe6;
+  color: #8a6030;
+}
