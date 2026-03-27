@@ -26,7 +26,9 @@ var SYSTEM = 'Du er en kunnskapsrik sommelier og vinrådgiver for Vinmonopolet i
 'Kall get_store_stock MAKS 10 GANGER per forespørsel.\n' +
 'Ikke sjekk lager for et bredt søk (f.eks. "alle barberaer") – begrens til de mest relevante produktene (maks 5).\n' +
 'Trekk ut by fra samtalen (f.eks. "Oslo", "Bergen"). Standard er "Oslo".\n' +
-'Presenter resultatet som en sortert liste med butikknavn og antall.\n\n' +
+'VIKTIG: Inkluder ALLTID konkrete butikknavn og antall flasker i svarteksten.\n' +
+'Eksempel: "Oslo, Aker Brygge: 5 stk – Oslo, Vinderen: 7 stk – Oslo, Grorud: 8 stk"\n' +
+'Ikke si bare "X butikker" – list dem opp med faktiske tall.\n\n' +
 'SVARFORMAT:\n' +
 '- 2–5 anbefalinger med navn, varenummer og pris\n' +
 '- Kort begrunnelse for hvert valg basert på din fagkunnskap';
@@ -116,7 +118,16 @@ async function run(history, onStatus) {
           var city = tb.input.city || 'oslo';
           if (onStatus) onStatus('Sjekker butikkbeholdning i ' + city + '...');
           var stores = await window.Vin.getStock(tb.input.productCode, city);
-          allStores = stores;
+          // Akkumuler butikker på tvers av flere produkter
+          stores.forEach(function(s) {
+            var existing = allStores.find(function(e) { return e.name === s.name; });
+            if (existing) {
+              existing.stock = (existing.stock || 0) + (s.stock || 0);
+            } else {
+              allStores.push(s);
+            }
+          });
+          allStores.sort(function(a, b) { return (b.stock || 0) - (a.stock || 0); });
           results.push({
             type: 'tool_result',
             tool_use_id: tb.id,
