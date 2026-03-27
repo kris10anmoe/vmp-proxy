@@ -35,7 +35,11 @@ PROFILE + '\n\n' +
 'Verdiene MÅ være vinnavn, produsentnavn, regionsnavn eller vintyper – aldri matnavn.\n' +
 'Feil: "and i appelsinsaus" Riktig: "Pinot Noir Burgund", "Riesling trocken", "Gewurztraminer"\n' +
 'For matspørsmål: oversett retten til passende vinstiler FØR du fyller inn search_targets.\n' +
-'Maks 6 søk. Ved matspørsmål: minst 4 ulike vinstiler/regioner.\n\n';
+'Maks 6 søk. Ved matspørsmål: minst 4 ulike vinstiler/regioner.\n\n' +
+'INGEN SØKEBEHOV – bruk search_targets: [] når spørsmålet:\n' +
+'- ber om rangering/sammenligning av allerede nevnte viner\n' +
+'- er en oppfølging uten behov for nye produkter (f.eks. "hvilken er best?", "ranger disse")\n' +
+'- spør om en spesifikk vin agenten allerede har funnet\n\n';
 
 // ── Batchrangering prompt ─────────────────────────────────────────────────────
 var BATCH_SYSTEM =
@@ -75,6 +79,12 @@ PROFILE + '\n\n' +
 'Bruk get_store_stock KUN ved eksplisitt lagerspørsmål. Maks 10 kall.\n' +
 'Trekk by fra samtalen (standard: Oslo). List alltid: "Oslo, Vinderen: 7 stk".\n\n' +
 'SVARFORMAT:\n' +
+'Ved åpne spørsmål (matparing, stil, anledning): start med én kort innledning (2–3 setninger) som\n' +
+'forklarer søkestrategien – hvilke vinprofiler du lette etter og hvorfor de passer.\n' +
+'For matparing: beskriv hva i retten som driver vinvalget (fett, syre, intensitet, saus, tilberedning).\n' +
+'Eksempel: "Hollandaisen krever syre til å skjære gjennom fettet, og hvitfisken tåler ikke tannin.\n' +
+'Jeg har prioritert Chablis og tørr Riesling – mineralitet og høy syre uten å overdøve fisken."\n' +
+'Ved direkte spørsmål (spesifikk vin/produsent/sammenligning): hopp over innledning, svar direkte.\n\n' +
 '- 3–6 anbefalinger fra MINST 3 ulike regioner/druer\n' +
 '- Navn, varenummer, pris\n' +
 '- Én konkret setning per vin';
@@ -173,6 +183,14 @@ function roundRobinBatches(candidates, batchSize) {
 // ── Planleggingssteg ──────────────────────────────────────────────────────────
 async function makePlan(history) {
   try {
+    // Send kun siste brukermelding – full historikk gjør JSON-output upålitelig
+    var lastUser = '';
+    for (var i = history.length - 1; i >= 0; i--) {
+      if (history[i].role === 'user' && typeof history[i].content === 'string') {
+        lastUser = history[i].content;
+        break;
+      }
+    }
     var res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -180,13 +198,17 @@ async function makePlan(history) {
         model:      'claude-sonnet-4-5-20250929',
         max_tokens: 400,
         system:     PLAN_SYSTEM,
-        messages:   history
+        messages:   [{ role: 'user', content: lastUser }]
       })
     });
     var data = await res.json();
     var text = (data.content || []).find(function(b) { return b.type === 'text'; });
     if (!text) return null;
-    return JSON.parse(text.text.replace(/```json|```/g, '').trim());
+    // Ekstraher JSON selv om modellen pakker den i tekst
+    var raw = text.text.replace(/```json|```/g, '').trim();
+    var jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return null;
+    return JSON.parse(jsonMatch[0]);
   } catch (e) { return null; }
 }
 
@@ -240,7 +262,7 @@ async function runSearches(plan, onStatus) {
 }
 
 // ── Finalerunde med tools ─────────────────────────────────────────────────────
-async function finalRound(finalists, history, userQuery, onStatus) {
+async function finalRound(finalists, history, userQuery, onStatus, noSearchNeeded) {
   var allStores        = [];
   var recommendedCodes = null;
   var finalText        = '';
@@ -252,17 +274,26 @@ async function finalRound(finalists, history, userQuery, onStatus) {
   });
 
   var thinList = finalists.map(thinCandidate);
-  var agentHistory = history.concat([
-    {
-      role: 'assistant',
-      content: 'Batch-rangering fullført. Finalister (' + finalists.length + ' viner):\n' +
-               JSON.stringify(thinList, null, 1)
-    },
-    {
+  var agentHistory;
+  if (noSearchNeeded || finalists.length === 0) {
+    // Ingen nye søk – bruk historikken direkte for oppfølgingsspørsmål
+    agentHistory = history.concat([{
       role: 'user',
-      content: 'Ranger finalistene mot profilen, kall recommend_products med de beste, og skriv anbefalingen.'
-    }
-  ]);
+      content: 'Svar basert på vinene vi allerede har diskutert. Kall recommend_products hvis du vil vise kort.'
+    }]);
+  } else {
+    agentHistory = history.concat([
+      {
+        role: 'assistant',
+        content: 'Batch-rangering fullført. Finalister (' + finalists.length + ' viner):\n' +
+                 JSON.stringify(thinList, null, 1)
+      },
+      {
+        role: 'user',
+        content: 'Ranger finalistene mot profilen, kall recommend_products med de beste, og skriv anbefalingen.'
+      }
+    ]);
+  }
 
   for (var i = 0; i < 8; i++) {
     var res = await fetch('/api/chat', {
@@ -360,11 +391,15 @@ async function run(history, onStatus) {
     return { text: 'Beklager, noe gikk galt under planlegging.', products: [], stores: [] };
   }
 
-  // Steg 2: Søk
-  var allProducts = await runSearches(plan, onStatus);
+  // Steg 2: Søk – hopp over hvis ingen søk er nødvendig
+  var allProducts = [];
+  var noSearchNeeded = plan && Array.isArray(plan.search_targets) && plan.search_targets.length === 0;
 
-  if (allProducts.length === 0) {
-    return { text: 'Fant ingen produkter. Prøv et annet søk.', products: [], stores: [] };
+  if (!noSearchNeeded) {
+    allProducts = await runSearches(plan, onStatus);
+    if (allProducts.length === 0 && !noSearchNeeded) {
+      return { text: 'Fant ingen produkter. Prøv et annet søk.', products: [], stores: [] };
+    }
   }
 
   var finalists;
@@ -407,7 +442,8 @@ async function run(history, onStatus) {
   }
 
   // Steg 4: Finalerunde
-  return await finalRound(finalists, history, userQuery, onStatus);
+  // Ved ingen søk: send tom finalistliste – agenten bruker historikken
+  return await finalRound(finalists, history, userQuery, onStatus, noSearchNeeded);
 }
 
 return { run: run };
