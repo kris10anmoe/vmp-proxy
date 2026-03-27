@@ -33,8 +33,12 @@ function normalizeProduct(p) {
     region:       p.district?.name || p.region || null,
     subRegion:    p.subDistrict?.name || p.subRegion || null,
     price:        p.price || null,
-    volume:       p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
-    abv:          p.abv || null,
+    volume:       typeof p.volume === 'string'
+  ? p.volume
+  : typeof p.volume === 'number'
+    ? String(p.volume)
+    : p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
+    abv:          p.abv ?? p.alcohol ?? null,
     vintage:      p.vintage || extractVintage(p.name) || null,
     grapes:       Array.isArray(p.rawMaterial)
       ? p.rawMaterial.map(function (r) { return r.rawMaterial || r.name || null; }).filter(Boolean).join(', ')
