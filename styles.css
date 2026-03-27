@@ -322,3 +322,20 @@ button.send:disabled { opacity: 0.35; cursor: default; }
   background: #f5efe6;
   color: #8a6030;
 }
+
+/* ── Ny chat-knapp ─────────────────────────────────────────────────────────── */
+.new-chat-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border-1, #ccc);
+  color: var(--text-2, #666);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.new-chat-btn:hover {
+  background: var(--bg-2, #eee);
+  color: var(--text-1, #333);
+}
