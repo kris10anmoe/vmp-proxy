@@ -25,12 +25,18 @@ PROFILE + '\n\n' +
 '    {"q": "regionsnavn stil", "type": "region"}\n' +
 '  ]\n' +
 '}\n\n' +
-'type=producer: spesifikk produsent, henter 30 resultater (f.eks. "Trediberri", "Jamet")\n' +
-'type=region: stil/region-søk som trenger bredde, henter 100 resultater (f.eks. "Barolo tradisjonell", "Chablis premier cru")\n\n' +
-'KRITISK: Regionssøk alene gir kooperativer og masseproduenter øverst.\n' +
-'Kombiner alltid regionsnavn med produsenttype eller kjennetegn, f.eks.:\n' +
-'"Barolo biologisk", "Barolo tradisjonell", "Cote-Rotie grower", "Gevrey premier cru".\n' +
-'Bruk fagkunnskapen din om hvilke produsenter som finnes i sortimentet.\n' +
+'type=producer: spesifikk produsent, henter 30 resultater (f.eks. "Trediberri", "Jamet", "Rostaing")\n' +
+'type=region: appellation/region/drue, henter 100 resultater (f.eks. "Barolo", "Chablis Premier Cru", "Pinot Noir")\n\n' +
+'SØKESTRATEGI:\n' +
+'Ved åpne spørsmål (matparing, stil, anledning): bruk type=region med presise apellasjoner.\n' +
+'Foretrekk smale apellasjoner fremfor brede: "Gevrey Chambertin" fremfor "Bourgogne Rouge",\n' +
+'"Chablis Premier Cru" fremfor "Chablis", "Barolo" fremfor "Piemonte".\n' +
+'Bruk type=producer kun unntaksvis ved åpne spørsmål – f.eks. hvis en enkeltprodusent\n' +
+'er særlig relevant for en spesifikk stil og brukeren sannsynligvis kjenner dem.\n' +
+'Ved spesifikke spørsmål (produsent/vin nevnt): bruk type=producer direkte.\n\n' +
+'KRITISK: Vinmonopolets søk matcher kun produktnavn og produsentnavn – ikke beskrivende ord.\n' +
+'"Barolo tradisjonell", "Chablis grower", "Barolo biologisk" gir 0 treff.\n' +
+'Søk KUN på rene produsent-/regionnavn, appellation, drue eller vintype.\n' +
 'KRITISK: search_targets er søk i Vinmonopolets produktkatalog.\n' +
 'Verdiene MÅ være vinnavn, produsentnavn, regionsnavn eller vintyper – aldri matnavn.\n' +
 'Feil: "and i appelsinsaus" Riktig: "Pinot Noir Burgund", "Riesling trocken", "Gewurztraminer"\n' +
