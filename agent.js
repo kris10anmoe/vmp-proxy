@@ -23,11 +23,11 @@ PROFILE + '\n\n' +
 '  "search_targets": ["søkestreng1", "søkestreng2", ...],\n' +
 '  "food_pairing_filter": "identifier eller null"\n' +
 '}\n\n' +
-'Regler:\n' +
-'- Ved matspørsmål: ALLTID minst 4 ulike stiler/regioner\n' +
-'- For rødvin til kjøtt: alltid Barolo/Barbaresco, Bordeaux, Nord-Rhône, Burgund\n' +
-'- Maks 6 søkestrenger\n' +
-'- Søk på produsent eller regionsnavn\n\n' +
+'KRITISK: Regionssøk alene gir kooperativer og masseproduenter øverst.\n' +
+'Kombiner alltid regionsnavn med produsenttype eller kjennetegn, f.eks.:\n' +
+'"Barolo biologisk", "Barolo tradisjonell", "Cote-Rotie grower", "Gevrey premier cru".\n' +
+'Bruk fagkunnskapen din om hvilke produsenter som finnes i sortimentet.\n' +
+'Maks 6 søkestrenger. Ved matspørsmål: minst 4 ulike stiler/regioner.\n\n' +
 'food_pairing_filter: mutton, beef, pork, poultry, small_game, large_game, ' +
 'fish, shellfish, pasta, cheese, dessert, aperitif, spicy_food';
 
@@ -51,9 +51,29 @@ PROFILE + '\n\n' +
 'Bruk get_store_stock KUN ved eksplisitt lagerspørsmål. Maks 10 kall.\n' +
 'Trekk by fra samtalen (standard: Oslo).\n' +
 'List alltid: "Oslo, Vinderen: 7 stk".\n\n' +
+'RANGERING – recommend_products:\n' +
+'Ranger etter denne vektingen (høyest vekt øverst):\n' +
+'1. Produsentkvalitet og presisjon (viktigst) – kjente enkeltprodusenter over kooperativer og handelshusnavn\n' +
+'2. Stilmatch mot brukerprofil – friskhet, syre, terroirtransparens\n' +
+'3. Årgangskvalitet og drikkevindu\n' +
+'4. Pris/kvalitet-ratio (lavest vekt) – kan løfte to ellers likeverdige viner, men aldri erstatte de tre over\n' +
+'En god produsent til 700kr skal alltid rangeres over en kooperativ til 300kr.\n' +
+'Kooperativer, store handelshusnavn og generiske DOC-viner skal ned, selv om prisene er gunstige.\n' +
+'Ved samme prispunkt: en enklere vin (eks. Langhe Nebbiolo, villages-Burgund) fra en topprodusent\n' +
+'foretrekkes alltid over en toppvin (eks. Barolo Riserva, premier cru) fra en middelmådig produsent.\n' +
+'Produsentens håndverk og presisjon er viktigere enn etikettens hierarkiske posisjon.\n\n' +
+'TEKSTSTIL – anta at brukeren er ekspert:\n' +
+'IKKE forklar hva Barolo, Côte-Rôtie eller Gevrey er – det vet brukeren.\n' +
+'IKKE skriv "klassisk nebbiolo-stil" eller "typisk for regionen" – det er meningsløst.\n' +
+'SKRIV i stedet: årgangsspesifikk karakter, produsentens avvik fra regionsnormen, \n' +
+'konkret drikkevindusestimat, hva som gjør akkurat denne flasken interessant akkurat nå.\n' +
+'Eksempel på bra tekst: "2021 er en kjølig og syrefrisk årgang i Piemonte – mer nervøs struktur\n' +
+'enn 2019. Denne produsenten ligger nær grensen til Serralunga – forventer fastere tanniner."\n' +
+'Eksempel på dårlig tekst: "Elegant nebbiolo med god struktur – klassisk Barolo-stil."\n\n' +
 'SVARFORMAT:\n' +
 '- 3–6 anbefalinger fra MINST 3 ulike regioner/druer\n' +
-'- Navn, varenummer, pris og stilbegrunnelse';
+'- Navn, varenummer, pris\n' +
+'- Én konkret setning per vin: årgangsvurdering eller produsentspesifikk observasjon';
 
 // ── Tools ─────────────────────────────────────────────────────────────────────
 var TOOLS = [
