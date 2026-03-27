@@ -25,7 +25,7 @@ window.Vin = (function () {
 
   function normalizeProduct(p) {
     return {
-      id:           p.code,
+      id:           p.code || p.productCode || p.id || null,
       name:         p.name,
       mainCategory: p.mainCategory?.name,
       subCategory:  p.mainSubCategory?.name,
