@@ -14,7 +14,6 @@ const compactForAgent = p => ({
   id:          p.code || p.id || null,
   name:        p.name || null,
   price:       p.price || null,
-  volume:      p.volume?.formattedValue || (p.volume?.value ? p.volume.value + ' ' + (p.volume.unit || 'cl') : null),
   vintage:     p.vintage || extractYear(p.name) || null,
   country:     p.mainCountry?.name || null,
   region:      p.district?.name || null,
@@ -71,15 +70,18 @@ export default async function handler(req, res) {
     const withoutSpirits = allProducts.filter(p => !isSpirit(p));
     const products = withoutSpirits.length >= 5 ? withoutSpirits : allProducts;
 
-    // Agentmodus: returner komprimerte objekter uten populate()
+    // Populate topp 25 for smaksdata (abv, acid, freshness etc.)
+    const popCount  = mode === 'agent' ? 25 : 10;
+    const toPopulate = products.slice(0, popCount);
+    const rest       = products.slice(popCount);
+    const populated  = await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
+
+    // Agentmodus: returner komprimerte objekter
     if (mode === 'agent') {
-      return res.status(200).json({ products: products.map(compactForAgent) });
+      return res.status(200).json({ products: [...populated, ...rest].map(compactForAgent) });
     }
 
-    // UI-modus: populate topp 10 for full produktvisning
-    const toPopulate = products.slice(0, 10);
-    const rest       = products.slice(10);
-    const populated  = await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
+    // UI-modus: returner fulle objekter
     return res.status(200).json({ products: [...populated, ...rest] });
 
   } catch (e) {
