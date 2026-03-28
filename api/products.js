@@ -68,6 +68,8 @@ export default async function handler(req, res) {
         if (yb == null) return -1;
         return sortBy === 'vintage_asc' ? ya - yb : yb - ya;
       });
+      const limit = Math.min(parseInt(pageSize, 10) || 50, 100);
+      allProducts = allProducts.slice(0, limit);
     } else {
       const limit = Math.min(parseInt(pageSize, 10) || 30, 100);
       const { products } = await getProducts({ query: q, limit });
