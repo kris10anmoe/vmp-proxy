@@ -314,7 +314,7 @@ async function runSearches(plan, onStatus) {
     var q        = typeof target === 'string' ? target : target.q;
     var type     = typeof target === 'object' ? target.type : 'region';
     var sortBy   = typeof target === 'object' ? target.sortBy || null : null;
-    var pageSize = type === 'producer' ? 30 : (sortBy ? 50 : 100);
+    var pageSize = type === 'producer' ? 30 : 100;
 
     onStatus && onStatus('Søker ' + q + '...');
     try {
