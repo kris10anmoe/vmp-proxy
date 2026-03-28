@@ -446,12 +446,18 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
     agentHistory.push({ role: 'user', content: results });
   }
 
-  // Bygg endelig produktliste
+  // Bygg endelig produktliste – dedupliser på ID
   var recommended;
   if (recommendedCodes && recommendedCodes.length > 0) {
+    var seenRec = {};
     recommended = recommendedCodes
       .map(function(code) { return productMap[code] || null; })
-      .filter(Boolean);
+      .filter(function(p) {
+        if (!p || !p.id) return false;
+        if (seenRec[p.id]) return false;
+        seenRec[p.id] = true;
+        return true;
+      });
   } else {
     recommended = finalists;
   }
