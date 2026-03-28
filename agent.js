@@ -59,6 +59,13 @@ PROFILE + '\n\n' +
 'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
 'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n\n' +
+'VED KJELLERSPØRSMÅL – når bruker spør om "kjelleren", "har jeg hjemme", "fra min samling",\n' +
+'"hva har jeg", "åpne i kveld" eller lignende:\n' +
+'Inkluder søk med type: "cellar" i search_targets. Søketeksten beskriver stilen/regionen.\n' +
+'Eksempel "vin fra kjelleren til biff": [{"q": "Bordeaux Barolo Nebbiolo biff", "type": "cellar"}]\n' +
+'Eksempel "har jeg noen moden Champagne?": [{"q": "Champagne", "type": "cellar"}]\n' +
+'Kombiner gjerne med type: "region" hvis bruker vil kjøpe mer i tillegg til kjellerviner.\n' +
+'Maks 2 cellar-søk per plan.\n\n' +
 'INGEN SØKEBEHOV – bruk search_targets: [] når spørsmålet:\n' +
 '- ber om rangering/sammenligning av allerede nevnte viner\n' +
 '- er en oppfølging uten behov for nye produkter (f.eks. "hvilken er best?", "ranger disse")\n' +
@@ -156,6 +163,14 @@ PROFILE + '\n\n' +
 '   Kortene vises i eksakt denne rekkefølgen – ranger nøye.\n' +
 '6. I teksten: beskriv de 6 beste. Nevn ikke vinene som bare er med som kort (7–12).\n' +
 '7. Marker hvilke som er på lager i butikken hvis butikk ble nevnt.\n\n' +
+'KJELLERVINER (source: "cellar"):\n' +
+'Kandidater med source="cellar" er fra brukerens private kjeller – ikke Vinmonopolet.\n' +
+'- IKKE kall recommend_products med cellar-ID-er (varenummer finnes ikke i katalogen)\n' +
+'- Beskriv kjellerviner i teksten med: navn, årgang, antall flasker (qty), CT-score hvis tilgjengelig\n' +
+'- Marker dem tydelig: "Fra din kjeller:" eller "Du har X fl. av..."\n' +
+'- Vurder drikkevindu basert på din kunnskap om vin og årgangen\n' +
+'- Hvis både kjellerviner og VMP-viner finnes: presenter kjellerviner FØRST\n' +
+'- Kall recommend_products kun for VMP-viner (uten source: "cellar")\n\n' +
 'TEKSTSTIL – anta at brukeren er ekspert:\n' +
 'IKKE forklar hva Barolo, Côte-Rôtie, Gevrey eller andre kjente appellasjoner er.\n' +
 'Stilbeskrivelser er fine, men bruk dem som kontekst – ikke som erstatning for konkret info.\n' +
@@ -232,6 +247,32 @@ var FINAL_TOOLS = [
 
 // ── Hjelpefunksjoner ──────────────────────────────────────────────────────────
 
+// Søk i brukerens kjeller (window.cellarData lastet fra cellar.json)
+function searchCellar(q) {
+  if (!window.cellarData || !window.cellarData.length) return [];
+  var terms = q.toLowerCase().split(/[\s,\/]+/).filter(function(t) { return t.length > 2; });
+  return window.cellarData
+    .filter(function(w) {
+      var haystack = [w.name || '', w.region || '', w.subregion || '', w.country || ''].join(' ').toLowerCase();
+      return terms.some(function(t) { return haystack.indexOf(t) >= 0; });
+    })
+    .map(function(w) {
+      var key = (w.name + '_' + (w.vintage || 'NV')).replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50);
+      return {
+        id:        'cellar_' + key,
+        name:      w.name,
+        vintage:   w.vintage,
+        qty:       w.qty,
+        ct:        w.ct,
+        price:     w.price,
+        country:   w.country,
+        region:    w.region,
+        subRegion: w.subregion,
+        source:    'cellar'
+      };
+    });
+}
+
 // Komprimer til tynne kandidatobjekter for LLM-screening
 function thinCandidate(p) {
   return {
@@ -250,7 +291,10 @@ function thinCandidate(p) {
     storable:      p.storable || null,
     volume:        p.volume   || null,
     producer_tier: p.producer_tier || null,
-    pairing_tags:  p.pairing_tags  || null
+    pairing_tags:  p.pairing_tags  || null,
+    source:        p.source   || null,
+    qty:           p.qty      || null,
+    ct_score:      p.ct       || null
   };
 }
 
@@ -349,13 +393,23 @@ async function runSearches(plan, onStatus) {
 
     onStatus && onStatus('Søker ' + q + '...');
     try {
-      var products = await window.Vin.searchProducts(q, pageSize, sortBy, 'agent');
-      products.forEach(function(p) {
-        if (p.id && !seen[p.id]) {
-          seen[p.id] = true;
-          allProducts.push(p);
-        }
-      });
+      if (type === 'cellar') {
+        var cellarResults = searchCellar(q);
+        cellarResults.forEach(function(p) {
+          if (!seen[p.id]) {
+            seen[p.id] = true;
+            allProducts.push(p);
+          }
+        });
+      } else {
+        var products = await window.Vin.searchProducts(q, pageSize, sortBy, 'agent');
+        products.forEach(function(p) {
+          if (p.id && !seen[p.id]) {
+            seen[p.id] = true;
+            allProducts.push(p);
+          }
+        });
+      }
     } catch (e) { /* fortsett */ }
   }
   return allProducts;
@@ -382,6 +436,13 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       content: 'Svar basert på vinene vi allerede har diskutert. Kall recommend_products hvis du vil vise kort.'
     }]);
   } else {
+    var hasCellar = finalists.some(function(p) { return p.source === 'cellar'; });
+    var hasVmp    = finalists.some(function(p) { return !p.source; });
+    var finalMsg  = hasCellar
+      ? 'Ranger finalistene. Kjellerviner (source="cellar") beskrives FØRST i teksten med antall flasker og drikkevindusvurdering – IKKE i recommend_products.' +
+        (hasVmp ? ' Kall recommend_products med opptil 12 Vinmonopolet-viner (uten source) i rangert rekkefølge.' : ' Kall IKKE recommend_products.') +
+        ' Beskriv 6 beste totalt (kjeller + VMP).'
+      : 'Ranger finalistene mot profilen. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først). Beskriv deretter de 6 beste i teksten.';
     agentHistory = history.concat([
       {
         role: 'assistant',
@@ -390,7 +451,7 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       },
       {
         role: 'user',
-        content: 'Ranger finalistene mot profilen. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først). Beskriv deretter de 6 beste i teksten.'
+        content: finalMsg
       }
     ]);
   }

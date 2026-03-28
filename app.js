@@ -1,6 +1,13 @@
 // app.js – UI-logikk og rendering
 // Avhenger av: vin.js (window.Vin), agent.js (window.Agent)
 
+// ── Last kjelleroversikt ved oppstart ─────────────────────────────────────
+window.cellarData = [];
+fetch('/cellar.json')
+  .then(function(r) { return r.json(); })
+  .then(function(data) { window.cellarData = data; })
+  .catch(function() { window.cellarData = []; });
+
 (function () {
   var history = [];
 
