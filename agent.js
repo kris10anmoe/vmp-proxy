@@ -34,6 +34,13 @@ PROFILE + '\n\n' +
 '                    "vintage_desc" = nyeste årganger først (bruk ved "nyeste", "siste årgang").\n' +
 'Utelat sortBy ved vanlige spørsmål.\n\n' +
 'SØKESTRATEGI:\n' +
+'KRITISK – RESPEKTER BRUKERENS AVGRENSNING:\n' +
+'Hvis brukeren eksplisitt nevner en bestemt region, appellation, drue eller produsent\n' +
+'(f.eks. "Bordeaux", "Barolo", "Riesling", "Rostaing"), søk KUN der.\n' +
+'Legg IKKE til andre regioner eller druer som "alternativer" uten at brukeren har bedt om det.\n' +
+'Eksempel: "Bordeaux til entrecôte" → kun Bordeaux-søk, IKKE Barolo, Burgund eller Rhône.\n' +
+'Eksempel: "noe fra Burgund" → kun Burgund-appellationer, ikke Bordeaux.\n' +
+'Hvis det ikke finnes gode resultater innenfor brukerens avgrensning, si det – ikke bytt region.\n\n' +
 'Søkene skal dekke hva brukeren faktisk spør om – ikke filtreres gjennom smaksprofilen.\n' +
 'Profilen brukes i rangeringen, ikke til å begrense søkene.\n\n' +
 'Ved åpne spørsmål: bruk brede, relevante kategorier og presise apellasjoner.\n' +
@@ -149,6 +156,12 @@ PROFILE + '\n\n' +
 '  Dette gjelder selv om de dukker opp i søkeresultatene for Bordeaux eller andre regioner.\n' +
 '  Sjekk varetypefeltet eller regionsnavn – utelat alle søtviner fra recommend_products.\n' +
 '- Svar kort og konkret på norsk.\n' +
+'- RESPEKTER BRUKERENS AVGRENSNING: Hvis brukeren eksplisitt ber om en bestemt region,\n' +
+'  appellation, drue eller produsent (f.eks. "Bordeaux", "Barolo", "Riesling"),\n' +
+'  inkluder KUN viner fra den regionen/druen i recommend_products og i teksten.\n' +
+'  Bytt ALDRI til en annen region som "alternativ" uten at brukeren har bedt om det.\n' +
+'  Hvis finalistlisten ikke inneholder gode viner fra brukerens spesifiserte region,\n' +
+'  si det eksplisitt ("Fant ingen gode Bordeaux i dag") istedenfor å vise Barolo/Burgund.\n' +
 '- MAKS 1 anbefaling per produsent i recommend_products – dette er absolutt og gjelder\n' +
 '  hele listen inkl. kort 7-12. Sjekk produsentnavn nøye – "Marchesi di Barolo Cannubi"\n' +
 '  og "Marchesi di Barolo Barolo" er SAMME produsent, bare én skal inkluderes.\n' +
@@ -178,6 +191,9 @@ PROFILE + '\n\n' +
 '   d) Fjern eksplisitt Marchesi di Barolo og andre kjente kommersielle volumprodusenter\n' +
 '      (Zonin, Cavit, Ruffino, Antinori volume-linjer) hvis bedre alternativer finnes.\n' +
 '   e) Sikre at listen har 8-12 produkter fra minst 3 ulike regioner/appellasjoner.\n' +
+'   f) REGIONAVGRENSNING: Hvis brukeren spesifiserte en region (f.eks. "Bordeaux"), fjern\n' +
+'      alle viner som IKKE er fra den regionen. En liste med bare 3 Bordeaux er bedre enn\n' +
+'      12 der halvparten er Barolo. Rapporter heller at utvalget var begrenset.\n' +
 '5. Kall recommend_products med 8-12 viner i rangert rekkefølge (beste først).\n' +
 '   Kortene vises i eksakt denne rekkefølgen – ranger nøye.\n' +
 '6. I teksten: beskriv de 6 beste. Nevn ikke vinene som bare er med som kort (7–12).\n' +
@@ -554,6 +570,10 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
         '2. MAKS 2 viner fra samme appellation (f.eks. maks 2 Meursault, maks 2 Côte-Rôtie)\n' +
         '3. EKSKLUDER Marchesi di Barolo, Zonin, Cavit, Ruffino og andre kommersielle volumprodusenter\n' +
         '4. EKSKLUDER alle søtviner/dessertviner (Sauternes, Barsac, TBA osv.)\n' +
+        '5. REGIONAVGRENSNING: Hvis brukeren spesifiserte en bestemt region (f.eks. "Bordeaux"),\n' +
+        '   inkluder KUN viner fra den regionen. Bytt ALDRI til Barolo/Burgund/etc. som erstatning.\n' +
+        '   Hvis finalistlisten inneholder for få viner fra den regionen, si dette eksplisitt\n' +
+        '   ("Fant bare X Bordeaux-viner i katalogen i dag") og vis kun disse.\n' +
         'Kall recommend_products med de beste vinene du finner (8-12 hvis kvaliteten holder).\n' +
         'Fyll IKKE opp til 12 med svake kommersielle viner, billigvin eller bag-in-box.\n' +
         'Ranger beste først. Beskriv de 6 beste i teksten.';
