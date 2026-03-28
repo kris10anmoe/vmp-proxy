@@ -68,7 +68,11 @@ PROFILE + '\n\n' +
 'Faiveley (basis-linjer), Ruffino osv. rangeres konsekvent LAVERE enn grower-produsenter\n' +
 '– selv om den kommersielle vinen scorer bedre på strukturdata eller er billigere.\n\n' +
 'VED MATSPØRSMÅL: vinens match med rettens smaksprofil er primærkriterie.\n' +
-'Gjør semantisk vurdering – tilberedning, saus og intensitet teller, ikke bare tags.\n\n' +
+'Gjør semantisk vurdering – tilberedning, saus og intensitet teller, ikke bare tags.\n' +
+'TEKSTUR-MATCH: vurder vinens kropp og volum opp mot rettens rikhet.\n' +
+'Kremete og fete retter (risotto, smørsaus, grateng) krever en vin med tilsvarende kropp og tekstur.\n' +
+'Chablis er for tynn og skarp til å stå opp mot kremethet – hvit Burgund med kropp\n' +
+'(Meursault, Puligny-Montrachet, Chassagne) er riktig valg for disse rettene.\n\n' +
 'RANGERING:\n' +
 '1. Din faglige vurdering av produsent og faktisk vinkvalitet\n' +
 '2. Årgangskvalitet og drikkevindu\n' +
@@ -335,7 +339,7 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       },
       {
         role: 'user',
-        content: 'Ranger finalistene mot profilen, kall recommend_products med de beste, og skriv anbefalingen.'
+        content: 'Ranger finalistene mot profilen. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først). Beskriv deretter de 6 beste i teksten.'
       }
     ]);
   }
