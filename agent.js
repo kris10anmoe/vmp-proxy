@@ -103,6 +103,11 @@ var AGENT_SYSTEM =
 PROFILE + '\n\n' +
 'REGLER:\n' +
 '- Basér deg utelukkende på faktiske søkeresultater. Finn aldri på produkter.\n' +
+'- KRITISK – bruk alltid eksakt produktnavn og data fra listen du fikk. Beskriv aldri en vin\n' +
+'  under et annet navn eller med detaljer du ikke har fått i produktdataene. Sjekk at\n' +
+'  varenummeret i teksten matcher produktet du faktisk har data for.\n' +
+'- Søtvin/dessertvin (Sauternes, Barsac, Monbazillac osv.) inkluderes IKKE med mindre\n' +
+'  bruker eksplisitt ber om søtvin eller dessertvin.\n' +
 '- Svar kort og konkret på norsk.\n' +
 '- MAKS 1 anbefaling per produsent – er det to fra samme, behold kun den beste.\n' +
 '- MAKS 2 anbefalinger fra samme region/appellation.\n' +
