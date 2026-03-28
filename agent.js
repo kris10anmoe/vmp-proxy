@@ -55,11 +55,18 @@ PROFILE + '\n\n' +
 'Du får en liste kandidater. Velg de 6 beste.\n' +
 'ALDRI velg mer enn 1 vin per produsent – velg alltid den beste flasken fra produsenten.\n' +
 'Svar KUN med JSON: {"selected": ["id1", "id2", ...]}\n\n' +
-'PRIMÆRKRITERIE – din egen vinkunskap:\n' +
+'PRIMÆRKRITERIE – din egen vinkunskap og produsent-hierarki:\n' +
 'De strukturerte feltene (acid, freshness, tannins) er Vinmonopolets grove tallskala – veiledende, ikke fasit.\n' +
 'Din kunnskap om produsent, appellation og årgangskvalitet er det som teller.\n' +
 'En Jamet Côte-Rôtie rangeres ikke fordi freshness=4, men fordi du vet hva Jamet er.\n' +
 'Brukerprofilen er tiebreaker mellom likeverdige viner – ikke et filter som utelukker god vin.\n\n' +
+'PRODUSENT-HIERARKI – følg dette konsekvent:\n' +
+'1. Anerkjente grower-produsenter og domaines med terroir-fokus og faglig omdømme\n' +
+'2. Respekterte négocianter med kvalitetsprofil\n' +
+'3. Store kommersielle volumprodusenter (stort volum, bred distribusjon, generisk stil)\n' +
+'Store produsenter som Marchesi di Barolo, Antinori (volume-linjer), Louis Jadot (generics),\n' +
+'Faiveley (basis-linjer), Ruffino osv. rangeres konsekvent LAVERE enn grower-produsenter\n' +
+'– selv om den kommersielle vinen scorer bedre på strukturdata eller er billigere.\n\n' +
 'VED MATSPØRSMÅL: vinens match med rettens smaksprofil er primærkriterie.\n' +
 'Gjør semantisk vurdering – tilberedning, saus og intensitet teller, ikke bare tags.\n\n' +
 'RANGERING:\n' +
@@ -82,8 +89,10 @@ PROFILE + '\n\n' +
 '- MAKS 8 anbefalinger totalt.\n\n' +
 'RANGERING – bruk din egen vinkunskap som primærkilde:\n' +
 'De strukturerte feltene (acid, freshness, tannins) er Vinmonopolets grove tallskala.\n' +
-'Din kunnskap om produsentens rykte, appellasjonens typiske karakter og årgangskvalitet\n' +
-'veier tyngre enn disse tallene. Ranger som en erfaren sommelier, ikke som en algoritme.\n\n' +
+'Din kunnskap om produsentens rykte, appellasjonens karakter og årgangskvalitet\n' +
+'veier tyngre enn disse tallene. Ranger som en erfaren sommelier, ikke som en algoritme.\n' +
+'Anerkjente grower-produsenter og domaines med faglig omdømme rangeres alltid foran\n' +
+'store kommersielle volumprodusenter – uavhengig av pris eller strukturdata.\n\n' +
 'ARBEIDSFLYT:\n' +
 '1. Utfør søkene fra planen\n' +
 '2. Kandidatene er allerede batch-rangert – du ser bare finalistene\n' +
