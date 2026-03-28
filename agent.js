@@ -71,23 +71,23 @@ PROFILE + '\n\n' +
 'Du får en liste kandidater. Velg de 6 beste.\n' +
 'ALDRI velg mer enn 1 vin per produsent – velg alltid den beste flasken fra produsenten.\n' +
 'Svar KUN med JSON: {"selected": ["id1", "id2", ...]}\n\n' +
-'PRIMÆRKRITERIE – din egen vinkunskap og produsent-hierarki:\n' +
-'De strukturerte feltene (acid, freshness, tannins) er Vinmonopolets grove tallskala – veiledende, ikke fasit.\n' +
-'Din kunnskap om produsent, appellation og årgangskvalitet er det som teller.\n' +
-'En Jamet Côte-Rôtie rangeres ikke fordi freshness=4, men fordi du vet hva Jamet er.\n' +
-'Brukerprofilen er tiebreaker mellom likeverdige viner – ikke et filter som utelukker god vin.\n\n' +
-'PRODUSENT-HIERARKI – følg dette konsekvent:\n' +
-'1. Anerkjente grower-produsenter og domaines med terroir-fokus og faglig omdømme\n' +
-'2. Respekterte négocianter med kvalitetsprofil\n' +
-'3. Store kommersielle volumprodusenter (stort volum, bred distribusjon, generisk stil)\n' +
-'Store kommersielle produsenter som skal ALDRI velges med mer enn 1 flaske totalt,\n' +
-'og helst IKKE velges i det hele tatt når grower-alternativer finnes:\n' +
-'- Marchesi di Barolo (stort volum, mange linjer – velg maks 1 hvis ingen grower finnes)\n' +
-'- Antinori (volume-linjer som Santa Cristina, Peppoli)\n' +
-'- Louis Jadot (generics og Village-nivå)\n' +
-'- Faiveley (basis-linjer)\n' +
-'- Ruffino, Zonin, Cavit, Folonari\n' +
-'Disse skal BARE velges hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
+'PRODUSENTKVALITET – bruk producer_tier fra data som primærsignal:\n' +
+'Hvert kandidat-objekt har et producer_tier felt (3–5) hvis produsenten er i kvalitetsdatabasen:\n' +
+'  tier 5 = benchmark (DRC, Leroy, Rousseau, Conterno, Jamet, Coche-Dury og tilsvarende)\n' +
+'  tier 4 = anerkjent grower/domaine med tydelig terroir-identitet og faglig omdømme\n' +
+'  tier 3 = solid produsent, men ikke toppsjiktet\n' +
+'  null   = ikke i databasen – bruk din kunnskap; kan godt være fremragende\n' +
+'Ranger tier 5 > tier 4 > tier 3 > null når vinene ellers er sammenlignbare.\n' +
+'Store kommersielle volumprodusenter (Marchesi di Barolo, Antinori volume-linjer, Ruffino,\n' +
+'Zonin, Cavit, Louis Jadot generics) vil typisk mangle tier eller ha tier 3.\n' +
+'Disse velges IKKE når tier-4/5-alternativer finnes i samme liste.\n\n' +
+'APPELLASJONSDATA – bruk pairing_tags fra data ved matspørsmål:\n' +
+'Hvert kandidat-objekt kan ha pairing_tags fra appellasjonsbasen.\n' +
+'Eksempel: Barolo har pairing_tags: ["truffle","game","braises"] – sterk match til trøffelrisotto.\n' +
+'Eksempel: Pauillac har pairing_tags: ["lamb","beef","venison"] – kanonisk til biff.\n' +
+'Eksempel: Chablis har pairing_tags: ["oysters","shellfish","white fish"] – ikke til kremete retter.\n' +
+'Match rettens hovedelementer mot pairing_tags. Appellasjon med matchende tags prioriteres.\n' +
+'Bruk din faglige kunnskap for å vurdere matchkvalitet; tags er veiledende, ikke absolutt.\n\n' +
 'VED MATSPØRSMÅL – følg dette hierarkiet strengt:\n' +
 '1. Kanonisk pairingkvalitet: bruk din faglige vinkunskap til å vurdere hvor klassisk og\n' +
 '   anerkjent koblingen mellom vin og rett er. "Kan fungere" er ikke nok – prioriter de\n' +
@@ -135,11 +135,12 @@ PROFILE + '\n\n' +
 'Pairingmatch er eneste utvelgelseskriterium. Brukerprofilen brukes kun til å rangere\n' +
 'mellom viner som allerede er gode pairings – ikke til å velge hvilke viner som er med.\n\n' +
 'RANGERING – generelt:\n' +
-'De strukturerte feltene (acid, freshness, tannins) er Vinmonopolets grove tallskala.\n' +
-'Din kunnskap om produsentens rykte, appellasjonens karakter og årgangskvalitet\n' +
-'veier tyngre enn disse tallene. Ranger som en erfaren sommelier, ikke som en algoritme.\n' +
-'Anerkjente grower-produsenter og domaines med faglig omdømme rangeres alltid foran\n' +
-'store kommersielle volumprodusenter – uavhengig av pris eller strukturdata.\n\n' +
+'Produktdataene inkluderer producer_tier (5=benchmark, 4=excellent, 3=god, null=ukjent) og\n' +
+'pairing_tags fra appellasjonsbasen. Bruk disse som primærsignal – de reflekterer kurert\n' +
+'faglig kunnskap om produsent og appellation.\n' +
+'Din sommelier-kunnskap supplerer der tier eller tags mangler, og avgjør tiebreakers.\n' +
+'Ranger alltid tier 5 > 4 > 3 > null. Aldri velg kommersiell volumprodusent\n' +
+'(null/tier 3) foran en anerkjent grower (tier 4/5) ved samme prisnivå.\n\n' +
 'ARBEIDSFLYT:\n' +
 '1. Utfør søkene fra planen\n' +
 '2. Kandidatene er allerede batch-rangert – du ser bare finalistene\n' +
@@ -234,20 +235,22 @@ var FINAL_TOOLS = [
 // Komprimer til tynne kandidatobjekter for LLM-screening
 function thinCandidate(p) {
   return {
-    id:          p.id || p.code,
-    name:        p.name,
-    price:       p.price,
-    vintage:     p.vintage,
-    region:      [p.country, p.region, p.subRegion].filter(Boolean).join(' / '),
-    grapes:      p.grapes || null,
-    abv:         p.abv   || null,
-    acid:        p.acid  || null,
-    freshness:   p.freshness || null,
-    fullness:    p.fullness  || null,
-    tannins:     p.tannins   || null,
-    food:        (p.foodPairing || []).map(function(f) { return f.name || f.identifier; }).join(', ') || null,
-    storable:    p.storable || null,
-    volume:      p.volume   || null
+    id:            p.id || p.code,
+    name:          p.name,
+    price:         p.price,
+    vintage:       p.vintage,
+    region:        [p.country, p.region, p.subRegion].filter(Boolean).join(' / '),
+    grapes:        p.grapes || null,
+    abv:           p.abv   || null,
+    acid:          p.acid  || null,
+    freshness:     p.freshness || null,
+    fullness:      p.fullness  || null,
+    tannins:       p.tannins   || null,
+    food:          (p.foodPairing || []).map(function(f) { return f.name || f.identifier; }).join(', ') || null,
+    storable:      p.storable || null,
+    volume:        p.volume   || null,
+    producer_tier: p.producer_tier || null,
+    pairing_tags:  p.pairing_tags  || null
   };
 }
 
