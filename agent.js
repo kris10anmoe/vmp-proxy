@@ -82,7 +82,9 @@ PROFILE + '\n\n' +
 var BATCH_SYSTEM =
 'Du er en sommelier som rangerer viner for en bruker med denne profilen:\n' +
 PROFILE + '\n\n' +
-'Du får en liste kandidater. Velg de 6 beste.\n' +
+'Du får en liste kandidater. Velg de BESTE – opptil 6, men gjerne færre.\n' +
+'Velg ALDRI en vin bare for å fylle opp til 6 hvis resterende kandidater er generiske\n' +
+'kommersielle viner, billigvin uten identitet, eller bag-in-box. 3 gode > 6 med svake.\n' +
 'ALDRI velg mer enn 1 vin per produsent – velg alltid den beste flasken fra produsenten.\n' +
 'ALDRI velg mer enn 2 viner fra samme appellation (f.eks. maks 2 Côte-Rôtie, maks 2 Barolo).\n' +
 'Svar KUN med JSON: {"selected": ["id1", "id2", ...]}\n\n' +
@@ -425,8 +427,7 @@ async function runSearches(plan, onStatus) {
   var seen = {};
 
   // Injiser produsentsøk for tier 4/5-produsenter i hvert regionsøk.
-  // Garanterer at toppprodusentene er representert i kandidatpoolen uavhengig av
-  // Vinmonopolets sorteringslogikk i regionsøket.
+  // Dekker bredt over alle kjente topprodusenter per region (effektivt OR-søk).
   var planTargets = (plan.search_targets || []).slice();
   var existingQ = new Set(planTargets.map(function(t) {
     return normRag(typeof t === 'string' ? t : (t.q || ''));
@@ -444,9 +445,9 @@ async function runSearches(plan, onStatus) {
         if (b.tier !== a.tier) return b.tier - a.tier;
         return (b.availability.polet_presence || 0) - (a.availability.polet_presence || 0);
       })
-      .slice(0, 2)
+      .slice(0, 5)                          // Opp til 5 produsenter per region
       .forEach(function(p) {
-        if (injectedCount >= 8) return;
+        if (injectedCount >= 20) return;    // Globalt tak
         var term = (p.search_terms || [])[0];
         if (!term || existingQ.has(normRag(term))) return;
         existingQ.add(normRag(term));
@@ -456,34 +457,31 @@ async function runSearches(plan, onStatus) {
   });
   var allTargets = injected.concat(planTargets);
 
-  for (var i = 0; i < allTargets.length; i++) {
-    var target = allTargets[i];
-    // Støtt både gammelt format (streng) og nytt format (objekt med q og type)
+  // Kjør alle søk parallelt i bolker av 5 (effektivt OR-søk over mange produsenter)
+  var CONCURRENCY = 5;
+  function execTarget(target) {
     var q        = typeof target === 'string' ? target : target.q;
-    var type     = typeof target === 'object' ? target.type : 'region';
+    var type     = typeof target === 'object' ? (target.type || 'region') : 'region';
     var sortBy   = typeof target === 'object' ? target.sortBy || null : null;
     var pageSize = type === 'producer' ? 30 : 100;
+    if (type === 'cellar') {
+      return Promise.resolve(searchCellar(q));
+    }
+    return window.Vin.searchProducts(q, pageSize, sortBy, 'agent').catch(function() { return []; });
+  }
 
-    onStatus && onStatus('Søker ' + q + '...');
-    try {
-      if (type === 'cellar') {
-        var cellarResults = searchCellar(q);
-        cellarResults.forEach(function(p) {
-          if (!seen[p.id]) {
-            seen[p.id] = true;
-            allProducts.push(p);
-          }
-        });
-      } else {
-        var products = await window.Vin.searchProducts(q, pageSize, sortBy, 'agent');
-        products.forEach(function(p) {
-          if (p.id && !seen[p.id]) {
-            seen[p.id] = true;
-            allProducts.push(p);
-          }
-        });
-      }
-    } catch (e) { /* fortsett */ }
+  onStatus && onStatus('Søker etter viner...');
+  for (var start = 0; start < allTargets.length; start += CONCURRENCY) {
+    var batch = allTargets.slice(start, start + CONCURRENCY);
+    var results = await Promise.all(batch.map(execTarget));
+    results.forEach(function(products) {
+      products.forEach(function(p) {
+        if (p.id && !seen[p.id]) {
+          seen[p.id] = true;
+          allProducts.push(p);
+        }
+      });
+    });
   }
   return allProducts;
 }
@@ -521,7 +519,9 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
         '2. MAKS 2 viner fra samme appellation (f.eks. maks 2 Meursault, maks 2 Côte-Rôtie)\n' +
         '3. EKSKLUDER Marchesi di Barolo, Zonin, Cavit, Ruffino og andre kommersielle volumprodusenter\n' +
         '4. EKSKLUDER alle søtviner/dessertviner (Sauternes, Barsac, TBA osv.)\n' +
-        'Kall recommend_products med 8-12 viner rangert beste først. Beskriv de 6 beste i teksten.';
+        'Kall recommend_products med de beste vinene du finner (8-12 hvis kvaliteten holder).\n' +
+        'Fyll IKKE opp til 12 med svake kommersielle viner, billigvin eller bag-in-box.\n' +
+        'Ranger beste først. Beskriv de 6 beste i teksten.';
     agentHistory = history.concat([
       {
         role: 'assistant',
