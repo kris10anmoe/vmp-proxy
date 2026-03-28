@@ -74,10 +74,13 @@ PROFILE + '\n\n' +
 'Faiveley (basis-linjer), Ruffino osv. skal IKKE velges når det finnes grower-alternativer\n' +
 'i listen. Velg dem kun hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
 'VED MATSPØRSMÅL – følg dette hierarkiet strengt:\n' +
-'1. Pairingmatch: velg viner som faktisk fungerer med retten. Bruk din faglige kunnskap.\n' +
-'   - Vurder tekstur og kropp: kremete/fete retter krever vin med tilsvarende volum.\n' +
-'     Chablis er for tynn til kremete retter – bruk hvit Burgund med kropp (Meursault, Puligny, Chassagne).\n' +
-'   - Vurder intensitet: kraftige retter trenger viner som ikke forsvinner.\n' +
+'1. Kanonisk pairing: ranger etter hvor klassisk og anerkjent koblingen er, ikke bare "kan fungere".\n' +
+'   For biff og rødt kjøtt med rik saus (béarnaise, rødvinsaus): Bordeaux venstrekyst\n' +
+'   (Pauillac, Saint-Julien, Saint-Estèphe, Margaux) er DEN kanoniske anbefalingen.\n' +
+'   Barolo/Barbaresco og Ribera del Duero er sterke alternativer. Côte-Rôtie kan fungere\n' +
+'   men er mer for vilt/and – ikke primærvalget for biff.\n' +
+'   For kremete/fete retter: hvit Burgund med kropp (Meursault, Puligny, Chassagne), ikke Chablis.\n' +
+'   Vurder tekstur og kropp: kremete/fete retter krever vin med tilsvarende volum.\n' +
 '2. Produsent-kvalitet: innenfor viner som fungerer til retten, foretrekk anerkjente produsenter.\n' +
 '3. Brukerprofilen brukes KUN til å rangere mellom viner som allerede er gode pairings.\n' +
 '   Profilen skal IKKE styre hvilke viner som velges – kun hvilken av de gode pairingene\n' +
@@ -429,6 +432,19 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       .filter(Boolean);
   } else {
     recommended = finalists;
+  }
+
+  // Fyll opp til 12 kort med gjenværende finalister dersom modellen returnerte færre
+  if (recommended.length < 12 && finalists.length > recommended.length) {
+    var usedIds = {};
+    recommended.forEach(function(p) { if (p.id) usedIds[p.id] = true; });
+    finalists.forEach(function(p) {
+      if (recommended.length >= 12) return;
+      if (p.id && !usedIds[p.id]) {
+        recommended.push(p);
+        usedIds[p.id] = true;
+      }
+    });
   }
 
   return { text: finalText, products: recommended, stores: allStores };
