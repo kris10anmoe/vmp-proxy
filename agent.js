@@ -479,7 +479,13 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       ? 'Ranger finalistene. Kjellerviner (source="cellar") beskrives FØRST i teksten med antall flasker og drikkevindusvurdering – IKKE i recommend_products.' +
         (hasVmp ? ' Kall recommend_products med opptil 12 Vinmonopolet-viner (uten source) i rangert rekkefølge.' : ' Kall IKKE recommend_products.') +
         ' Beskriv 6 beste totalt (kjeller + VMP).'
-      : 'Ranger finalistene mot profilen. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først). Beskriv deretter de 6 beste i teksten.';
+      : 'Ranger finalistene mot profilen.\n' +
+        'ABSOLUTTE REGLER – gjelder alle 12 kort, ikke bare topp 6:\n' +
+        '1. MAKS 1 vin per produsent\n' +
+        '2. MAKS 2 viner fra samme appellation (f.eks. maks 2 Meursault, maks 2 Côte-Rôtie)\n' +
+        '3. EKSKLUDER Marchesi di Barolo, Zonin, Cavit, Ruffino og andre kommersielle volumprodusenter\n' +
+        '4. EKSKLUDER alle søtviner/dessertviner (Sauternes, Barsac, TBA osv.)\n' +
+        'Kall recommend_products med 8-12 viner rangert beste først. Beskriv de 6 beste i teksten.';
     agentHistory = history.concat([
       {
         role: 'assistant',
