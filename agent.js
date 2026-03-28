@@ -89,8 +89,12 @@ PROFILE + '\n\n' +
 '2. Kandidatene er allerede batch-rangert – du ser bare finalistene\n' +
 '3. Hvis bruker nevnte en bestemt butikk: kall get_store_stock for toppkandidatene\n' +
 '   og bruk lagerstatus som primærfilter i rangeringen\n' +
-'4. Kall recommend_products med de beste 6-12 i rangert rekkefølge\n' +
-'5. Skriv kort anbefaling per vin – marker hvilke som er på lager i butikken\n\n' +
+'4. Før du kaller recommend_products: sjekk manuelt at ingen produsent er med mer enn én gang.\n' +
+'   Er det duplikater – behold kun den beste, fjern de andre.\n' +
+'5. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først).\n' +
+'   Kortene vises i eksakt denne rekkefølgen – ranger nøye.\n' +
+'6. I teksten: beskriv de 6 beste. Nevn ikke vinene som bare er med som kort (7–12).\n' +
+'7. Marker hvilke som er på lager i butikken hvis butikk ble nevnt.\n\n' +
 'TEKSTSTIL – anta at brukeren er ekspert:\n' +
 'IKKE forklar hva Barolo, Côte-Rôtie, Gevrey eller andre kjente appellasjoner er.\n' +
 'Stilbeskrivelser er fine, men bruk dem som kontekst – ikke som erstatning for konkret info.\n' +
@@ -109,15 +113,16 @@ PROFILE + '\n\n' +
 '(f.eks. "Burgund gir mer presisjon og terroirtransparens – ny verden mer frukt og volum på dette prisnivået.").\n' +
 'Deretter 1–2 setninger som forklarer søkestrategien: hvilke profiler du lette etter og hvorfor.\n' +
 'For matparing: beskriv hva i retten som driver vinvalget (fett, syre, intensitet, saus, tilberedning).\n' +
-'Eksempel: "Hollandaisen krever syre til å skjære gjennom fettet, og hvitfisken tåler ikke tannin.\n' +
-'Jeg har prioritert Chablis og tørr Riesling – mineralitet og høy syre uten å overdøve fisken."\n\n' +
-'For matparing: løft frem én stil som klar favoritt og forklar i 2–3 setninger HVORFOR\n' +
-'akkurat den stilen dominerer retten (fett, syre, intensitet, tilberedning).\n' +
-'Presenter øvrige stiler som alternativer med kortere begrunnelse.\n\n' +
-'- 4–8 anbefalinger fra MINST 3 ulike regioner/druer\n' +
+'Løft frem én stil som klar favoritt og forklar HVORFOR den dominerer retten.\n' +
+'Presenter øvrige stiler som alternativer med kortere begrunnelse.\n' +
+'Intro-setningene MÅ nevne ALLE vinstiler/druer du inkluderer – ikke bare de fremste.\n\n' +
+'- Beskriv de 6 beste vinene i teksten. Fra MINST 3 ulike regioner/druer.\n' +
 '- Navn, varenummer, pris (og flaskestørrelse hvis det avviker fra 75 cl)\n' +
 '- Ved uvanlig volum (halvflaske, magnum osv.): nevn normalisert pris per 75 cl\n' +
-'- Én setning per vin: årgangsspesifikk karakter eller produsentens posisjon + drikkevinduestimat';
+'- Per vin: 2–3 setninger.\n' +
+'  (1) Konkret smaksprofil for akkurat denne vinen og årgangen – ikke generiske stilbeskrivelser.\n' +
+'  (2) Hva som gjør denne produsenten eller flasken interessant: posisjon, stil, avvik fra norm.\n' +
+'  (3) Drikkevinduestimat. Ved matparing: legg til én setning om hvordan vinen spiller mot retten.';
 
 // ── Tools ─────────────────────────────────────────────────────────────────────
 var SEARCH_TOOLS = [
