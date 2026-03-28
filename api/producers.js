@@ -51,7 +51,13 @@ export default async function handler(req, res) {
         try {
           const { products } = await getProducts({ query: term, limit: 30 });
           products.forEach(p => { if (!p.vintage) p.vintage = extractYear(p.name); });
-          const hits = products.filter(p => !isSpirit(p));
+          const isStdBottle = p => {
+            const v = String(p.volume?.formattedValue || p.volume?.value || p.volume || '').replace(',','.').replace(/[^0-9.]/g,'');
+            if (!v) return true;
+            const cl = parseFloat(v);
+            return isNaN(cl) || cl <= 75;
+          };
+          const hits = products.filter(p => !isSpirit(p) && isStdBottle(p));
           const toPopulate = hits.slice(0, 15);
           return await Promise.all(toPopulate.map(p => p.populate().catch(() => p)));
         } catch (e) { return []; }

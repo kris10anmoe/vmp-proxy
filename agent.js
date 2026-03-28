@@ -424,6 +424,14 @@ async function batchRank(batch, userQuery, onStatus) {
   } catch (e) { return []; }
 }
 
+// Filtrer ut store formater (magnummer, bag-in-box) – kun 75 cl og halvflasker (≤ 75 cl)
+function isStandardBottle(p) {
+  var vol = String(p.volume || '').replace(',', '.').replace(/[^0-9.]/g, '');
+  if (!vol) return true;               // ukjent volum – behold
+  var cl = parseFloat(vol);
+  return isNaN(cl) || cl <= 75;        // 75 cl, 37.5 cl, halvflasker OK; 150 cl+ filtreres
+}
+
 // ── Søkefase ──────────────────────────────────────────────────────────────────
 async function runSearches(plan, onStatus) {
   var allProducts = [];
@@ -459,7 +467,7 @@ async function runSearches(plan, onStatus) {
     onStatus && onStatus('Henter gold standard-produsenter...');
     var goldProducts = await window.Vin.fetchProducers(goldTerms);
     goldProducts.forEach(function(p) {
-      if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
+      if (p.id && !seen[p.id] && isStandardBottle(p)) { seen[p.id] = true; allProducts.push(p); }
     });
   }
 
@@ -487,6 +495,7 @@ async function runSearches(plan, onStatus) {
         // slik at små håndverksmessige produsenter ikke taper mot popularitetssortering.
         var unknowns = products.filter(function(p) {
           if (!p.id || seen[p.id]) return false;
+          if (!isStandardBottle(p)) return false;   // filtrer store formater
           return !ragLookupProducer(p.name || ''); // hold bare ikke-DB-produsenter
         });
         // Fisher-Yates shuffle
@@ -498,9 +507,9 @@ async function runSearches(plan, onStatus) {
           seen[p.id] = true; allProducts.push(p);
         });
       } else {
-        // Producer- og cellar-søk legges til som de er
+        // Producer- og cellar-søk – filtrer store formater
         products.forEach(function(p) {
-          if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
+          if (p.id && !seen[p.id] && isStandardBottle(p)) { seen[p.id] = true; allProducts.push(p); }
         });
       }
     });
