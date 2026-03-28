@@ -41,6 +41,15 @@ PROFILE + '\n\n' +
 'Eksempel: "Bordeaux til entrecôte" → kun Bordeaux-søk, IKKE Barolo, Burgund eller Rhône.\n' +
 'Eksempel: "noe fra Burgund" → kun Burgund-appellationer, ikke Bordeaux.\n' +
 'Hvis det ikke finnes gode resultater innenfor brukerens avgrensning, si det – ikke bytt region.\n\n' +
+'VED STORE REGIONER – ekspander til sub-appellationer:\n' +
+'Når bruker nevner en stor region, bruk ALLE 6 søkeplasser på region-interne sub-appellationer.\n' +
+'Diversitetsregelen (1 søk per drue) gjelder IKKE her – brukeren vil bredde innen regionen.\n' +
+'Bordeaux (rød): Pauillac, Saint-Julien, Margaux, Saint-Estèphe, Pomerol, Saint-Émilion\n' +
+'Burgund (rød): Gevrey-Chambertin, Chambolle-Musigny, Vosne-Romanée, Nuits-Saint-Georges, Pommard, Volnay\n' +
+'Burgund (hvit): Puligny-Montrachet, Meursault, Chassagne-Montrachet, Chablis Premier Cru\n' +
+'Rhône (nord): Côte-Rôtie, Hermitage, Crozes-Hermitage, Cornas, Saint-Joseph\n' +
+'Piemonte: Barolo, Barbaresco, Langhe Nebbiolo, Barbera d\'Asti\n' +
+'Toscana: Brunello, Bolgheri, Chianti Classico Gran Selezione, Vino Nobile\n\n' +
 'Søkene skal dekke hva brukeren faktisk spør om – ikke filtreres gjennom smaksprofilen.\n' +
 'Profilen brukes i rangeringen, ikke til å begrense søkene.\n\n' +
 'Ved åpne spørsmål: bruk brede, relevante kategorier og presise apellasjoner.\n' +
@@ -316,13 +325,19 @@ function normRag(s) {
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 }
+var SKIP_PREFIXES = { ch: 1, chateau: 1, domaine: 1, dom: 1, maison: 1, cave: 1, clos: 1, mas: 1 };
 function ragLookupProducer(name) {
   var idx = window.producerIndex;
   if (!idx) return null;
   var words = normRag(name).split(' ');
-  for (var len = Math.min(words.length, 4); len >= 1; len--) {
-    var hit = idx.get(words.slice(0, len).join(' '));
-    if (hit) return hit;
+  // Try from each starting offset (0, 1, 2) so "Ch. Grand-Puy" and "Grand-Puy" both match
+  for (var start = 0; start <= Math.min(2, words.length - 1); start++) {
+    if (start > 0 && !SKIP_PREFIXES[words[start - 1]]) break;
+    var slice = words.slice(start);
+    for (var len = Math.min(slice.length, 4); len >= 1; len--) {
+      var hit = idx.get(slice.slice(0, len).join(' '));
+      if (hit) return hit;
+    }
   }
   return null;
 }
