@@ -20,11 +20,14 @@ PROFILE + '\n\n' +
 'Format:\n' +
 '{\n' +
 '  "reasoning": "kort faglig begrunnelse",\n' +
+'  "maxPrice": 500,\n' +
 '  "search_targets": [\n' +
 '    {"q": "søkestreng", "type": "producer"},\n' +
 '    {"q": "regionsnavn stil", "type": "region", "sortBy": "vintage_asc"}\n' +
 '  ]\n' +
 '}\n\n' +
+'maxPrice (valgfritt): sett kun når bruker oppgir et eksplisitt pristak (f.eks. "under 300 kr",\n' +
+'"maks 500 kr"). Verdien er kroner. Utelat feltet når ingen prisgrense er oppgitt.\n\n' +
 'type=producer: spesifikk produsent, henter 30 resultater (f.eks. "Trediberri", "Jamet", "Rostaing")\n' +
 'type=region: appellation/region/drue, henter 100 resultater (f.eks. "Barolo", "Chablis Premier Cru", "Pinot Noir")\n' +
 'sortBy (valgfritt): "vintage_asc" = eldste årganger først (bruk ved "eldste", "moden", "klar nå"),\n' +
@@ -47,7 +50,14 @@ PROFILE + '\n\n' +
 'For matspørsmål: oversett retten til passende vinstiler FØR du fyller inn search_targets.\n' +
 'VED MATSPØRSMÅL – søk på de faglig riktige klassiske pairingregionene:\n' +
 'Brukerens profil gjelder rangering, aldri søkevalg. Bruk din vinkunskap til å identifisere\n' +
-'de anerkjente klassiske pairingene for retten – uavhengig av brukerens favorittregioner.\n' +
+'de anerkjente klassiske pairingene for retten – uavhengig av brukerens favorittregioner.\n\n' +
+'VED NATURVIN/BIODYNAMISK-SPØRSMÅL:\n' +
+'"Naturvin" er ikke et søkbart ord i Vinmonopolets katalog – søk i stedet på regioner og\n' +
+'druer der naturvin dominerer: Beaujolais (Gamay), Loire (Gamay, Pineau d\'Aunis, Chenin),\n' +
+'Jura (Poulsard, Trousseau, Savagnin), Sicilia, Slovenien, Auvergne.\n' +
+'Søk gjerne på kjente naturvinprodusenter direkte (type=producer): f.eks. Lapierre,\n' +
+'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
+'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n\n' +
 'INGEN SØKEBEHOV – bruk search_targets: [] når spørsmålet:\n' +
 '- ber om rangering/sammenligning av allerede nevnte viner\n' +
@@ -307,7 +317,7 @@ async function batchRank(batch, userQuery, onStatus) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:      'claude-sonnet-4-5-20250929',
+        model:      'gpt-4o-mini',
         max_tokens: 200,
         system:     BATCH_SYSTEM,
         messages:   [{ role: 'user', content: prompt }]
@@ -349,7 +359,7 @@ async function runSearches(plan, onStatus) {
 }
 
 // ── Finalerunde med tools ─────────────────────────────────────────────────────
-async function finalRound(finalists, history, userQuery, onStatus, noSearchNeeded) {
+async function finalRound(finalists, history, userQuery, onStatus, noSearchNeeded, maxPrice) {
   var allStores        = [];
   var recommendedCodes = null;
   var finalText        = '';
@@ -486,6 +496,7 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       if (recommended.length >= 12) return;
       if (!p.id || usedIds[p.id]) return;
       if (isSweetWine(p)) return;
+      if (maxPrice && p.price != null && p.price > maxPrice) return;
       // Sjekk produsentduplikat (første 2 ord)
       var words = (p.name || '').replace(/\s+\d{4}.*$/, '').trim().split(/\s+/);
       var producer = words.slice(0, 2).join(' ').toLowerCase();
@@ -529,6 +540,13 @@ async function run(history, onStatus) {
     }
   }
 
+  // Prisfiltrering – respekter maxPrice fra planen
+  if (plan.maxPrice && plan.maxPrice > 0) {
+    allProducts = allProducts.filter(function(p) {
+      return p.price == null || p.price <= plan.maxPrice;
+    });
+  }
+
   var finalists;
 
   if (allProducts.length <= 60) {
@@ -570,7 +588,7 @@ async function run(history, onStatus) {
 
   // Steg 4: Finalerunde
   // Ved ingen søk: send tom finalistliste – agenten bruker historikken
-  return await finalRound(finalists, history, userQuery, onStatus, noSearchNeeded);
+  return await finalRound(finalists, history, userQuery, onStatus, noSearchNeeded, plan.maxPrice || 0);
 }
 
 return { run: run };

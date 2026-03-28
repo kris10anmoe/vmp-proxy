@@ -84,10 +84,11 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST')    return res.status(405).end();
 
-  const { max_tokens, system, messages, tools } = req.body;
+  const { max_tokens, system, messages, tools, model } = req.body;
+  const oaiModel = model === 'gpt-4o-mini' ? 'gpt-4o-mini' : 'gpt-4o';
 
   const oaiBody = {
-    model:      'gpt-4o',
+    model:      oaiModel,
     max_tokens: max_tokens || 1024,
     messages:   toOAIMessages(system, messages)
   };
