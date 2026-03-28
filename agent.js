@@ -59,9 +59,11 @@ PROFILE + '\n\n' +
 'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
 'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n' +
-'KRITISK ved matspørsmål: dekk alltid MINST 2 ulike vinfarger/stiler når retten tillater det.\n' +
-'And/fugl/villfugl: søk både hvitt (Riesling, Burgund hvit) OG rødt (Pinot Noir, Syrah, Nebbiolo).\n' +
-'Ikke begrens søkene til én stil selv om profilen favoriserer den.\n\n' +
+'FARGEKRAV ved matspørsmål: for alle retter unntatt delikat fisk/skalldyr MÅ planen ha\n' +
+'minst 1 rødvinsøk OG minst 1 hvitvinsøk. "2 ulike stiler" betyr IKKE 4 hvite fra\n' +
+'ulike regioner – det betyr én rød og én hvit som minimum.\n' +
+'Champagne/moden Blanc de Blancs er faglig relevant til fjørfe og fete sauser – søk det.\n' +
+'Søk IKKE på Crémant, Cava, Prosecco, Sekt ved matspørsmål – kun Champagne ved behov.\n\n' +
 'VED KJELLERSPØRSMÅL – når bruker spør om "kjelleren", "har jeg hjemme", "fra min samling",\n' +
 '"hva har jeg", "åpne i kveld" eller lignende:\n' +
 'Inkluder søk med type: "cellar" i search_targets. Søketeksten beskriver stilen/regionen.\n' +
@@ -709,6 +711,7 @@ async function run(history, onStatus) {
 
     // Dedupliser og bygg liste av fulle produktobjekter
     var seen2 = {};
+    var seenProducer2 = {};
     var productMap2 = {};
     allProducts.forEach(function(p) { if (p.id) productMap2[p.id] = p; });
 
@@ -716,6 +719,15 @@ async function run(history, onStatus) {
       .filter(function(id) {
         if (!id || seen2[id]) return false;
         seen2[id] = true;
+        // Dedupliser på produsentnivå – behold kun beste vin per kjent produsent
+        var prod = productMap2[id];
+        if (prod) {
+          var pInfo = ragLookupProducer(prod.name || '');
+          if (pInfo && pInfo.name) {
+            if (seenProducer2[pInfo.name]) return false;
+            seenProducer2[pInfo.name] = true;
+          }
+        }
         return true;
       })
       .map(function(id) { return productMap2[id] || null; })
