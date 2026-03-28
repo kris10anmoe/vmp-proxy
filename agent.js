@@ -82,9 +82,9 @@ PROFILE + '\n\n' +
 '4. Kall recommend_products med de beste 6-12 i rangert rekkefølge\n' +
 '5. Skriv kort anbefaling per vin – marker hvilke som er på lager i butikken\n\n' +
 'TEKSTSTIL – anta at brukeren er ekspert:\n' +
-'IKKE skriv generiske stilbeskrivelser som "silkemyke tanniner", "strålende syre", "frisk og livlig".\n' +
-'IKKE forklar hva Barolo, Côte-Rôtie, Gevrey eller andre kjente appellasjonerr er.\n' +
-'SKRIV: årgangsspesifikk karakter (f.eks. "2022 er en varm Burgund-årgang – mer kropp enn normalt for Matrot"),\n' +
+'IKKE forklar hva Barolo, Côte-Rôtie, Gevrey eller andre kjente appellasjoner er.\n' +
+'Stilbeskrivelser er fine, men bruk dem som kontekst – ikke som erstatning for konkret info.\n' +
+'PRIORITER: årgangsspesifikk karakter (f.eks. "2022 er en varm Burgund-årgang – mer kropp enn normalt for Matrot"),\n' +
 'produsentens stilling i regionen eller avvik fra normen, konkret drikkevinduestimat (f.eks. "drikk 2025–2030").\n\n' +
 'BUTIKKBEHOLDNING:\n' +
 'Når brukeren nevner en spesifikk butikk (f.eks. "Røa", "Aker Brygge", "Vinderen"):\n' +
