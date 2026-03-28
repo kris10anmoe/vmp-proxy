@@ -77,6 +77,19 @@ function normalizeProduct(p) {
     return match ? parseInt(match[0]) : null;
   }
 
-  return { searchProducts, getStock };
+  // Hent viner fra alle oppgitte produsenter i én server-side parallellkjøring.
+  // Erstatter individuelle produsentsøk med ett bredt OR-søk over alle tier 4/5-produsenter.
+  async function fetchProducers(producerTerms) {
+    if (!producerTerms || producerTerms.length === 0) return [];
+    var q = producerTerms.join(',');
+    try {
+      var r = await fetch('/api/producers?producers=' + encodeURIComponent(q));
+      if (!r.ok) return [];
+      var data = await r.json();
+      return data.products || [];
+    } catch (e) { return []; }
+  }
+
+  return { searchProducts, getStock, fetchProducers };
 
 })();

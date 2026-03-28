@@ -426,60 +426,58 @@ async function runSearches(plan, onStatus) {
   var allProducts = [];
   var seen = {};
 
-  // Injiser produsentsøk for tier 4/5-produsenter i hvert regionsøk.
-  // Dekker bredt over alle kjente topprodusenter per region (effektivt OR-søk).
   var planTargets = (plan.search_targets || []).slice();
-  var existingQ = new Set(planTargets.map(function(t) {
+
+  // Steg A: Hent alle tier 4/5-produsenter for hvert regionsøk via server-side OR-søk.
+  // /api/producers kjører alle produsentsøk internt i parallell – dekker alle gold standard
+  // produsenter i én forespørsel uten begrensning på antall.
+  var goldTerms = [];
+  var seenGoldTerms = new Set(planTargets.map(function(t) {
     return normRag(typeof t === 'string' ? t : (t.q || ''));
   }));
-  var injected = [];
-  var injectedCount = 0;
   planTargets.forEach(function(target) {
     var type   = typeof target === 'object' ? (target.type || 'region') : 'region';
     var sortBy = typeof target === 'object' ? target.sortBy : null;
     if (type !== 'region' || sortBy) return;
     var q = typeof target === 'string' ? target : target.q;
     var producers = (window.regionToProducers || new Map()).get(normRag(q)) || [];
-    producers.slice()
-      .sort(function(a, b) {
-        if (b.tier !== a.tier) return b.tier - a.tier;
-        return (b.availability.polet_presence || 0) - (a.availability.polet_presence || 0);
-      })
-      .slice(0, 5)                          // Opp til 5 produsenter per region
-      .forEach(function(p) {
-        if (injectedCount >= 20) return;    // Globalt tak
-        var term = (p.search_terms || [])[0];
-        if (!term || existingQ.has(normRag(term))) return;
-        existingQ.add(normRag(term));
-        injected.push({ q: term, type: 'producer' });
-        injectedCount++;
+    producers.forEach(function(p) {
+      (p.search_terms || []).slice(0, 2).forEach(function(term) {
+        var k = normRag(term);
+        if (!seenGoldTerms.has(k)) {
+          seenGoldTerms.add(k);
+          goldTerms.push(term);
+        }
       });
+    });
   });
-  var allTargets = injected.concat(planTargets);
 
-  // Kjør alle søk parallelt i bolker av 5 (effektivt OR-søk over mange produsenter)
-  var CONCURRENCY = 5;
+  if (goldTerms.length > 0) {
+    onStatus && onStatus('Henter gold standard-produsenter...');
+    var goldProducts = await window.Vin.fetchProducers(goldTerms);
+    goldProducts.forEach(function(p) {
+      if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
+    });
+  }
+
+  // Steg B: Kjør plan-søkene parallelt i bolker av 5
   function execTarget(target) {
     var q        = typeof target === 'string' ? target : target.q;
     var type     = typeof target === 'object' ? (target.type || 'region') : 'region';
     var sortBy   = typeof target === 'object' ? target.sortBy || null : null;
     var pageSize = type === 'producer' ? 30 : 100;
-    if (type === 'cellar') {
-      return Promise.resolve(searchCellar(q));
-    }
+    if (type === 'cellar') return Promise.resolve(searchCellar(q));
     return window.Vin.searchProducts(q, pageSize, sortBy, 'agent').catch(function() { return []; });
   }
 
   onStatus && onStatus('Søker etter viner...');
-  for (var start = 0; start < allTargets.length; start += CONCURRENCY) {
-    var batch = allTargets.slice(start, start + CONCURRENCY);
-    var results = await Promise.all(batch.map(execTarget));
+  var CONCURRENCY = 5;
+  for (var start = 0; start < planTargets.length; start += CONCURRENCY) {
+    var batchT = planTargets.slice(start, start + CONCURRENCY);
+    var results = await Promise.all(batchT.map(execTarget));
     results.forEach(function(products) {
       products.forEach(function(p) {
-        if (p.id && !seen[p.id]) {
-          seen[p.id] = true;
-          allProducts.push(p);
-        }
+        if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
       });
     });
   }
