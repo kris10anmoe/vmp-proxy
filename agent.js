@@ -42,12 +42,9 @@ PROFILE + '\n\n' +
 'Verdiene MÅ være vinnavn, produsentnavn, regionsnavn eller vintyper – aldri matnavn.\n' +
 'Feil: "and i appelsinsaus" Riktig: "Pinot Noir Burgund", "Riesling trocken", "Gewurztraminer"\n' +
 'For matspørsmål: oversett retten til passende vinstiler FØR du fyller inn search_targets.\n' +
-'VED MATSPØRSMÅL – søk på klassiske pairings, IKKE brukerens favorittregioner:\n' +
-'Brukerens profil gjelder rangering, aldri søkevalg. Inkluder alltid de faglig riktige\n' +
-'klassiske pairingregionene selv om de ikke er i profilen.\n' +
-'Eksempel: entrecôte/biff → Bordeaux (Pauillac, Saint-Julien, Saint-Estèphe, Margaux,\n' +
-'Pomerol, Saint-Émilion), Barolo/Barbaresco, Ribera del Duero, Cahors.\n' +
-'Eksempel: kremet sjømat → hvit Burgund (Meursault, Puligny), ikke Chablis.\n' +
+'VED MATSPØRSMÅL – søk på de faglig riktige klassiske pairingregionene:\n' +
+'Brukerens profil gjelder rangering, aldri søkevalg. Bruk din vinkunskap til å identifisere\n' +
+'de anerkjente klassiske pairingene for retten – uavhengig av brukerens favorittregioner.\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n\n' +
 'INGEN SØKEBEHOV – bruk search_targets: [] når spørsmålet:\n' +
 '- ber om rangering/sammenligning av allerede nevnte viner\n' +
@@ -74,13 +71,9 @@ PROFILE + '\n\n' +
 'Faiveley (basis-linjer), Ruffino osv. skal IKKE velges når det finnes grower-alternativer\n' +
 'i listen. Velg dem kun hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
 'VED MATSPØRSMÅL – følg dette hierarkiet strengt:\n' +
-'1. Kanonisk pairing: ranger etter hvor klassisk og anerkjent koblingen er, ikke bare "kan fungere".\n' +
-'   For biff og rødt kjøtt med rik saus (béarnaise, rødvinsaus): Bordeaux venstrekyst\n' +
-'   (Pauillac, Saint-Julien, Saint-Estèphe, Margaux) er DEN kanoniske anbefalingen.\n' +
-'   Barolo/Barbaresco og Ribera del Duero er sterke alternativer. Côte-Rôtie kan fungere\n' +
-'   men er mer for vilt/and – ikke primærvalget for biff.\n' +
-'   For kremete/fete retter: hvit Burgund med kropp (Meursault, Puligny, Chassagne), ikke Chablis.\n' +
-'   Vurder tekstur og kropp: kremete/fete retter krever vin med tilsvarende volum.\n' +
+'1. Kanonisk pairingkvalitet: bruk din faglige vinkunskap til å vurdere hvor klassisk og\n' +
+'   anerkjent koblingen mellom vin og rett er. "Kan fungere" er ikke nok – prioriter de\n' +
+'   pairingene som er faglig etablerte og logiske gitt rettens tekstur, intensitet og smaksprofil.\n' +
 '2. Produsent-kvalitet: innenfor viner som fungerer til retten, foretrekk anerkjente produsenter.\n' +
 '3. Brukerprofilen brukes KUN til å rangere mellom viner som allerede er gode pairings.\n' +
 '   Profilen skal IKKE styre hvilke viner som velges – kun hvilken av de gode pairingene\n' +
