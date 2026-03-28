@@ -544,6 +544,10 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
         (hasVmp ? ' Kall recommend_products med opptil 12 Vinmonopolet-viner (uten source) i rangert rekkefølge.' : ' Kall IKKE recommend_products.') +
         ' Beskriv 6 beste totalt (kjeller + VMP).'
       : 'Skriv en vinanbefaling som svar på: "' + userQuery + '".\n' +
+        'KRITISK – BARE EKTE VINER: Du kan KUN beskrive viner som faktisk finnes i finalistlisten\n' +
+        'ovenfor. OPPFINN ALDRI produkter, varenumre, priser eller viner du vet "burde" vært der\n' +
+        'men som ikke er på listen. Hvis Haut-Brion ikke er på listen, kan du IKKE skrive om den.\n' +
+        'Teksten og recommend_products-kallet MÅ referere til nøyaktig de samme vinene.\n\n' +
         'Start svaret med én setning som direkte besvarer spørsmålet, deretter søkestrategi.\n' +
         'ABSOLUTTE REGLER – gjelder alle 12 kort, ikke bare topp 6:\n' +
         '1. MAKS 1 vin per produsent\n' +
