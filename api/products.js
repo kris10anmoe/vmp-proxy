@@ -1,9 +1,4 @@
 import { getProducts } from 'vinmonopolet-ts';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-const producersDB    = require('./producers_db_v2.json');
-const appellationsDB = require('./appellations_db_v2.json');
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://vmp-proxy-4u1l.vercel.app';
 
@@ -14,44 +9,8 @@ const extractYear = name => {
 
 const isSpirit = p => p.mainCategory?.code === 'brennevin';
 
-// ── RAG-oppslag: produsent og appellation ──────────────────────────────────
-const norm = s => (s || '').toLowerCase()
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-
-const producerIndex = new Map();
-for (const data of Object.values(producersDB)) {
-  for (const term of (data.search_terms || [])) {
-    producerIndex.set(norm(term), data);
-  }
-}
-
-const appellationIndex = new Map();
-for (const data of Object.values(appellationsDB)) {
-  for (const term of (data.search_terms || [])) {
-    appellationIndex.set(norm(term), data);
-  }
-}
-
-const lookupProducer = name => {
-  const words = norm(name).split(' ');
-  for (let len = Math.min(words.length, 4); len >= 1; len--) {
-    const hit = producerIndex.get(words.slice(0, len).join(' '));
-    if (hit) return hit;
-  }
-  return null;
-};
-
-const lookupAppellation = subRegion => {
-  if (!subRegion) return null;
-  return appellationIndex.get(norm(subRegion)) || null;
-};
-
 // Komprimert format for agentbruk – ingen populate(), bare felt som påvirker rangering
-const compactForAgent = p => {
-  const producerInfo    = lookupProducer(p.name || '');
-  const appellationInfo = lookupAppellation(p.subDistrict?.name || '');
-  return ({
+const compactForAgent = p => ({
   id:          p.code || p.id || null,
   name:        p.name || null,
   price:       p.price || null,
@@ -77,11 +36,8 @@ const compactForAgent = p => {
     if (typeof v === 'number') return v + ' cl';
     return v.formattedValue || (v.value != null ? v.value + ' ' + (v.unit || 'cl') : null);
   })(),
-  url:           p.url ? 'https://www.vinmonopolet.no' + p.url : null,
-  producer_tier: producerInfo    ? producerInfo.tier           : null,
-  pairing_tags:  appellationInfo ? appellationInfo.pairing_tags : null
-  });
-};
+  url:         p.url ? 'https://www.vinmonopolet.no' + p.url : null
+});
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);

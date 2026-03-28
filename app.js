@@ -1,12 +1,39 @@
 // app.js – UI-logikk og rendering
 // Avhenger av: vin.js (window.Vin), agent.js (window.Agent)
 
-// ── Last kjelleroversikt ved oppstart ─────────────────────────────────────
+// ── Last kjelleroversikt og kvalitetsdatabaser ved oppstart ───────────────
 window.cellarData = [];
 fetch('/cellar.json')
   .then(function(r) { return r.json(); })
   .then(function(data) { window.cellarData = data; })
   .catch(function() { window.cellarData = []; });
+
+// RAG: produsent- og appellasjonsindekser
+window.producerIndex    = null;
+window.appellationIndex = null;
+
+function normStr(s) {
+  return (s || '').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+Promise.all([
+  fetch('/producers_db_v2.json').then(function(r) { return r.json(); }),
+  fetch('/appellations_db_v2.json').then(function(r) { return r.json(); })
+]).then(function(results) {
+  var pIdx = new Map();
+  Object.values(results[0]).forEach(function(data) {
+    (data.search_terms || []).forEach(function(term) { pIdx.set(normStr(term), data); });
+  });
+  window.producerIndex = pIdx;
+
+  var aIdx = new Map();
+  Object.values(results[1]).forEach(function(data) {
+    (data.search_terms || []).forEach(function(term) { aIdx.set(normStr(term), data); });
+  });
+  window.appellationIndex = aIdx;
+}).catch(function() {});
 
 (function () {
   var history = [];

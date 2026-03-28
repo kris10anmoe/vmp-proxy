@@ -1,0 +1,5839 @@
+{
+  "bourgogne_rouge": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Regional",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "mushroom",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Bourgogne Rouge",
+      "Bourgogne Pinot Noir"
+    ],
+    "producer_examples": [
+      "Domaine Michel Lafarge",
+      "Domaine Denis Bachelet",
+      "Domaine Arnaud Mortet"
+    ]
+  },
+  "bourgogne_blanc": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Regional",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Bourgogne Blanc",
+      "Bourgogne Chardonnay"
+    ],
+    "producer_examples": [
+      "Domaine Matrot",
+      "Henri Boillot",
+      "Domaine Roulot"
+    ]
+  },
+  "bourgogne_aligote": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Regional",
+    "color": "white",
+    "grapes": [
+      "Aligoté"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "oysters",
+      "fried fish",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Bourgogne Aligoté",
+      "Aligoté"
+    ],
+    "producer_examples": [
+      "Sylvain Pataille",
+      "A et P de Villaine",
+      "Jean Fournier"
+    ]
+  },
+  "marsannay": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "pork",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Marsannay"
+    ],
+    "producer_examples": [
+      "Sylvain Pataille",
+      "Jean Fournier",
+      "Domaine Bruno Clair"
+    ]
+  },
+  "fixin": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "game birds",
+      "pork"
+    ],
+    "search_terms": [
+      "Fixin"
+    ],
+    "producer_examples": [
+      "Domaine Pierre Gelin",
+      "Domaine Berthaut-Gerbet",
+      "Domaine Joliet"
+    ]
+  },
+  "gevrey_chambertin": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "game",
+      "lamb"
+    ],
+    "search_terms": [
+      "Gevrey-Chambertin"
+    ],
+    "producer_examples": [
+      "Domaine Armand Rousseau",
+      "Domaine Denis Mortet",
+      "Domaine Duroché"
+    ]
+  },
+  "morey_saint_denis": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "game birds",
+      "duck",
+      "veal"
+    ],
+    "search_terms": [
+      "Morey-Saint-Denis"
+    ],
+    "producer_examples": [
+      "Domaine Dujac",
+      "Domaine Hubert Lignier",
+      "Domaine Arlaud"
+    ]
+  },
+  "chambolle_musigny": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "veal",
+      "poultry",
+      "duck"
+    ],
+    "search_terms": [
+      "Chambolle-Musigny"
+    ],
+    "producer_examples": [
+      "Georges Roumier",
+      "Jacques-Frédéric Mugnier",
+      "Comte Georges de Vogüé"
+    ]
+  },
+  "vougeot": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "lamb",
+      "game"
+    ],
+    "search_terms": [
+      "Vougeot"
+    ],
+    "producer_examples": [
+      "Château de la Tour",
+      "Domaine Hudelot-Noëllat",
+      "Anne Gros"
+    ]
+  },
+  "vosne_romanee": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 5,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "game birds",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Vosne-Romanée"
+    ],
+    "producer_examples": [
+      "Méo-Camuzet",
+      "Sylvain Cathiard",
+      "Domaine Jean Grivot"
+    ]
+  },
+  "nuits_saint_georges": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Nuits",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "beef",
+      "game",
+      "duck"
+    ],
+    "search_terms": [
+      "Nuits-Saint-Georges"
+    ],
+    "producer_examples": [
+      "Henri Gouges",
+      "Robert Chevillon",
+      "Thibault Liger-Belair"
+    ]
+  },
+  "cote_de_beaune_rouge": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "roast chicken",
+      "charcuterie",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Côte de Beaune Villages",
+      "Côte de Beaune Rouge"
+    ],
+    "producer_examples": [
+      "Domaine Tollot-Beaut",
+      "Chandon de Briailles",
+      "Domaine Pavelot"
+    ]
+  },
+  "beaune": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "poultry",
+      "duck",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Beaune"
+    ],
+    "producer_examples": [
+      "Domaine des Croix",
+      "Bouchard Père et Fils",
+      "Domaine Chanson"
+    ]
+  },
+  "savigny_les_beaune": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "pork",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Savigny-lès-Beaune"
+    ],
+    "producer_examples": [
+      "Domaine Pavelot",
+      "Domaine Tollot-Beaut",
+      "Chandon de Briailles"
+    ]
+  },
+  "aloxe_corton": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "duck",
+      "game"
+    ],
+    "search_terms": [
+      "Aloxe-Corton"
+    ],
+    "producer_examples": [
+      "Domaine Chandon de Briailles",
+      "Domaine Tollot-Beaut",
+      "Domaine Comte Senard"
+    ]
+  },
+  "pommard": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "beef",
+      "game",
+      "duck"
+    ],
+    "search_terms": [
+      "Pommard"
+    ],
+    "producer_examples": [
+      "Comte Armand",
+      "Domaine de Courcel",
+      "Domaine Parent"
+    ]
+  },
+  "volnay": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "poultry",
+      "duck",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Volnay"
+    ],
+    "producer_examples": [
+      "Marquis d'Angerville",
+      "Domaine Michel Lafarge",
+      "Bitouzet-Prieur"
+    ]
+  },
+  "monthelie": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "veal",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Monthélie",
+      "Monthelie"
+    ],
+    "producer_examples": [
+      "Domaine Douhairet-Porcheret",
+      "Domaine Matrot",
+      "Domaine de Montille"
+    ]
+  },
+  "auxey_duresses_red": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte de Beaune",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "pork",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Auxey-Duresses"
+    ],
+    "producer_examples": [
+      "Domaine d'Auvenay",
+      "Domaine Lafouge",
+      "Domaine Coche-Dury"
+    ]
+  },
+  "mercurey": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte Chalonnaise",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast chicken",
+      "duck",
+      "pork"
+    ],
+    "search_terms": [
+      "Mercurey"
+    ],
+    "producer_examples": [
+      "Domaine Faiveley",
+      "Château de Chamirey",
+      "Domaine Michel Juillot"
+    ]
+  },
+  "givry": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte Chalonnaise",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "charcuterie",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Givry"
+    ],
+    "producer_examples": [
+      "Domaine Joblot",
+      "Domaine François Lumpp",
+      "Domaine Ragot"
+    ]
+  },
+  "rully_red": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte Chalonnaise",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Rully Rouge",
+      "Rully"
+    ],
+    "producer_examples": [
+      "Domaine de Villaine",
+      "Domaine Jacqueson",
+      "Domaine Dureuil-Janthial"
+    ]
+  },
+  "rully_white": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte Chalonnaise",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Rully Blanc",
+      "Rully"
+    ],
+    "producer_examples": [
+      "Domaine de Villaine",
+      "Domaine Dureuil-Janthial",
+      "Domaine Jacqueson"
+    ]
+  },
+  "montagny": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Côte Chalonnaise",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Montagny"
+    ],
+    "producer_examples": [
+      "Domaine Stéphane Aladame",
+      "Domaine Feuillat-Juillot",
+      "Domaine Berthenet"
+    ]
+  },
+  "macon_villages": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 3
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "fish",
+      "salads",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Mâcon-Villages",
+      "Macon Villages"
+    ],
+    "producer_examples": [
+      "Domaine Leflaive",
+      "Bret Brothers",
+      "Domaine Cordier"
+    ]
+  },
+  "saint_veran": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Saint-Véran",
+      "Saint Veran"
+    ],
+    "producer_examples": [
+      "Domaine de la Soufrandière",
+      "Domaine Cordier",
+      "Maison Valette"
+    ]
+  },
+  "pouilly_fuisse": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lobster",
+      "fish",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Pouilly-Fuissé",
+      "Pouilly Fuisse"
+    ],
+    "producer_examples": [
+      "Domaine Guffens-Heynen",
+      "Domaine Ferret",
+      "Domaine J.A. Ferret"
+    ]
+  },
+  "pouilly_loche": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Pouilly-Loché",
+      "Pouilly Loche"
+    ],
+    "producer_examples": [
+      "Domaine Barraud",
+      "Maison Rijckaert",
+      "Domaine Clos des Rocs"
+    ]
+  },
+  "pouilly_vinzelles": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "fish",
+      "white meat",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Pouilly-Vinzelles",
+      "Pouilly Vinzelles"
+    ],
+    "producer_examples": [
+      "Bret Brothers",
+      "Joseph Burrier",
+      "Domaine Cordier"
+    ]
+  },
+  "vire_clesse": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Mâconnais",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Viré-Clessé",
+      "Vire Clesse"
+    ],
+    "producer_examples": [
+      "Domaine André Bonhomme",
+      "Domaine de la Bongran",
+      "Domaine Guillemot-Michel"
+    ]
+  },
+  "chablis": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Auxerrois",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "oysters",
+      "shellfish",
+      "white fish"
+    ],
+    "search_terms": [
+      "Chablis"
+    ],
+    "producer_examples": [
+      "Vincent Dauvissat",
+      "François Raveneau",
+      "Samuel Billaud"
+    ]
+  },
+  "saint_bris": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Auxerrois",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "goat cheese",
+      "shellfish",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Saint-Bris"
+    ],
+    "producer_examples": [
+      "Goisot",
+      "Bersan",
+      "Clotilde Davenne"
+    ]
+  },
+  "irancy": {
+    "country": "France",
+    "region": "Burgundy",
+    "subregion": "Auxerrois",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Irancy"
+    ],
+    "producer_examples": [
+      "Goisot",
+      "Domaine Colinot",
+      "Gabriel Richoux"
+    ]
+  },
+  "beaujolais": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Regional",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 1,
+      "tannin": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "charcuterie",
+      "roast chicken",
+      "picnic"
+    ],
+    "search_terms": [
+      "Beaujolais"
+    ],
+    "producer_examples": [
+      "Jean Foillard",
+      "Marcel Lapierre",
+      "Yvon Métras"
+    ]
+  },
+  "beaujolais_villages": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Villages",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "charcuterie",
+      "poultry",
+      "pizza"
+    ],
+    "search_terms": [
+      "Beaujolais-Villages"
+    ],
+    "producer_examples": [
+      "Jean-Paul Brun",
+      "Château Thivin",
+      "Yann Bertrand"
+    ]
+  },
+  "fleurie": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "duck",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Fleurie"
+    ],
+    "producer_examples": [
+      "Jean Foillard",
+      "Yvon Métras",
+      "Clos de la Roilette"
+    ]
+  },
+  "morgon": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "pork",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Morgon"
+    ],
+    "producer_examples": [
+      "Marcel Lapierre",
+      "Jean Foillard",
+      "Guy Breton"
+    ]
+  },
+  "moulin_a_vent": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "pork",
+      "game birds"
+    ],
+    "search_terms": [
+      "Moulin-à-Vent",
+      "Moulin a Vent"
+    ],
+    "producer_examples": [
+      "Château des Jacques",
+      "Thibault Liger-Belair",
+      "Richard Rottiers"
+    ]
+  },
+  "julienas": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "charcuterie",
+      "pork",
+      "duck"
+    ],
+    "search_terms": [
+      "Juliénas",
+      "Julienas"
+    ],
+    "producer_examples": [
+      "Domaine David Chapel",
+      "Château des Capitans",
+      "Jean-Paul Brun"
+    ]
+  },
+  "brouilly": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "poultry",
+      "pizza"
+    ],
+    "search_terms": [
+      "Brouilly"
+    ],
+    "producer_examples": [
+      "Château Thivin",
+      "Jean-Claude Lapalu",
+      "Pierre Cotton"
+    ]
+  },
+  "cote_de_brouilly": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "duck",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Côte de Brouilly",
+      "Cote de Brouilly"
+    ],
+    "producer_examples": [
+      "Château Thivin",
+      "Nicole Chanrion",
+      "Jean-Paul Brun"
+    ]
+  },
+  "regnie": {
+    "country": "France",
+    "region": "Beaujolais",
+    "subregion": "Cru Beaujolais",
+    "color": "red",
+    "grapes": [
+      "Gamay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "pork",
+      "poultry"
+    ],
+    "search_terms": [
+      "Régnié",
+      "Regnie"
+    ],
+    "producer_examples": [
+      "Guy Breton",
+      "Jean Foillard",
+      "Domaine des Braves"
+    ]
+  },
+  "bordeaux_rouge": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Regional",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Sauvignon",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "roast meats"
+    ],
+    "search_terms": [
+      "Bordeaux Rouge",
+      "Bordeaux"
+    ],
+    "producer_examples": [
+      "Château Peybonhomme-les-Tours",
+      "Château de Reignac",
+      "Château Siaurac"
+    ]
+  },
+  "bordeaux_blanc": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Regional",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc",
+      "Sémillon"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "shellfish",
+      "goat cheese",
+      "fish"
+    ],
+    "search_terms": [
+      "Bordeaux Blanc"
+    ],
+    "producer_examples": [
+      "Clos Floridène",
+      "Château Bonnet",
+      "Château Reynon"
+    ]
+  },
+  "medoc": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "beef",
+      "game"
+    ],
+    "search_terms": [
+      "Médoc",
+      "Medoc"
+    ],
+    "producer_examples": [
+      "Château Potensac",
+      "Château La Tour de By",
+      "Château Greysac"
+    ]
+  },
+  "haut_medoc": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "roast meats"
+    ],
+    "search_terms": [
+      "Haut-Médoc",
+      "Haut Medoc"
+    ],
+    "producer_examples": [
+      "Château Cantemerle",
+      "Château Sociando-Mallet",
+      "Château La Lagune"
+    ]
+  },
+  "margaux": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "veal",
+      "duck"
+    ],
+    "search_terms": [
+      "Margaux"
+    ],
+    "producer_examples": [
+      "Château Margaux",
+      "Château Palmer",
+      "Château Rauzan-Ségla"
+    ]
+  },
+  "moulis": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast beef",
+      "lamb",
+      "duck"
+    ],
+    "search_terms": [
+      "Moulis"
+    ],
+    "producer_examples": [
+      "Château Chasse-Spleen",
+      "Château Poujeaux",
+      "Château Maucaillou"
+    ]
+  },
+  "listrac_medoc": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "game"
+    ],
+    "search_terms": [
+      "Listrac-Médoc",
+      "Listrac Medoc"
+    ],
+    "producer_examples": [
+      "Château Clarke",
+      "Château Fourcas-Dupré",
+      "Château Fonréaud"
+    ]
+  },
+  "saint_julien": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "venison"
+    ],
+    "search_terms": [
+      "Saint-Julien"
+    ],
+    "producer_examples": [
+      "Léoville Las Cases",
+      "Léoville Barton",
+      "Ducru-Beaucaillou"
+    ]
+  },
+  "pauillac": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "lamb",
+      "beef",
+      "venison"
+    ],
+    "search_terms": [
+      "Pauillac"
+    ],
+    "producer_examples": [
+      "Château Latour",
+      "Château Lafite Rothschild",
+      "Château Grand-Puy-Lacoste"
+    ]
+  },
+  "saint_estephe": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Left Bank",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "game"
+    ],
+    "search_terms": [
+      "Saint-Estèphe",
+      "Saint-Estephe"
+    ],
+    "producer_examples": [
+      "Château Montrose",
+      "Cos d'Estournel",
+      "Calon-Ségur"
+    ]
+  },
+  "pessac_leognan_red": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Graves",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "beef",
+      "duck"
+    ],
+    "search_terms": [
+      "Pessac-Léognan",
+      "Pessac Leognan"
+    ],
+    "producer_examples": [
+      "Château Haut-Brion",
+      "Domaine de Chevalier",
+      "Château Smith Haut Lafitte"
+    ]
+  },
+  "pessac_leognan_white": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Graves",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc",
+      "Sémillon"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lobster",
+      "turbot",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Pessac-Léognan Blanc",
+      "Pessac Leognan Blanc"
+    ],
+    "producer_examples": [
+      "Domaine de Chevalier Blanc",
+      "Smith Haut Lafitte Blanc",
+      "Haut-Brion Blanc"
+    ]
+  },
+  "graves_red": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Graves",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast beef",
+      "lamb",
+      "duck"
+    ],
+    "search_terms": [
+      "Graves Rouge",
+      "Graves"
+    ],
+    "producer_examples": [
+      "Château de Chantegrive",
+      "Clos Floridène Rouge",
+      "Château Respide-Médeville"
+    ]
+  },
+  "graves_white": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Graves",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc",
+      "Sémillon"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Graves Blanc",
+      "Graves"
+    ],
+    "producer_examples": [
+      "Clos Floridène Blanc",
+      "Château de Chantegrive Blanc",
+      "Château Rahoul Blanc"
+    ]
+  },
+  "saint_emilion": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "veal",
+      "lamb"
+    ],
+    "search_terms": [
+      "Saint-Émilion",
+      "Saint Emilion"
+    ],
+    "producer_examples": [
+      "Château Figeac",
+      "Château Canon",
+      "Château Larcis Ducasse"
+    ]
+  },
+  "saint_emilion_grand_cru": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "beef",
+      "lamb"
+    ],
+    "search_terms": [
+      "Saint-Émilion Grand Cru",
+      "Saint Emilion Grand Cru"
+    ],
+    "producer_examples": [
+      "Château Ausone",
+      "Château Pavie",
+      "Château Bélair-Monange"
+    ]
+  },
+  "pomerol": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "beef",
+      "veal"
+    ],
+    "search_terms": [
+      "Pomerol"
+    ],
+    "producer_examples": [
+      "Pétrus",
+      "Vieux Château Certan",
+      "La Conseillante"
+    ]
+  },
+  "lalande_de_pomerol": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "pork",
+      "beef"
+    ],
+    "search_terms": [
+      "Lalande-de-Pomerol"
+    ],
+    "producer_examples": [
+      "Château des Annereaux",
+      "Château Siaurac",
+      "Château La Fleur de Boüard"
+    ]
+  },
+  "fronsac": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lamb",
+      "duck",
+      "beef"
+    ],
+    "search_terms": [
+      "Fronsac"
+    ],
+    "producer_examples": [
+      "Château de La Dauphine",
+      "Château Fontenil",
+      "Château Dalem"
+    ]
+  },
+  "canon_fronsac": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "lamb",
+      "beef"
+    ],
+    "search_terms": [
+      "Canon-Fronsac"
+    ],
+    "producer_examples": [
+      "Château Canon Pécresse",
+      "Château Gaby",
+      "Vignobles Ponty"
+    ]
+  },
+  "castillon_cotes_de_bordeaux": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Right Bank",
+    "color": "red",
+    "grapes": [
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast meats",
+      "duck",
+      "lamb"
+    ],
+    "search_terms": [
+      "Castillon Côtes de Bordeaux",
+      "Castillon"
+    ],
+    "producer_examples": [
+      "Clos Puy Arnaud",
+      "Château d'Aiguilhe",
+      "Joanin Bécot"
+    ]
+  },
+  "sauternes": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Sweet",
+    "color": "sweet_white",
+    "grapes": [
+      "Sémillon",
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "foie gras",
+      "blue cheese",
+      "dessert"
+    ],
+    "search_terms": [
+      "Sauternes"
+    ],
+    "producer_examples": [
+      "Château d'Yquem",
+      "Château Suduiraut",
+      "Château Rieussec"
+    ]
+  },
+  "barsac": {
+    "country": "France",
+    "region": "Bordeaux",
+    "subregion": "Sweet",
+    "color": "sweet_white",
+    "grapes": [
+      "Sémillon",
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "foie gras",
+      "blue cheese",
+      "dessert"
+    ],
+    "search_terms": [
+      "Barsac"
+    ],
+    "producer_examples": [
+      "Château Climens",
+      "Château Coutet",
+      "Château Doisy-Daëne"
+    ]
+  },
+  "cote_rotie": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "game",
+      "beef"
+    ],
+    "search_terms": [
+      "Côte-Rôtie",
+      "Cote Rotie"
+    ],
+    "producer_examples": [
+      "Jamet",
+      "Rostaing",
+      "Clusel-Roch"
+    ]
+  },
+  "condrieu": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Viognier"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 4
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "lobster",
+      "scallops",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Condrieu"
+    ],
+    "producer_examples": [
+      "Georges Vernay",
+      "François Villard",
+      "Yves Cuilleron"
+    ]
+  },
+  "saint_joseph_red": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "pork",
+      "lamb",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Saint-Joseph Rouge",
+      "Saint Joseph Rouge"
+    ],
+    "producer_examples": [
+      "Pierre Gonon",
+      "Bernard Gripa",
+      "François Villard"
+    ]
+  },
+  "saint_joseph_white": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Marsanne",
+      "Roussanne"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lobster",
+      "roast chicken",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Saint-Joseph Blanc",
+      "Saint Joseph Blanc"
+    ],
+    "producer_examples": [
+      "Pierre Gonon",
+      "Bernard Gripa",
+      "Jean-Louis Chave"
+    ]
+  },
+  "crozes_hermitage": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "poultry",
+      "pork",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Crozes-Hermitage"
+    ],
+    "producer_examples": [
+      "Alain Graillot",
+      "Yann Chave",
+      "Domaine des Lises"
+    ]
+  },
+  "crozes_hermitage_white": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Marsanne",
+      "Roussanne"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "roast chicken",
+      "fish",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Crozes-Hermitage Blanc"
+    ],
+    "producer_examples": [
+      "Yann Chave",
+      "Alain Graillot",
+      "Les Bruyères"
+    ]
+  },
+  "hermitage_red": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "beef",
+      "game",
+      "lamb"
+    ],
+    "search_terms": [
+      "Hermitage"
+    ],
+    "producer_examples": [
+      "Jean-Louis Chave",
+      "Delas",
+      "Marc Sorrel"
+    ]
+  },
+  "hermitage_white": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Marsanne",
+      "Roussanne"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lobster",
+      "turbot",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Hermitage Blanc"
+    ],
+    "producer_examples": [
+      "Jean-Louis Chave",
+      "Marc Sorrel",
+      "Ferraton"
+    ]
+  },
+  "cornas": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "beef",
+      "game",
+      "lamb"
+    ],
+    "search_terms": [
+      "Cornas"
+    ],
+    "producer_examples": [
+      "Thierry Allemand",
+      "Auguste Clape",
+      "Franck Balthazar"
+    ]
+  },
+  "saint_peray": {
+    "country": "France",
+    "region": "Northern Rhône",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Marsanne",
+      "Roussanne"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Saint-Péray",
+      "Saint Peray"
+    ],
+    "producer_examples": [
+      "Alain Voge",
+      "Franck Balthazar",
+      "Bernard Gripa"
+    ]
+  },
+  "cotes_du_rhone": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Regional",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "grilled meats",
+      "pizza",
+      "stews"
+    ],
+    "search_terms": [
+      "Côtes du Rhône",
+      "Cotes du Rhone"
+    ],
+    "producer_examples": [
+      "Guigal",
+      "Domaine Charvin",
+      "Domaine de la Janasse"
+    ]
+  },
+  "cotes_du_rhone_blanc": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Regional",
+    "color": "white",
+    "grapes": [
+      "Grenache Blanc",
+      "Clairette",
+      "Roussanne"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 3
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "grilled fish",
+      "aperitif",
+      "salads"
+    ],
+    "search_terms": [
+      "Côtes du Rhône Blanc"
+    ],
+    "producer_examples": [
+      "Domaine de la Janasse",
+      "Clos des Papes",
+      "Domaine Saint Préfert"
+    ]
+  },
+  "gigondas": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "game",
+      "stews"
+    ],
+    "search_terms": [
+      "Gigondas"
+    ],
+    "producer_examples": [
+      "Château de Saint-Cosme",
+      "Domaine Santa Duc",
+      "Domaine Raspail-Ay"
+    ]
+  },
+  "vacqueyras": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lamb",
+      "pork",
+      "stews"
+    ],
+    "search_terms": [
+      "Vacqueyras"
+    ],
+    "producer_examples": [
+      "Domaine Le Sang des Cailloux",
+      "Domaine Montirius",
+      "Domaine de la Monardière"
+    ]
+  },
+  "lirac": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "stews"
+    ],
+    "search_terms": [
+      "Lirac"
+    ],
+    "producer_examples": [
+      "Domaine de la Mordorée",
+      "Château de Montfaucon",
+      "Domaine Maby"
+    ]
+  },
+  "tavel": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Rosé",
+    "color": "rose",
+    "grapes": [
+      "Grenache",
+      "Cinsault",
+      "Clairette"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "charcuterie",
+      "grilled vegetables",
+      "spiced food"
+    ],
+    "search_terms": [
+      "Tavel"
+    ],
+    "producer_examples": [
+      "Domaine de la Mordorée",
+      "Château d'Aqueria",
+      "Domaine Lafond"
+    ]
+  },
+  "chateauneuf_du_pape_red": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "lamb",
+      "game",
+      "stews"
+    ],
+    "search_terms": [
+      "Châteauneuf-du-Pape",
+      "Chateauneuf-du-Pape"
+    ],
+    "producer_examples": [
+      "Rayas",
+      "Clos des Papes",
+      "Domaine de la Janasse"
+    ]
+  },
+  "chateauneuf_du_pape_white": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "white",
+    "grapes": [
+      "Grenache Blanc",
+      "Roussanne",
+      "Clairette"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lobster",
+      "roast chicken",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Châteauneuf-du-Pape Blanc",
+      "Chateauneuf-du-Pape Blanc"
+    ],
+    "producer_examples": [
+      "Château de Beaucastel",
+      "Clos des Papes",
+      "Domaine de la Janasse"
+    ]
+  },
+  "cairanne": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "stews"
+    ],
+    "search_terms": [
+      "Cairanne"
+    ],
+    "producer_examples": [
+      "Domaine Alary",
+      "Marcel Richaud",
+      "Clos Romane"
+    ]
+  },
+  "rasteau": {
+    "country": "France",
+    "region": "Southern Rhône",
+    "subregion": "Cru",
+    "color": "red",
+    "grapes": [
+      "Grenache",
+      "Syrah",
+      "Mourvèdre"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lamb",
+      "stews",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Rasteau"
+    ],
+    "producer_examples": [
+      "Domaine Gourt de Mautens",
+      "Domaine des Escaravailles",
+      "Domaine Richaud"
+    ]
+  },
+  "sancerre_blanc": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Centre Loire",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "goat cheese",
+      "shellfish",
+      "white fish"
+    ],
+    "search_terms": [
+      "Sancerre Blanc",
+      "Sancerre"
+    ],
+    "producer_examples": [
+      "Vacheron",
+      "Alphonse Mellot",
+      "Domaine François Cotat"
+    ]
+  },
+  "pouilly_fume": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Centre Loire",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "goat cheese",
+      "fish",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Pouilly-Fumé",
+      "Pouilly Fume"
+    ],
+    "producer_examples": [
+      "Didier Dagueneau",
+      "Jonathan Didier Pabiot",
+      "Domaine Serge Dagueneau"
+    ]
+  },
+  "menetou_salon": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Centre Loire",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "goat cheese",
+      "salads",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Menetou-Salon"
+    ],
+    "producer_examples": [
+      "Domaine Pellé",
+      "Chavet",
+      "Domaine Henry Pellé"
+    ]
+  },
+  "quincy": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Centre Loire",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "salads",
+      "goat cheese",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Quincy"
+    ],
+    "producer_examples": [
+      "Domaine Philippe Portier",
+      "Domaine Tatin",
+      "Domaine Mardon"
+    ]
+  },
+  "reuilly_white": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Centre Loire",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "goat cheese",
+      "shellfish",
+      "salads"
+    ],
+    "search_terms": [
+      "Reuilly Blanc",
+      "Reuilly"
+    ],
+    "producer_examples": [
+      "Denis Jamain",
+      "Claude Lafond",
+      "Domaine Dyckerhoff"
+    ]
+  },
+  "vouvray_sec": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Touraine",
+    "color": "white",
+    "grapes": [
+      "Chenin Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Vouvray Sec",
+      "Vouvray"
+    ],
+    "producer_examples": [
+      "Huet",
+      "François Chidaine",
+      "Domaine du Clos Naudin"
+    ]
+  },
+  "montlouis_sec": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Touraine",
+    "color": "white",
+    "grapes": [
+      "Chenin Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Montlouis-sur-Loire",
+      "Montlouis"
+    ],
+    "producer_examples": [
+      "François Chidaine",
+      "Jacky Blot",
+      "La Grange Tiphaine"
+    ]
+  },
+  "chinon": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Touraine",
+    "color": "red",
+    "grapes": [
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "roast chicken",
+      "duck"
+    ],
+    "search_terms": [
+      "Chinon"
+    ],
+    "producer_examples": [
+      "Charles Joguet",
+      "Bernard Baudry",
+      "Olga Raffault"
+    ]
+  },
+  "bourgueil": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Touraine",
+    "color": "red",
+    "grapes": [
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "duck",
+      "pork"
+    ],
+    "search_terms": [
+      "Bourgueil"
+    ],
+    "producer_examples": [
+      "Domaine de la Butte",
+      "Catherine et Pierre Breton",
+      "Domaine Yannick Amirault"
+    ]
+  },
+  "saumur_champigny": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Saumur",
+    "color": "red",
+    "grapes": [
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "roast chicken",
+      "duck"
+    ],
+    "search_terms": [
+      "Saumur-Champigny"
+    ],
+    "producer_examples": [
+      "Clos Rougeard",
+      "Antoine Sanzay",
+      "Thierry Germain"
+    ]
+  },
+  "saumur_blanc": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Saumur",
+    "color": "white",
+    "grapes": [
+      "Chenin Blanc"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Saumur Blanc"
+    ],
+    "producer_examples": [
+      "Clos Rougeard",
+      "Roches Neuves",
+      "Domaine Guiberteau"
+    ]
+  },
+  "savennieres": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Anjou",
+    "color": "white",
+    "grapes": [
+      "Chenin Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lobster",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Savennières",
+      "Savennieres"
+    ],
+    "producer_examples": [
+      "Nicolas Joly",
+      "Domaine du Closel",
+      "Domaine aux Moines"
+    ]
+  },
+  "anjou_blanc": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Anjou",
+    "color": "white",
+    "grapes": [
+      "Chenin Blanc"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "goat cheese",
+      "fish"
+    ],
+    "search_terms": [
+      "Anjou Blanc"
+    ],
+    "producer_examples": [
+      "Thibaud Boudignon",
+      "Domaine de la Bergerie",
+      "Richard Leroy"
+    ]
+  },
+  "muscadet_sevre_et_maine": {
+    "country": "France",
+    "region": "Loire",
+    "subregion": "Nantais",
+    "color": "white",
+    "grapes": [
+      "Melon de Bourgogne"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "oysters",
+      "shellfish",
+      "moules"
+    ],
+    "search_terms": [
+      "Muscadet Sèvre et Maine",
+      "Muscadet Sevre et Maine"
+    ],
+    "producer_examples": [
+      "Domaine de la Pépière",
+      "Luneau-Papin",
+      "Jo Landron"
+    ]
+  },
+  "riesling_alsace": {
+    "country": "France",
+    "region": "Alsace",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Alsace Riesling",
+      "Riesling Alsace"
+    ],
+    "producer_examples": [
+      "Trimbach",
+      "Zind-Humbrecht",
+      "Albert Mann"
+    ]
+  },
+  "pinot_gris_alsace": {
+    "country": "France",
+    "region": "Alsace",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Pinot Gris"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "pork",
+      "foie gras",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Alsace Pinot Gris",
+      "Pinot Gris Alsace"
+    ],
+    "producer_examples": [
+      "Zind-Humbrecht",
+      "Albert Boxler",
+      "Domaine Weinbach"
+    ]
+  },
+  "gewurztraminer_alsace": {
+    "country": "France",
+    "region": "Alsace",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Gewurztraminer"
+    ],
+    "style": {
+      "freshness": 2,
+      "transparency": 2,
+      "body": 4
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "spicy food",
+      "munster cheese",
+      "foie gras"
+    ],
+    "search_terms": [
+      "Alsace Gewurztraminer",
+      "Gewurztraminer Alsace"
+    ],
+    "producer_examples": [
+      "Domaine Weinbach",
+      "Trimbach",
+      "Hugel"
+    ]
+  },
+  "cremant_d_alsace": {
+    "country": "France",
+    "region": "Alsace",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Pinot Blanc",
+      "Auxerrois",
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "aperitif",
+      "fried food",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Crémant d'Alsace",
+      "Cremant d'Alsace"
+    ],
+    "producer_examples": [
+      "Domaine Barmès-Buecher",
+      "Pierre Frick",
+      "Wolfberger"
+    ]
+  },
+  "arbois_red": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Trousseau",
+      "Poulsard",
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Arbois Rouge",
+      "Arbois"
+    ],
+    "producer_examples": [
+      "Domaine Tissot",
+      "Domaine Puffeney",
+      "Domaine de la Pinte"
+    ]
+  },
+  "arbois_white": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Chardonnay",
+      "Savagnin"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "comté",
+      "mushroom",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Arbois Blanc",
+      "Arbois"
+    ],
+    "producer_examples": [
+      "Domaine Tissot",
+      "Domaine de la Tournelle",
+      "Domaine Rolet"
+    ]
+  },
+  "cotes_du_jura": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "Mixed",
+    "color": "mixed",
+    "grapes": [
+      "Chardonnay",
+      "Savagnin",
+      "Trousseau",
+      "Poulsard"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "comté",
+      "mushroom",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Côtes du Jura",
+      "Cotes du Jura"
+    ],
+    "producer_examples": [
+      "Domaine Ganevat",
+      "Domaine Labet",
+      "Domaine Tissot"
+    ]
+  },
+  "savagnin_jura": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Savagnin"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "comté",
+      "mushroom",
+      "cream sauces"
+    ],
+    "search_terms": [
+      "Savagnin Jura",
+      "Savagnin"
+    ],
+    "producer_examples": [
+      "Ganevat",
+      "Domaine Labet",
+      "Domaine Tissot"
+    ]
+  },
+  "vin_jaune": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "Oxidative White",
+    "color": "oxidative_white",
+    "grapes": [
+      "Savagnin"
+    ],
+    "style": {
+      "freshness": 5,
+      "body": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "comté",
+      "mushroom",
+      "chicken with morels"
+    ],
+    "search_terms": [
+      "Vin Jaune"
+    ],
+    "producer_examples": [
+      "Domaine Macle",
+      "Domaine Berthet-Bondet",
+      "Domaine de Montbourgeau"
+    ]
+  },
+  "cremant_du_jura": {
+    "country": "France",
+    "region": "Jura",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Chardonnay",
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "aperitif",
+      "fried food",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Crémant du Jura",
+      "Cremant du Jura"
+    ],
+    "producer_examples": [
+      "Domaine Tissot",
+      "Domaine de la Pinte",
+      "Domaine Rolet"
+    ]
+  },
+  "apremont": {
+    "country": "France",
+    "region": "Savoie",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Jacquère"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "fondue",
+      "raclette",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Apremont"
+    ],
+    "producer_examples": [
+      "Domaine Jean Masson",
+      "Domaine Belluard",
+      "Domaine des Ardoisières"
+    ]
+  },
+  "roussette_de_savoie": {
+    "country": "France",
+    "region": "Savoie",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Altesse"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "fish",
+      "raclette",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Roussette de Savoie"
+    ],
+    "producer_examples": [
+      "Domaine Dupasquier",
+      "André et Michel Quenard",
+      "Domaine des Ardoisières"
+    ]
+  },
+  "champagne_blanc_de_blancs": {
+    "country": "France",
+    "region": "Champagne",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 5,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "oysters",
+      "shellfish",
+      "fried food"
+    ],
+    "search_terms": [
+      "Champagne Blanc de Blancs"
+    ],
+    "producer_examples": [
+      "Agrapart",
+      "Pierre Péters",
+      "Ruinart"
+    ]
+  },
+  "champagne_blanc_de_noirs": {
+    "country": "France",
+    "region": "Champagne",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Pinot Noir",
+      "Pinot Meunier"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "fried chicken",
+      "charcuterie",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Champagne Blanc de Noirs"
+    ],
+    "producer_examples": [
+      "Bollinger",
+      "Egly-Ouriet",
+      "Benoît Lahaye"
+    ]
+  },
+  "champagne_grower": {
+    "country": "France",
+    "region": "Champagne",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Chardonnay",
+      "Pinot Noir",
+      "Pinot Meunier"
+    ],
+    "style": {
+      "freshness": 5,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "oysters",
+      "shellfish",
+      "fried food"
+    ],
+    "search_terms": [
+      "Champagne",
+      "Grower Champagne"
+    ],
+    "producer_examples": [
+      "Jacques Selosse",
+      "Agrapart",
+      "Larmandier-Bernier"
+    ]
+  },
+  "champagne_house": {
+    "country": "France",
+    "region": "Champagne",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Chardonnay",
+      "Pinot Noir",
+      "Pinot Meunier"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "caviar",
+      "fried food",
+      "shellfish"
+    ],
+    "search_terms": [
+      "Champagne"
+    ],
+    "producer_examples": [
+      "Krug",
+      "Bollinger",
+      "Pol Roger"
+    ]
+  },
+  "champagne_rose": {
+    "country": "France",
+    "region": "Champagne",
+    "subregion": "Sparkling",
+    "color": "rose_sparkling",
+    "grapes": [
+      "Pinot Noir",
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "salmon",
+      "duck",
+      "berries"
+    ],
+    "search_terms": [
+      "Rosé Champagne",
+      "Rose Champagne"
+    ],
+    "producer_examples": [
+      "Billecart-Salmon",
+      "Louis Roederer",
+      "Ruinart"
+    ]
+  },
+  "langhe_nebbiolo": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Langhe",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pasta",
+      "veal",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Langhe Nebbiolo"
+    ],
+    "producer_examples": [
+      "Trediberri",
+      "G.D. Vajra",
+      "Giuseppe Rinaldi"
+    ]
+  },
+  "barolo": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Langhe",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 4,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "truffle",
+      "game",
+      "braises"
+    ],
+    "search_terms": [
+      "Barolo"
+    ],
+    "producer_examples": [
+      "Giuseppe Rinaldi",
+      "Bartolo Mascarello",
+      "Trediberri"
+    ]
+  },
+  "barbaresco": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Langhe",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "truffle",
+      "pasta",
+      "duck"
+    ],
+    "search_terms": [
+      "Barbaresco"
+    ],
+    "producer_examples": [
+      "Produttori del Barbaresco",
+      "Roagna",
+      "Gaja"
+    ]
+  },
+  "roero": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Roero",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pasta",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Roero"
+    ],
+    "producer_examples": [
+      "Malvirà",
+      "Matteo Correggia",
+      "Cascina Chicco"
+    ]
+  },
+  "barbera_d_alba": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Langhe",
+    "color": "red",
+    "grapes": [
+      "Barbera"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pizza",
+      "pasta",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Barbera d'Alba"
+    ],
+    "producer_examples": [
+      "Giacomo Conterno",
+      "Vietti",
+      "Oddero"
+    ]
+  },
+  "barbera_d_asti": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Monferrato",
+    "color": "red",
+    "grapes": [
+      "Barbera"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 2,
+      "body": 3,
+      "tannin": 1
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pizza",
+      "pasta",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Barbera d'Asti"
+    ],
+    "producer_examples": [
+      "Braida",
+      "Vietti",
+      "La Spinetta"
+    ]
+  },
+  "dolcetto_d_alba": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Langhe",
+    "color": "red",
+    "grapes": [
+      "Dolcetto"
+    ],
+    "style": {
+      "freshness": 3,
+      "transparency": 2,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "pizza",
+      "charcuterie",
+      "pasta"
+    ],
+    "search_terms": [
+      "Dolcetto d'Alba"
+    ],
+    "producer_examples": [
+      "G.D. Vajra",
+      "Giacomo Conterno",
+      "Roagna"
+    ]
+  },
+  "gattinara": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Alto Piemonte",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "truffle",
+      "duck",
+      "game"
+    ],
+    "search_terms": [
+      "Gattinara"
+    ],
+    "producer_examples": [
+      "Nervi-Conterno",
+      "Antoniolo",
+      "Travaglini"
+    ]
+  },
+  "ghemme": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Alto Piemonte",
+    "color": "red",
+    "grapes": [
+      "Nebbiolo"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "duck",
+      "pasta",
+      "game"
+    ],
+    "search_terms": [
+      "Ghemme"
+    ],
+    "producer_examples": [
+      "Arlunno",
+      "Antichi Vigneti di Cantalupo",
+      "Mirù"
+    ]
+  },
+  "erbaluce_di_caluso": {
+    "country": "Italy",
+    "region": "Piemonte",
+    "subregion": "Canavese",
+    "color": "white",
+    "grapes": [
+      "Erbaluce"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "aperitif",
+      "fried fish"
+    ],
+    "search_terms": [
+      "Erbaluce di Caluso"
+    ],
+    "producer_examples": [
+      "Orsolani",
+      "Favaro",
+      "Cieck"
+    ]
+  },
+  "chianti_classico": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Central Tuscany",
+    "color": "red",
+    "grapes": [
+      "Sangiovese"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "tomato sauces",
+      "bistecca",
+      "ragù"
+    ],
+    "search_terms": [
+      "Chianti Classico"
+    ],
+    "producer_examples": [
+      "Fontodi",
+      "Castello di Ama",
+      "Isole e Olena"
+    ]
+  },
+  "chianti_rufina": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Chianti",
+    "color": "red",
+    "grapes": [
+      "Sangiovese"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "pasta",
+      "grilled meats",
+      "tomato sauces"
+    ],
+    "search_terms": [
+      "Chianti Rufina"
+    ],
+    "producer_examples": [
+      "Selvapiana",
+      "Fattoria Lavacchio",
+      "Còlognole"
+    ]
+  },
+  "rosso_di_montalcino": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Montalcino",
+    "color": "red",
+    "grapes": [
+      "Sangiovese"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pasta",
+      "roast meats",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Rosso di Montalcino"
+    ],
+    "producer_examples": [
+      "Biondi-Santi",
+      "Poggio di Sotto",
+      "Le Ragnaie"
+    ]
+  },
+  "brunello_di_montalcino": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Montalcino",
+    "color": "red",
+    "grapes": [
+      "Sangiovese"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "bistecca",
+      "game",
+      "truffle"
+    ],
+    "search_terms": [
+      "Brunello di Montalcino"
+    ],
+    "producer_examples": [
+      "Biondi-Santi",
+      "Soldera",
+      "Le Ragnaie"
+    ]
+  },
+  "vino_nobile_di_montepulciano": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Montepulciano",
+    "color": "red",
+    "grapes": [
+      "Sangiovese"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "pasta",
+      "roast meats",
+      "duck"
+    ],
+    "search_terms": [
+      "Vino Nobile di Montepulciano"
+    ],
+    "producer_examples": [
+      "Boscarelli",
+      "Avignonesi",
+      "Poliziano"
+    ]
+  },
+  "bolgheri_rosso": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Coastal Tuscany",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon",
+      "Merlot",
+      "Cabernet Franc"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "roast meats"
+    ],
+    "search_terms": [
+      "Bolgheri Rosso",
+      "Bolgheri"
+    ],
+    "producer_examples": [
+      "Tenuta San Guido",
+      "Le Macchiole",
+      "Grattamacco"
+    ]
+  },
+  "vermentino_toscana": {
+    "country": "Italy",
+    "region": "Tuscany",
+    "subregion": "Coastal Tuscany",
+    "color": "white",
+    "grapes": [
+      "Vermentino"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Vermentino Toscana",
+      "Bolgheri Vermentino"
+    ],
+    "producer_examples": [
+      "Guado al Tasso",
+      "Grattamacco",
+      "Monteverro"
+    ]
+  },
+  "etna_rosso": {
+    "country": "Italy",
+    "region": "Sicily",
+    "subregion": "Etna",
+    "color": "red",
+    "grapes": [
+      "Nerello Mascalese"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "mushroom",
+      "lamb"
+    ],
+    "search_terms": [
+      "Etna Rosso"
+    ],
+    "producer_examples": [
+      "Terre Nere",
+      "Passopisciaro",
+      "Frank Cornelissen"
+    ]
+  },
+  "etna_bianco": {
+    "country": "Italy",
+    "region": "Sicily",
+    "subregion": "Etna",
+    "color": "white",
+    "grapes": [
+      "Carricante"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "goat cheese"
+    ],
+    "search_terms": [
+      "Etna Bianco"
+    ],
+    "producer_examples": [
+      "Benanti",
+      "Terre Nere",
+      "Graci"
+    ]
+  },
+  "frappato": {
+    "country": "Italy",
+    "region": "Sicily",
+    "subregion": "Vittoria",
+    "color": "red",
+    "grapes": [
+      "Frappato"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 1,
+      "tannin": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "charcuterie",
+      "tuna",
+      "pizza"
+    ],
+    "search_terms": [
+      "Frappato"
+    ],
+    "producer_examples": [
+      "COS",
+      "Arianna Occhipinti",
+      "Valle dell'Acate"
+    ]
+  },
+  "cerasuolo_di_vittoria": {
+    "country": "Italy",
+    "region": "Sicily",
+    "subregion": "Vittoria",
+    "color": "red",
+    "grapes": [
+      "Nero d'Avola",
+      "Frappato"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "pizza",
+      "pasta",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Cerasuolo di Vittoria"
+    ],
+    "producer_examples": [
+      "COS",
+      "Arianna Occhipinti",
+      "Planeta"
+    ]
+  },
+  "soave_classico": {
+    "country": "Italy",
+    "region": "Veneto",
+    "subregion": "Soave",
+    "color": "white",
+    "grapes": [
+      "Garganega"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "risotto"
+    ],
+    "search_terms": [
+      "Soave Classico"
+    ],
+    "producer_examples": [
+      "Pieropan",
+      "Inama",
+      "Gini"
+    ]
+  },
+  "lugana": {
+    "country": "Italy",
+    "region": "Lombardy/Veneto",
+    "subregion": "Lugana",
+    "color": "white",
+    "grapes": [
+      "Turbiana"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "lake fish",
+      "shellfish",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Lugana"
+    ],
+    "producer_examples": [
+      "Cà dei Frati",
+      "Ottella",
+      "Le Morette"
+    ]
+  },
+  "amarone_della_valpolicella": {
+    "country": "Italy",
+    "region": "Veneto",
+    "subregion": "Valpolicella",
+    "color": "red",
+    "grapes": [
+      "Corvina",
+      "Rondinella"
+    ],
+    "style": {
+      "freshness": 2,
+      "body": 5,
+      "tannin": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "braised meats",
+      "blue cheese",
+      "rich stews"
+    ],
+    "search_terms": [
+      "Amarone della Valpolicella",
+      "Amarone"
+    ],
+    "producer_examples": [
+      "Quintarelli",
+      "Dal Forno Romano",
+      "Tommasi"
+    ]
+  },
+  "valpolicella_classico": {
+    "country": "Italy",
+    "region": "Veneto",
+    "subregion": "Valpolicella",
+    "color": "red",
+    "grapes": [
+      "Corvina",
+      "Rondinella"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 2,
+      "tannin": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "pizza",
+      "charcuterie",
+      "pasta"
+    ],
+    "search_terms": [
+      "Valpolicella Classico"
+    ],
+    "producer_examples": [
+      "Quintarelli",
+      "Allegrini",
+      "Tommasi"
+    ]
+  },
+  "verdicchio_dei_castelli_di_jesi": {
+    "country": "Italy",
+    "region": "Marche",
+    "subregion": "Jesi",
+    "color": "white",
+    "grapes": [
+      "Verdicchio"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "fried food"
+    ],
+    "search_terms": [
+      "Verdicchio dei Castelli di Jesi",
+      "Verdicchio"
+    ],
+    "producer_examples": [
+      "Bucci",
+      "Villa Bucci",
+      "Umani Ronchi"
+    ]
+  },
+  "fiano_di_avellino": {
+    "country": "Italy",
+    "region": "Campania",
+    "subregion": "Irpinia",
+    "color": "white",
+    "grapes": [
+      "Fiano"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "white meats"
+    ],
+    "search_terms": [
+      "Fiano di Avellino"
+    ],
+    "producer_examples": [
+      "Mastroberardino",
+      "Ciro Picariello",
+      "Feudi di San Gregorio"
+    ]
+  },
+  "greco_di_tufo": {
+    "country": "Italy",
+    "region": "Campania",
+    "subregion": "Irpinia",
+    "color": "white",
+    "grapes": [
+      "Greco"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "fried food"
+    ],
+    "search_terms": [
+      "Greco di Tufo"
+    ],
+    "producer_examples": [
+      "Benito Ferrara",
+      "Mastroberardino",
+      "Cantine dell'Angelo"
+    ]
+  },
+  "taurasi": {
+    "country": "Italy",
+    "region": "Campania",
+    "subregion": "Irpinia",
+    "color": "red",
+    "grapes": [
+      "Aglianico"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 5,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": -1,
+    "pairing_tags": [
+      "braises",
+      "game",
+      "beef"
+    ],
+    "search_terms": [
+      "Taurasi"
+    ],
+    "producer_examples": [
+      "Mastroberardino",
+      "Perillo",
+      "Feudi di San Gregorio"
+    ]
+  },
+  "mosel_riesling": {
+    "country": "Germany",
+    "region": "Mosel",
+    "subregion": "Riesling",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 1
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "spicy food",
+      "aperitif"
+    ],
+    "search_terms": [
+      "Mosel Riesling"
+    ],
+    "producer_examples": [
+      "Egon Müller",
+      "Joh. Jos. Prüm",
+      "Clemens Busch"
+    ]
+  },
+  "nahe_riesling": {
+    "country": "Germany",
+    "region": "Nahe",
+    "subregion": "Riesling",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Nahe Riesling"
+    ],
+    "producer_examples": [
+      "Dönnhoff",
+      "Schäfer-Fröhlich",
+      "Emrich-Schönleber"
+    ]
+  },
+  "rheingau_riesling": {
+    "country": "Germany",
+    "region": "Rheingau",
+    "subregion": "Riesling",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Rheingau Riesling"
+    ],
+    "producer_examples": [
+      "Künstler",
+      "Georg Breuer",
+      "Robert Weil"
+    ]
+  },
+  "rheinhessen_riesling": {
+    "country": "Germany",
+    "region": "Rheinhessen",
+    "subregion": "Riesling",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Rheinhessen Riesling"
+    ],
+    "producer_examples": [
+      "Keller",
+      "Wittmann",
+      "Battenfeld-Spanier"
+    ]
+  },
+  "pfalz_riesling": {
+    "country": "Germany",
+    "region": "Pfalz",
+    "subregion": "Riesling",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 3
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast pork",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Pfalz Riesling"
+    ],
+    "producer_examples": [
+      "Müller-Catoir",
+      "Von Winning",
+      "Dr. Bürklin-Wolf"
+    ]
+  },
+  "franken_silvaner": {
+    "country": "Germany",
+    "region": "Franken",
+    "subregion": "Silvaner",
+    "color": "white",
+    "grapes": [
+      "Silvaner"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "asparagus",
+      "fish",
+      "pork"
+    ],
+    "search_terms": [
+      "Franken Silvaner",
+      "Silvaner Franken"
+    ],
+    "producer_examples": [
+      "Rudolf Fürst",
+      "Horst Sauer",
+      "Bürgerspital"
+    ]
+  },
+  "baden_spatburgunder": {
+    "country": "Germany",
+    "region": "Baden",
+    "subregion": "Spätburgunder",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Baden Spätburgunder",
+      "Baden Spatburgunder"
+    ],
+    "producer_examples": [
+      "Bernhard Huber",
+      "Salwey",
+      "Franz Keller"
+    ]
+  },
+  "ahr_spatburgunder": {
+    "country": "Germany",
+    "region": "Ahr",
+    "subregion": "Spätburgunder",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Ahr Spätburgunder",
+      "Ahr Spatburgunder"
+    ],
+    "producer_examples": [
+      "Meyer-Näkel",
+      "Jean Stodden",
+      "Nelles"
+    ]
+  },
+  "wachau_gruner_veltliner": {
+    "country": "Austria",
+    "region": "Wachau",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Grüner Veltliner"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "asparagus",
+      "fish",
+      "schnitzel"
+    ],
+    "search_terms": [
+      "Wachau Grüner Veltliner",
+      "Wachau Gruner Veltliner"
+    ],
+    "producer_examples": [
+      "F.X. Pichler",
+      "Prager",
+      "Emmerich Knoll"
+    ]
+  },
+  "wachau_riesling": {
+    "country": "Austria",
+    "region": "Wachau",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Wachau Riesling"
+    ],
+    "producer_examples": [
+      "Prager",
+      "F.X. Pichler",
+      "Rudi Pichler"
+    ]
+  },
+  "kamptal_gruner_veltliner": {
+    "country": "Austria",
+    "region": "Kamptal",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Grüner Veltliner"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "asparagus",
+      "fish",
+      "white meats"
+    ],
+    "search_terms": [
+      "Kamptal Grüner Veltliner",
+      "Kamptal Gruner Veltliner"
+    ],
+    "producer_examples": [
+      "Bründlmayer",
+      "Hirsch",
+      "Jurtschitsch"
+    ]
+  },
+  "kamptal_riesling": {
+    "country": "Austria",
+    "region": "Kamptal",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 5,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "spicy food"
+    ],
+    "search_terms": [
+      "Kamptal Riesling"
+    ],
+    "producer_examples": [
+      "Bründlmayer",
+      "Hirsch",
+      "Schloss Gobelsburg"
+    ]
+  },
+  "kremstal_riesling": {
+    "country": "Austria",
+    "region": "Kremstal",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Riesling"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "fish",
+      "shellfish",
+      "white meats"
+    ],
+    "search_terms": [
+      "Kremstal Riesling"
+    ],
+    "producer_examples": [
+      "Nigl",
+      "Salomon Undhof",
+      "Stadt Krems"
+    ]
+  },
+  "burgenland_blaufrankisch": {
+    "country": "Austria",
+    "region": "Burgenland",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Blaufränkisch"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "pork",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Burgenland Blaufränkisch",
+      "Blaufrankisch"
+    ],
+    "producer_examples": [
+      "Moric",
+      "Prieler",
+      "Weninger"
+    ]
+  },
+  "rioja_crianza": {
+    "country": "Spain",
+    "region": "Rioja",
+    "subregion": "Tempranillo",
+    "color": "red",
+    "grapes": [
+      "Tempranillo"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "lamb",
+      "tapas",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Rioja Crianza",
+      "Rioja"
+    ],
+    "producer_examples": [
+      "La Rioja Alta",
+      "CVNE",
+      "López de Heredia"
+    ]
+  },
+  "rioja_reserva": {
+    "country": "Spain",
+    "region": "Rioja",
+    "subregion": "Tempranillo",
+    "color": "red",
+    "grapes": [
+      "Tempranillo"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "lamb",
+      "beef",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Rioja Reserva",
+      "Rioja"
+    ],
+    "producer_examples": [
+      "La Rioja Alta",
+      "Muga",
+      "López de Heredia"
+    ]
+  },
+  "rioja_gran_reserva": {
+    "country": "Spain",
+    "region": "Rioja",
+    "subregion": "Tempranillo",
+    "color": "red",
+    "grapes": [
+      "Tempranillo"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "lamb",
+      "game birds",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Rioja Gran Reserva"
+    ],
+    "producer_examples": [
+      "La Rioja Alta",
+      "López de Heredia",
+      "CVNE"
+    ]
+  },
+  "ribera_del_duero": {
+    "country": "Spain",
+    "region": "Ribera del Duero",
+    "subregion": "Tempranillo",
+    "color": "red",
+    "grapes": [
+      "Tempranillo"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "beef",
+      "roast meats"
+    ],
+    "search_terms": [
+      "Ribera del Duero"
+    ],
+    "producer_examples": [
+      "Pingus",
+      "Vega Sicilia",
+      "Aalto"
+    ]
+  },
+  "bierzo_mencia": {
+    "country": "Spain",
+    "region": "Bierzo",
+    "subregion": "Mencía",
+    "color": "red",
+    "grapes": [
+      "Mencía"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "charcuterie",
+      "duck",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Bierzo Mencía",
+      "Bierzo Mencia"
+    ],
+    "producer_examples": [
+      "Raúl Pérez",
+      "Descendientes de J. Palacios",
+      "Castro Ventosa"
+    ]
+  },
+  "priorat": {
+    "country": "Spain",
+    "region": "Catalonia",
+    "subregion": "Priorat",
+    "color": "red",
+    "grapes": [
+      "Garnacha",
+      "Cariñena"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 5,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "lamb",
+      "stews",
+      "grilled meats"
+    ],
+    "search_terms": [
+      "Priorat"
+    ],
+    "producer_examples": [
+      "Álvaro Palacios",
+      "Clos Mogador",
+      "Mas Martinet"
+    ]
+  },
+  "montsant": {
+    "country": "Spain",
+    "region": "Catalonia",
+    "subregion": "Montsant",
+    "color": "red",
+    "grapes": [
+      "Garnacha",
+      "Cariñena"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "stews"
+    ],
+    "search_terms": [
+      "Montsant"
+    ],
+    "producer_examples": [
+      "Venus La Universal",
+      "Celler del Capçanes",
+      "Acústic"
+    ]
+  },
+  "rueda_verdejo": {
+    "country": "Spain",
+    "region": "Rueda",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Verdejo"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 2,
+      "body": 2
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "aperitif",
+      "shellfish",
+      "salads"
+    ],
+    "search_terms": [
+      "Rueda Verdejo",
+      "Rueda"
+    ],
+    "producer_examples": [
+      "Marqués de Riscal",
+      "Belondrade y Lurton",
+      "Naia"
+    ]
+  },
+  "rias_baixas_albarino": {
+    "country": "Spain",
+    "region": "Galicia",
+    "subregion": "Rías Baixas",
+    "color": "white",
+    "grapes": [
+      "Albariño"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "shellfish",
+      "octopus",
+      "white fish"
+    ],
+    "search_terms": [
+      "Rías Baixas Albariño",
+      "Rias Baixas Albarino"
+    ],
+    "producer_examples": [
+      "Do Ferreiro",
+      "Pazo de Señorans",
+      "Forjas del Salnés"
+    ]
+  },
+  "ribeira_sacra_mencia": {
+    "country": "Spain",
+    "region": "Galicia",
+    "subregion": "Ribeira Sacra",
+    "color": "red",
+    "grapes": [
+      "Mencía"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "early_medium",
+    "drink_window_bias": 2,
+    "pairing_tags": [
+      "charcuterie",
+      "duck",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Ribeira Sacra Mencía",
+      "Ribeira Sacra"
+    ],
+    "producer_examples": [
+      "Envínate",
+      "Guímaro",
+      "Dominio do Bibei"
+    ]
+  },
+  "douro_red": {
+    "country": "Portugal",
+    "region": "Douro",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Touriga Nacional",
+      "Touriga Franca",
+      "Tinta Roriz"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "stews"
+    ],
+    "search_terms": [
+      "Douro Tinto",
+      "Douro Red"
+    ],
+    "producer_examples": [
+      "Niepoort",
+      "Quinta do Crasto",
+      "Pintas"
+    ]
+  },
+  "dao_red": {
+    "country": "Portugal",
+    "region": "Dão",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Touriga Nacional",
+      "Jaen",
+      "Alfrocheiro"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "roast chicken",
+      "lamb",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Dão Tinto",
+      "Dao Red"
+    ],
+    "producer_examples": [
+      "Casa de Mouraz",
+      "Quinta da Pellada",
+      "Textura"
+    ]
+  },
+  "vinho_verde_alvarinho": {
+    "country": "Portugal",
+    "region": "Vinho Verde",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Alvarinho"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "shellfish",
+      "aperitif",
+      "salads"
+    ],
+    "search_terms": [
+      "Vinho Verde Alvarinho"
+    ],
+    "producer_examples": [
+      "Anselmo Mendes",
+      "Soalheiro",
+      "Aphros"
+    ]
+  },
+  "bairrada_red": {
+    "country": "Portugal",
+    "region": "Bairrada",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Baga"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 4
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "roast suckling pig",
+      "duck",
+      "game"
+    ],
+    "search_terms": [
+      "Bairrada Tinto",
+      "Bairrada Red"
+    ],
+    "producer_examples": [
+      "Filipa Pato",
+      "Luis Pato",
+      "Niepoort"
+    ]
+  },
+  "colares": {
+    "country": "Portugal",
+    "region": "Colares",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Ramisco"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 5
+    },
+    "drink_curve": "long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "game",
+      "roast meats",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Colares"
+    ],
+    "producer_examples": [
+      "Viúva Gomes",
+      "Adega Regional de Colares",
+      "Casal Santa Maria"
+    ]
+  },
+  "oregon_pinot_noir": {
+    "country": "USA",
+    "region": "Oregon",
+    "subregion": "Willamette Valley",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Oregon Pinot Noir",
+      "Willamette Valley Pinot Noir"
+    ],
+    "producer_examples": [
+      "Domaine Drouhin Oregon",
+      "Walter Scott",
+      "Cristom"
+    ]
+  },
+  "oregon_chardonnay": {
+    "country": "USA",
+    "region": "Oregon",
+    "subregion": "Willamette Valley",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Oregon Chardonnay",
+      "Willamette Valley Chardonnay"
+    ],
+    "producer_examples": [
+      "Walter Scott",
+      "Evening Land",
+      "Lingua Franca"
+    ]
+  },
+  "sonoma_coast_pinot_noir": {
+    "country": "USA",
+    "region": "California",
+    "subregion": "Sonoma Coast",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Sonoma Coast Pinot Noir"
+    ],
+    "producer_examples": [
+      "Littorai",
+      "Kistler",
+      "Failla"
+    ]
+  },
+  "sonoma_chardonnay": {
+    "country": "USA",
+    "region": "California",
+    "subregion": "Sonoma Coast",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "lobster",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Sonoma Coast Chardonnay"
+    ],
+    "producer_examples": [
+      "Kistler",
+      "Littorai",
+      "Failla"
+    ]
+  },
+  "santa_rita_hills_pinot_noir": {
+    "country": "USA",
+    "region": "California",
+    "subregion": "Santa Rita Hills",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Sta. Rita Hills Pinot Noir",
+      "Santa Rita Hills Pinot Noir"
+    ],
+    "producer_examples": [
+      "Domaine de la Côte",
+      "Sandhi",
+      "Racines"
+    ]
+  },
+  "santa_barbara_chardonnay": {
+    "country": "USA",
+    "region": "California",
+    "subregion": "Santa Barbara",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Santa Barbara Chardonnay"
+    ],
+    "producer_examples": [
+      "Sandhi",
+      "Tyler",
+      "Racines"
+    ]
+  },
+  "napa_cabernet_sauvignon": {
+    "country": "USA",
+    "region": "California",
+    "subregion": "Napa Valley",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon"
+    ],
+    "style": {
+      "freshness": 2,
+      "body": 5,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "steak"
+    ],
+    "search_terms": [
+      "Napa Cabernet Sauvignon",
+      "Napa Valley Cabernet Sauvignon"
+    ],
+    "producer_examples": [
+      "Corison",
+      "Dunn",
+      "Heitz Cellar"
+    ]
+  },
+  "washington_syrah": {
+    "country": "USA",
+    "region": "Washington",
+    "subregion": "Columbia Valley",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "game"
+    ],
+    "search_terms": [
+      "Washington Syrah",
+      "Columbia Valley Syrah"
+    ],
+    "producer_examples": [
+      "Cayuse",
+      "Gramercy Cellars",
+      "K Vintners"
+    ]
+  },
+  "mendoza_malbec": {
+    "country": "Argentina",
+    "region": "Mendoza",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Malbec"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "steak",
+      "grilled meats",
+      "empanadas"
+    ],
+    "search_terms": [
+      "Mendoza Malbec"
+    ],
+    "producer_examples": [
+      "Catena Zapata",
+      "Zuccardi",
+      "Achával-Ferrer"
+    ]
+  },
+  "uco_valley_chardonnay": {
+    "country": "Argentina",
+    "region": "Mendoza",
+    "subregion": "Uco Valley",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Uco Valley Chardonnay"
+    ],
+    "producer_examples": [
+      "Catena Zapata",
+      "Zuccardi",
+      "Bemberg"
+    ]
+  },
+  "hemel_en_aarde_pinot_noir": {
+    "country": "South Africa",
+    "region": "Walker Bay",
+    "subregion": "Hemel-en-Aarde",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Hemel-en-Aarde Pinot Noir"
+    ],
+    "producer_examples": [
+      "Hamilton Russell",
+      "Storm",
+      "Crystallum"
+    ]
+  },
+  "stellenbosch_cabernet": {
+    "country": "South Africa",
+    "region": "Stellenbosch",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Cabernet Sauvignon"
+    ],
+    "style": {
+      "freshness": 3,
+      "body": 4,
+      "tannin": 4
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 0,
+    "pairing_tags": [
+      "beef",
+      "lamb",
+      "steak"
+    ],
+    "search_terms": [
+      "Stellenbosch Cabernet Sauvignon"
+    ],
+    "producer_examples": [
+      "Kanonkop",
+      "Rustenberg",
+      "Le Riche"
+    ]
+  },
+  "swartland_syrah": {
+    "country": "South Africa",
+    "region": "Swartland",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Syrah"
+    ],
+    "style": {
+      "freshness": 4,
+      "body": 3,
+      "tannin": 3
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "grilled meats",
+      "lamb",
+      "charcuterie"
+    ],
+    "search_terms": [
+      "Swartland Syrah"
+    ],
+    "producer_examples": [
+      "Mullineux",
+      "Porseleinberg",
+      "A.A. Badenhorst"
+    ]
+  },
+  "marlborough_sauvignon_blanc": {
+    "country": "New Zealand",
+    "region": "Marlborough",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Sauvignon Blanc"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 3,
+      "body": 1
+    },
+    "drink_curve": "early",
+    "drink_window_bias": 3,
+    "pairing_tags": [
+      "shellfish",
+      "goat cheese",
+      "salads"
+    ],
+    "search_terms": [
+      "Marlborough Sauvignon Blanc"
+    ],
+    "producer_examples": [
+      "Cloudy Bay",
+      "Dog Point",
+      "Greywacke"
+    ]
+  },
+  "central_otago_pinot_noir": {
+    "country": "New Zealand",
+    "region": "Central Otago",
+    "subregion": "Red",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 3,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Central Otago Pinot Noir"
+    ],
+    "producer_examples": [
+      "Felton Road",
+      "Rippon",
+      "Prophet's Rock"
+    ]
+  },
+  "yarra_valley_pinot_noir": {
+    "country": "Australia",
+    "region": "Victoria",
+    "subregion": "Yarra Valley",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 4,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Yarra Valley Pinot Noir"
+    ],
+    "producer_examples": [
+      "Giant Steps",
+      "Mac Forbes",
+      "Yarra Yering"
+    ]
+  },
+  "yarra_valley_chardonnay": {
+    "country": "Australia",
+    "region": "Victoria",
+    "subregion": "Yarra Valley",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "roast chicken"
+    ],
+    "search_terms": [
+      "Yarra Valley Chardonnay"
+    ],
+    "producer_examples": [
+      "Giant Steps",
+      "Mac Forbes",
+      "Yering Station"
+    ]
+  },
+  "mornington_pinot_noir": {
+    "country": "Australia",
+    "region": "Victoria",
+    "subregion": "Mornington Peninsula",
+    "color": "red",
+    "grapes": [
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 4,
+      "transparency": 3,
+      "body": 2,
+      "tannin": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "duck",
+      "poultry",
+      "mushroom"
+    ],
+    "search_terms": [
+      "Mornington Peninsula Pinot Noir"
+    ],
+    "producer_examples": [
+      "Kooyong",
+      "Ten Minutes by Tractor",
+      "Paringa Estate"
+    ]
+  },
+  "tasmania_chardonnay": {
+    "country": "Australia",
+    "region": "Tasmania",
+    "subregion": "White",
+    "color": "white",
+    "grapes": [
+      "Chardonnay"
+    ],
+    "style": {
+      "freshness": 5,
+      "transparency": 4,
+      "body": 2
+    },
+    "drink_curve": "medium",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "shellfish",
+      "fish",
+      "sparkling-friendly dishes"
+    ],
+    "search_terms": [
+      "Tasmania Chardonnay"
+    ],
+    "producer_examples": [
+      "Tolpuddle",
+      "Stefano Lubiana",
+      "Pooley"
+    ]
+  },
+  "tasmania_sparkling": {
+    "country": "Australia",
+    "region": "Tasmania",
+    "subregion": "Sparkling",
+    "color": "sparkling",
+    "grapes": [
+      "Chardonnay",
+      "Pinot Noir"
+    ],
+    "style": {
+      "freshness": 5,
+      "body": 2
+    },
+    "drink_curve": "medium_long",
+    "drink_window_bias": 1,
+    "pairing_tags": [
+      "aperitif",
+      "shellfish",
+      "fried food"
+    ],
+    "search_terms": [
+      "Tasmania Sparkling"
+    ],
+    "producer_examples": [
+      "Arras",
+      "Jansz",
+      "Stefano Lubiana"
+    ]
+  }
+}

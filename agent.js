@@ -273,8 +273,32 @@ function searchCellar(q) {
     });
 }
 
+// RAG-oppslag klientsiden (indekser lastet i app.js)
+function normRag(s) {
+  return (s || '').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function ragLookupProducer(name) {
+  var idx = window.producerIndex;
+  if (!idx) return null;
+  var words = normRag(name).split(' ');
+  for (var len = Math.min(words.length, 4); len >= 1; len--) {
+    var hit = idx.get(words.slice(0, len).join(' '));
+    if (hit) return hit;
+  }
+  return null;
+}
+function ragLookupAppellation(subRegion) {
+  var idx = window.appellationIndex;
+  if (!idx || !subRegion) return null;
+  return idx.get(normRag(subRegion)) || null;
+}
+
 // Komprimer til tynne kandidatobjekter for LLM-screening
 function thinCandidate(p) {
+  var producerInfo    = p.source === 'cellar' ? null : ragLookupProducer(p.name || '');
+  var appellationInfo = p.source === 'cellar' ? null : ragLookupAppellation(p.subRegion || '');
   return {
     id:            p.id || p.code,
     name:          p.name,
@@ -290,8 +314,8 @@ function thinCandidate(p) {
     food:          (p.foodPairing || []).map(function(f) { return f.name || f.identifier; }).join(', ') || null,
     storable:      p.storable || null,
     volume:        p.volume   || null,
-    producer_tier: p.producer_tier || null,
-    pairing_tags:  p.pairing_tags  || null,
+    producer_tier: producerInfo    ? producerInfo.tier            : null,
+    pairing_tags:  appellationInfo ? appellationInfo.pairing_tags : null,
     source:        p.source   || null,
     qty:           p.qty      || null,
     ct_score:      p.ct       || null
