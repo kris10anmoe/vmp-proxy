@@ -58,7 +58,10 @@ PROFILE + '\n\n' +
 'Søk gjerne på kjente naturvinprodusenter direkte (type=producer): f.eks. Lapierre,\n' +
 'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
 'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
-'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n\n' +
+'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n' +
+'KRITISK ved matspørsmål: dekk alltid MINST 2 ulike vinfarger/stiler når retten tillater det.\n' +
+'And/fugl/villfugl: søk både hvitt (Riesling, Burgund hvit) OG rødt (Pinot Noir, Syrah, Nebbiolo).\n' +
+'Ikke begrens søkene til én stil selv om profilen favoriserer den.\n\n' +
 'VED KJELLERSPØRSMÅL – når bruker spør om "kjelleren", "har jeg hjemme", "fra min samling",\n' +
 '"hva har jeg", "åpne i kveld" eller lignende:\n' +
 'Inkluder søk med type: "cellar" i search_targets. Søketeksten beskriver stilen/regionen.\n' +
@@ -193,6 +196,8 @@ PROFILE + '\n\n' +
 'Presenter øvrige stiler som alternativer med kortere begrunnelse.\n' +
 'Intro-setningene MÅ nevne ALLE vinstiler/druer du inkluderer – ikke bare de fremste.\n\n' +
 '- Beskriv de 6 beste vinene i teksten. Fra MINST 3 ulike regioner/druer.\n' +
+'  KRITISK: ikke 6 viner av samme drue (f.eks. all-Riesling). Spre over minst 2 ulike stiler/farger\n' +
+'  når retten tillater det. Brukerprofil er tiebreaker, ikke filter som eliminerer alternativene.\n' +
 '- Navn, varenummer, pris (og flaskestørrelse hvis det avviker fra 75 cl)\n' +
 '- Ved uvanlig volum (halvflaske, magnum osv.): nevn normalisert pris per 75 cl\n' +
 '- Per vin: 2–3 setninger.\n' +
