@@ -59,11 +59,13 @@ PROFILE + '\n\n' +
 'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
 'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n' +
-'FARGEKRAV ved matspørsmål: for alle retter unntatt delikat fisk/skalldyr MÅ planen ha\n' +
-'minst 1 rødvinsøk OG minst 1 hvitvinsøk. "2 ulike stiler" betyr IKKE 4 hvite fra\n' +
-'ulike regioner – det betyr én rød og én hvit som minimum.\n' +
-'Champagne/moden Blanc de Blancs er faglig relevant til fjørfe og fete sauser – søk det.\n' +
-'Søk IKKE på Crémant, Cava, Prosecco, Sekt ved matspørsmål – kun Champagne ved behov.\n\n' +
+'FARGEKRAV ved matspørsmål:\n' +
+'For kjøtt, fugl og vilt (herunder and, kylling, lam, biff, vilt): planen MÅ ha MINST\n' +
+'1 søk etter rød stillvin (f.eks. Pinot Noir, Syrah, Nebbiolo, Bordeaux) OG minst 1 hvit.\n' +
+'Dette er absolutt – ikke erstattet av Champagne eller rosé.\n' +
+'Champagne kan inkluderes som ett (1) ekstra søk, men erstatter IKKE rødvinsøket.\n' +
+'Maks 1 Champagne-søk per plan – ikke søk på individuelle Champagne-appellasjoner.\n' +
+'Søk IKKE på Crémant, Cava, Prosecco, Sekt ved matspørsmål.\n\n' +
 'VED KJELLERSPØRSMÅL – når bruker spør om "kjelleren", "har jeg hjemme", "fra min samling",\n' +
 '"hva har jeg", "åpne i kveld" eller lignende:\n' +
 'Inkluder søk med type: "cellar" i search_targets. Søketeksten beskriver stilen/regionen.\n' +
@@ -442,7 +444,7 @@ async function runSearches(plan, onStatus) {
         if (b.tier !== a.tier) return b.tier - a.tier;
         return (b.availability.polet_presence || 0) - (a.availability.polet_presence || 0);
       })
-      .slice(0, 3)
+      .slice(0, 2)
       .forEach(function(p) {
         if (injectedCount >= 8) return;
         var term = (p.search_terms || [])[0];
@@ -732,6 +734,15 @@ async function run(history, onStatus) {
       })
       .map(function(id) { return productMap2[id] || null; })
       .filter(Boolean);
+
+    // Cap: maks 4 finalists per bred region (f.eks. Champagne, Burgund, Piemonte)
+    // Hindrer at én region dominerer finalistlisten
+    var regionFinalistCount = {};
+    finalists = finalists.filter(function(p) {
+      var rKey = (p.region || 'ukjent').toLowerCase();
+      regionFinalistCount[rKey] = (regionFinalistCount[rKey] || 0) + 1;
+      return regionFinalistCount[rKey] <= 4;
+    });
 
     // Fallback hvis batch-rangering returnerte ingenting
     if (finalists.length === 0) finalists = allProducts.slice(0, 40);
