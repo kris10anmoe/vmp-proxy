@@ -59,6 +59,9 @@ PROFILE + '\n\n' +
 'Foillard, Breton, Overnoy, Tissot, Gravner, Radikon, COS.\n' +
 'Inkluder minst 2 producer-søk og 2 region-søk for å dekke bredden.\n\n' +
 'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n' +
+'KRITISK: maks 1 søk per drue eller stil. Ikke søk på "Riesling Mosel" og "Riesling Pfalz"\n' +
+'separat – bruk ett bredt søk ("Riesling") og fordel de resterende søkene på andre druer/stiler.\n' +
+'Målet er diversitet: 4 ulike druer er bedre enn 4 ulike regioner av samme drue.\n' +
 'FARGEKRAV ved matspørsmål:\n' +
 'For kjøtt, fugl og vilt (herunder and, kylling, lam, biff, vilt): planen MÅ ha MINST\n' +
 '1 søk etter rød stillvin (f.eks. Pinot Noir, Syrah, Nebbiolo, Bordeaux) OG minst 1 hvit.\n' +
@@ -754,13 +757,17 @@ async function run(history, onStatus) {
       .map(function(id) { return productMap2[id] || null; })
       .filter(Boolean);
 
-    // Cap: maks 4 finalists per bred region (f.eks. Champagne, Burgund, Piemonte)
-    // Hindrer at én region dominerer finalistlisten
+    // Cap: maks 4 per subregion OG maks 6 per land
+    // Subregion-cap hindrer én appellation (f.eks. Champagne) fra å dominere.
+    // Landsnivå-cap hindrer at ett land (f.eks. Tyskland med mange Riesling-regioner) flommer over.
     var regionFinalistCount = {};
+    var countryFinalistCount = {};
     finalists = finalists.filter(function(p) {
-      var rKey = (p.region || 'ukjent').toLowerCase();
-      regionFinalistCount[rKey] = (regionFinalistCount[rKey] || 0) + 1;
-      return regionFinalistCount[rKey] <= 4;
+      var rKey = (p.region  || 'ukjent').toLowerCase();
+      var cKey = (p.country || 'ukjent').toLowerCase();
+      regionFinalistCount[rKey]  = (regionFinalistCount[rKey]  || 0) + 1;
+      countryFinalistCount[cKey] = (countryFinalistCount[cKey] || 0) + 1;
+      return regionFinalistCount[rKey] <= 4 && countryFinalistCount[cKey] <= 6;
     });
 
     // Fallback hvis batch-rangering returnerte ingenting
