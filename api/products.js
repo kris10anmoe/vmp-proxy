@@ -29,7 +29,13 @@ const compactForAgent = p => ({
   status:      p.status   || null,
   food:        (p.foodPairing || []).map(f => f.identifier || f.name || null).filter(Boolean),
   category:    p.mainCategory?.name || null,
-  volume:      p.volume || null,
+  volume:      (function() {
+    var v = p.volume;
+    if (!v) return null;
+    if (typeof v === 'string') return v;
+    if (typeof v === 'number') return v + ' cl';
+    return v.formattedValue || (v.value != null ? v.value + ' ' + (v.unit || 'cl') : null);
+  })(),
   url:         p.url ? 'https://www.vinmonopolet.no' + p.url : null
 });
 
