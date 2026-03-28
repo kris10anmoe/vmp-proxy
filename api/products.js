@@ -29,6 +29,7 @@ const compactForAgent = p => ({
   status:      p.status   || null,
   food:        (p.foodPairing || []).map(f => f.identifier || f.name || null).filter(Boolean),
   category:    p.mainCategory?.name || null,
+  volume:      p.volume || null,
   url:         p.url ? 'https://www.vinmonopolet.no' + p.url : null
 });
 

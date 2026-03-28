@@ -61,7 +61,8 @@ PROFILE + '\n\n' +
 '2. Stilmatch innenfor vinens egne premisser – friskhet, presisjon og balanse\n' +
 '   er universelle, men hva det betyr for Barolo vs Saumur er forskjellig\n' +
 '3. Årgangskvalitet og drikkevindu\n' +
-'4. Pris/kvalitet-ratio (lavest vekt)\n' +
+'4. Pris/kvalitet-ratio (lavest vekt) – normaliser alltid til 75 cl ved sammenligning\n' +
+'   (magnum à 1500 ml til 600 kr = 300 kr/75 cl, ikke 600 kr)\n' +
 'Enklere vin fra topprodusent > toppvin fra middelmådig produsent ved samme prispunkt.';
 
 // ── Agentprompt ───────────────────────────────────────────────────────────────
@@ -100,7 +101,8 @@ PROFILE + '\n\n' +
 'Jeg har prioritert Chablis og tørr Riesling – mineralitet og høy syre uten å overdøve fisken."\n' +
 'Ved direkte spørsmål (spesifikk vin/produsent/sammenligning): hopp over innledning, svar direkte.\n\n' +
 '- 3–6 anbefalinger fra MINST 3 ulike regioner/druer\n' +
-'- Navn, varenummer, pris\n' +
+'- Navn, varenummer, pris (og flaskestørrelse hvis det avviker fra 75 cl)\n' +
+'- Ved uvanlig volum (halvflaske, magnum osv.): nevn normalisert pris per 75 cl\n' +
 '- Én konkret setning per vin';
 
 // ── Tools ─────────────────────────────────────────────────────────────────────
@@ -165,7 +167,8 @@ function thinCandidate(p) {
     fullness:    p.fullness  || null,
     tannins:     p.tannins   || null,
     food:        (p.foodPairing || []).map(function(f) { return f.name || f.identifier; }).join(', ') || null,
-    storable:    p.storable || null
+    storable:    p.storable || null,
+    volume:      p.volume   || null
   };
 }
 
