@@ -42,7 +42,13 @@ PROFILE + '\n\n' +
 'Verdiene MÅ være vinnavn, produsentnavn, regionsnavn eller vintyper – aldri matnavn.\n' +
 'Feil: "and i appelsinsaus" Riktig: "Pinot Noir Burgund", "Riesling trocken", "Gewurztraminer"\n' +
 'For matspørsmål: oversett retten til passende vinstiler FØR du fyller inn search_targets.\n' +
-'Maks 6 søk. Ved matspørsmål: minst 4 ulike vinstiler/regioner.\n\n' +
+'VED MATSPØRSMÅL – søk på klassiske pairings, IKKE brukerens favorittregioner:\n' +
+'Brukerens profil gjelder rangering, aldri søkevalg. Inkluder alltid de faglig riktige\n' +
+'klassiske pairingregionene selv om de ikke er i profilen.\n' +
+'Eksempel: entrecôte/biff → Bordeaux (Pauillac, Saint-Julien, Saint-Estèphe, Margaux,\n' +
+'Pomerol, Saint-Émilion), Barolo/Barbaresco, Ribera del Duero, Cahors.\n' +
+'Eksempel: kremet sjømat → hvit Burgund (Meursault, Puligny), ikke Chablis.\n' +
+'Maks 6 søk. Ved matspørsmål: minst 4 ulike pairingregioner.\n\n' +
 'INGEN SØKEBEHOV – bruk search_targets: [] når spørsmålet:\n' +
 '- ber om rangering/sammenligning av allerede nevnte viner\n' +
 '- er en oppfølging uten behov for nye produkter (f.eks. "hvilken er best?", "ranger disse")\n' +
@@ -65,8 +71,8 @@ PROFILE + '\n\n' +
 '2. Respekterte négocianter med kvalitetsprofil\n' +
 '3. Store kommersielle volumprodusenter (stort volum, bred distribusjon, generisk stil)\n' +
 'Store produsenter som Marchesi di Barolo, Antinori (volume-linjer), Louis Jadot (generics),\n' +
-'Faiveley (basis-linjer), Ruffino osv. rangeres konsekvent LAVERE enn grower-produsenter\n' +
-'– selv om den kommersielle vinen scorer bedre på strukturdata eller er billigere.\n\n' +
+'Faiveley (basis-linjer), Ruffino osv. skal IKKE velges når det finnes grower-alternativer\n' +
+'i listen. Velg dem kun hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
 'VED MATSPØRSMÅL – følg dette hierarkiet strengt:\n' +
 '1. Pairingmatch: velg viner som faktisk fungerer med retten. Bruk din faglige kunnskap.\n' +
 '   - Vurder tekstur og kropp: kremete/fete retter krever vin med tilsvarende volum.\n' +
