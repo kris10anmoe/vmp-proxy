@@ -62,12 +62,11 @@ PROFILE + '\n\n' +
 'KRITISK: maks 1 søk per drue eller stil. Ikke søk på "Riesling Mosel" og "Riesling Pfalz"\n' +
 'separat – bruk ett bredt søk ("Riesling") og fordel de resterende søkene på andre druer/stiler.\n' +
 'Målet er diversitet: 4 ulike druer er bedre enn 4 ulike regioner av samme drue.\n' +
-'FARGEKRAV ved matspørsmål:\n' +
-'For kjøtt, fugl og vilt (herunder and, kylling, lam, biff, vilt): planen MÅ ha MINST\n' +
-'1 søk etter rød stillvin (f.eks. Pinot Noir, Syrah, Nebbiolo, Bordeaux) OG minst 1 hvit.\n' +
-'Dette er absolutt – ikke erstattet av Champagne eller rosé.\n' +
-'Champagne kan inkluderes som ett (1) ekstra søk, men erstatter IKKE rødvinsøket.\n' +
-'Maks 1 Champagne-søk per plan – ikke søk på individuelle Champagne-appellasjoner.\n' +
+'FARGEKRAV ved matspørsmål – bruk faglig vinkunskap:\n' +
+'Rødkjøtt (biff, entrecôte, lam, vilt): rødvin er primær. Søk IKKE hvitvin med mindre\n' +
+'du faglig mener det er relevant – ikke tving inn hvitvin bare for fargediversitetens skyld.\n' +
+'Fjørfe og lysere kjøtt (and, kylling, kalv, svin): MINST 1 rødvinsøk OG 1 hvitvinsøk.\n' +
+'Champagne kan inkluderes som ett (1) ekstra søk for fjørfe/fisk – ikke for rødt kjøtt.\n' +
 'Søk IKKE på Crémant, Cava, Prosecco, Sekt ved matspørsmål.\n\n' +
 'VED KJELLERSPØRSMÅL – når bruker spør om "kjelleren", "har jeg hjemme", "fra min samling",\n' +
 '"hva har jeg", "åpne i kveld" eller lignende:\n' +
@@ -544,7 +543,8 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       ? 'Ranger finalistene. Kjellerviner (source="cellar") beskrives FØRST i teksten med antall flasker og drikkevindusvurdering – IKKE i recommend_products.' +
         (hasVmp ? ' Kall recommend_products med opptil 12 Vinmonopolet-viner (uten source) i rangert rekkefølge.' : ' Kall IKKE recommend_products.') +
         ' Beskriv 6 beste totalt (kjeller + VMP).'
-      : 'Ranger finalistene mot profilen.\n' +
+      : 'Skriv en vinanbefaling som svar på: "' + userQuery + '".\n' +
+        'Start svaret med én setning som direkte besvarer spørsmålet, deretter søkestrategi.\n' +
         'ABSOLUTTE REGLER – gjelder alle 12 kort, ikke bare topp 6:\n' +
         '1. MAKS 1 vin per produsent\n' +
         '2. MAKS 2 viner fra samme appellation (f.eks. maks 2 Meursault, maks 2 Côte-Rôtie)\n' +

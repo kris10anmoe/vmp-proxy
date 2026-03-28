@@ -38,7 +38,7 @@ Promise.all([
   // Brukes i runSearches for å injisere produsentsøk og garantere at toppnavn er i kandidatpoolen
   var rToP = new Map();
   Object.values(results[0]).forEach(function(p) {
-    if ((p.tier || 0) < 3) return;
+    if ((p.tier || 0) < 4) return;
     if (!p.availability || (p.availability.polet_presence || 0) < 2) return;
     (p.regions || []).forEach(function(regionKey) {
       var appData = results[1][regionKey];
