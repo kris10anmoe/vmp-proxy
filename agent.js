@@ -471,16 +471,18 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
     var usedProducers = {};
     recommended.forEach(function(p) {
       if (p.id) usedIds[p.id] = true;
-      // Ekstraher produsentnavn (alt før første siffer i varenavn, eller første to ord)
-      var producer = (p.name || '').replace(/\s+\d{4}.*$/, '').trim();
+      // Ekstraher produsentnavn: første 2 ord (fornavn + etternavn/merke)
+      var words = (p.name || '').replace(/\s+\d{4}.*$/, '').trim().split(/\s+/);
+      var producer = words.slice(0, 2).join(' ');
       if (producer) usedProducers[producer.toLowerCase()] = true;
     });
     finalists.forEach(function(p) {
       if (recommended.length >= 12) return;
       if (!p.id || usedIds[p.id]) return;
       if (isSweetWine(p)) return;
-      // Sjekk produsentduplikat
-      var producer = (p.name || '').replace(/\s+\d{4}.*$/, '').trim().toLowerCase();
+      // Sjekk produsentduplikat (første 2 ord)
+      var words = (p.name || '').replace(/\s+\d{4}.*$/, '').trim().split(/\s+/);
+      var producer = words.slice(0, 2).join(' ').toLowerCase();
       if (producer && usedProducers[producer]) return;
       recommended.push(p);
       usedIds[p.id] = true;
