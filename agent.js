@@ -80,6 +80,7 @@ var BATCH_SYSTEM =
 PROFILE + '\n\n' +
 'Du får en liste kandidater. Velg de 6 beste.\n' +
 'ALDRI velg mer enn 1 vin per produsent – velg alltid den beste flasken fra produsenten.\n' +
+'ALDRI velg mer enn 2 viner fra samme appellation (f.eks. maks 2 Côte-Rôtie, maks 2 Barolo).\n' +
 'Svar KUN med JSON: {"selected": ["id1", "id2", ...]}\n\n' +
 'PRODUSENTKVALITET – bruk producer_tier fra data som primærsignal:\n' +
 'Hvert kandidat-objekt har et producer_tier felt (3–5) hvis produsenten er i kvalitetsdatabasen:\n' +
@@ -106,6 +107,10 @@ PROFILE + '\n\n' +
 '3. Brukerprofilen brukes KUN til å rangere mellom viner som allerede er gode pairings.\n' +
 '   Profilen skal IKKE styre hvilke viner som velges – kun hvilken av de gode pairingene\n' +
 '   brukeren vil foretrekke.\n\n' +
+'VED MATPARING – tanninmatch mot saus:\n' +
+'Smørbaserte sauser (béarnaise, hollandaise, fløte) tåler lite tannin – velg viner med\n' +
+'silkemyk, integrert tannin. Kraftige braises og rødtomatbaserte retter tåler mer tannin.\n' +
+'Bruk din vinkunskap om typisk tanninstruktur per appellation som signal her.\n\n' +
 'HVIS BRUKEREN SPØR OM "eldste" eller "nyeste" viner:\n' +
 'Ranger primært etter årgangstall (eldst/nyest først). Kvalitet og profil er sekundært.\n\n' +
 'HVIS BRUKEREN SPESIFISERER "drikke nå", "moden", "klar til å drikkes" eller lignende:\n' +
@@ -160,8 +165,11 @@ PROFILE + '\n\n' +
 '   a) Sjekk manuelt at ingen produsent er med mer enn én gang – behold kun den beste.\n' +
 '   b) Fjern alle søtviner/dessertviner (Sauternes, Barsac, Monbazillac, Tokaji osv.)\n' +
 '      med mindre bruker eksplisitt ba om det.\n' +
-'   c) Sjekk at ingen appellation er representert med mer enn 2 viner.\n' +
-'   d) Sikre at listen har 8-12 produkter fra minst 3 ulike regioner/appellasjoner.\n' +
+'   c) Sjekk at ingen appellation er representert med mer enn 2 viner. Er det 3+ fra\n' +
+'      samme appellation (f.eks. 3 Côte-Rôtie), fjern de svakeste til maks 2 gjenstår.\n' +
+'   d) Fjern eksplisitt Marchesi di Barolo og andre kjente kommersielle volumprodusenter\n' +
+'      (Zonin, Cavit, Ruffino, Antinori volume-linjer) hvis bedre alternativer finnes.\n' +
+'   e) Sikre at listen har 8-12 produkter fra minst 3 ulike regioner/appellasjoner.\n' +
 '5. Kall recommend_products med 8-12 viner i rangert rekkefølge (beste først).\n' +
 '   Kortene vises i eksakt denne rekkefølgen – ranger nøye.\n' +
 '6. I teksten: beskriv de 6 beste. Nevn ikke vinene som bare er med som kort (7–12).\n' +
