@@ -22,11 +22,14 @@ PROFILE + '\n\n' +
 '  "reasoning": "kort faglig begrunnelse",\n' +
 '  "search_targets": [\n' +
 '    {"q": "søkestreng", "type": "producer"},\n' +
-'    {"q": "regionsnavn stil", "type": "region"}\n' +
+'    {"q": "regionsnavn stil", "type": "region", "sortBy": "vintage_asc"}\n' +
 '  ]\n' +
 '}\n\n' +
 'type=producer: spesifikk produsent, henter 30 resultater (f.eks. "Trediberri", "Jamet", "Rostaing")\n' +
-'type=region: appellation/region/drue, henter 100 resultater (f.eks. "Barolo", "Chablis Premier Cru", "Pinot Noir")\n\n' +
+'type=region: appellation/region/drue, henter 100 resultater (f.eks. "Barolo", "Chablis Premier Cru", "Pinot Noir")\n' +
+'sortBy (valgfritt): "vintage_asc" = eldste årganger først (bruk ved "eldste", "moden", "klar nå"),\n' +
+'                    "vintage_desc" = nyeste årganger først (bruk ved "nyeste", "siste årgang").\n' +
+'Utelat sortBy ved vanlige spørsmål.\n\n' +
 'SØKESTRATEGI:\n' +
 'Søkene skal dekke hva brukeren faktisk spør om – ikke filtreres gjennom smaksprofilen.\n' +
 'Profilen brukes i rangeringen, ikke til å begrense søkene.\n\n' +
@@ -78,6 +81,8 @@ PROFILE + '\n\n' +
 '3. Brukerprofilen brukes KUN til å rangere mellom viner som allerede er gode pairings.\n' +
 '   Profilen skal IKKE styre hvilke viner som velges – kun hvilken av de gode pairingene\n' +
 '   brukeren vil foretrekke.\n\n' +
+'HVIS BRUKEREN SPØR OM "eldste" eller "nyeste" viner:\n' +
+'Ranger primært etter årgangstall (eldst/nyest først). Kvalitet og profil er sekundært.\n\n' +
 'HVIS BRUKEREN SPESIFISERER "drikke nå", "moden", "klar til å drikkes" eller lignende:\n' +
 'Drikkevindu-match er absolutt primærkriterie – over produsentkvalitet og profil.\n' +
 'En vin som ikke er klar nå skal IKKE velges, uavhengig av produsentnavn eller kvalitetsnivå.\n' +
@@ -308,11 +313,12 @@ async function runSearches(plan, onStatus) {
     // Støtt både gammelt format (streng) og nytt format (objekt med q og type)
     var q        = typeof target === 'string' ? target : target.q;
     var type     = typeof target === 'object' ? target.type : 'region';
+    var sortBy   = typeof target === 'object' ? target.sortBy || null : null;
     var pageSize = type === 'producer' ? 30 : 100;
 
     onStatus && onStatus('Søker ' + q + '...');
     try {
-      var products = await window.Vin.searchProducts(q, pageSize, null, 'agent');
+      var products = await window.Vin.searchProducts(q, pageSize, sortBy, 'agent');
       products.forEach(function(p) {
         if (p.id && !seen[p.id]) {
           seen[p.id] = true;
