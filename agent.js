@@ -420,8 +420,40 @@ async function runSearches(plan, onStatus) {
   var allProducts = [];
   var seen = {};
 
-  for (var i = 0; i < (plan.search_targets || []).length; i++) {
-    var target = plan.search_targets[i];
+  // Injiser produsentsøk for tier 4/5-produsenter i hvert regionsøk.
+  // Garanterer at toppprodusentene er representert i kandidatpoolen uavhengig av
+  // Vinmonopolets sorteringslogikk i regionsøket.
+  var planTargets = (plan.search_targets || []).slice();
+  var existingQ = new Set(planTargets.map(function(t) {
+    return normRag(typeof t === 'string' ? t : (t.q || ''));
+  }));
+  var injected = [];
+  var injectedCount = 0;
+  planTargets.forEach(function(target) {
+    var type   = typeof target === 'object' ? (target.type || 'region') : 'region';
+    var sortBy = typeof target === 'object' ? target.sortBy : null;
+    if (type !== 'region' || sortBy) return;
+    var q = typeof target === 'string' ? target : target.q;
+    var producers = (window.regionToProducers || new Map()).get(normRag(q)) || [];
+    producers.slice()
+      .sort(function(a, b) {
+        if (b.tier !== a.tier) return b.tier - a.tier;
+        return (b.availability.polet_presence || 0) - (a.availability.polet_presence || 0);
+      })
+      .slice(0, 3)
+      .forEach(function(p) {
+        if (injectedCount >= 8) return;
+        var term = (p.search_terms || [])[0];
+        if (!term || existingQ.has(normRag(term))) return;
+        existingQ.add(normRag(term));
+        injected.push({ q: term, type: 'producer' });
+        injectedCount++;
+      });
+  });
+  var allTargets = injected.concat(planTargets);
+
+  for (var i = 0; i < allTargets.length; i++) {
+    var target = allTargets[i];
     // Støtt både gammelt format (streng) og nytt format (objekt med q og type)
     var q        = typeof target === 'string' ? target : target.q;
     var type     = typeof target === 'object' ? target.type : 'region';

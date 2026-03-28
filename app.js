@@ -33,6 +33,24 @@ Promise.all([
     (data.search_terms || []).forEach(function(term) { aIdx.set(normStr(term), data); });
   });
   window.appellationIndex = aIdx;
+
+  // Bygg region → topprodusenter-index: appellation-søketerm → tier 4/5-produsenter
+  // Brukes i runSearches for å injisere produsentsøk og garantere at toppnavn er i kandidatpoolen
+  var rToP = new Map();
+  Object.values(results[0]).forEach(function(p) {
+    if ((p.tier || 0) < 4) return;
+    if (!p.availability || (p.availability.polet_presence || 0) < 2) return;
+    (p.regions || []).forEach(function(regionKey) {
+      var appData = results[1][regionKey];
+      if (!appData) return;
+      (appData.search_terms || []).forEach(function(term) {
+        var k = normStr(term);
+        if (!rToP.has(k)) rToP.set(k, []);
+        rToP.get(k).push(p);
+      });
+    });
+  });
+  window.regionToProducers = rToP;
 }).catch(function() {});
 
 (function () {
