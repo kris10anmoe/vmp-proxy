@@ -475,10 +475,31 @@ async function runSearches(plan, onStatus) {
   for (var start = 0; start < planTargets.length; start += CONCURRENCY) {
     var batchT = planTargets.slice(start, start + CONCURRENCY);
     var results = await Promise.all(batchT.map(execTarget));
-    results.forEach(function(products) {
-      products.forEach(function(p) {
-        if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
-      });
+    results.forEach(function(products, bIdx) {
+      var targetType = typeof batchT[bIdx] === 'object' ? (batchT[bIdx].type || 'region') : 'region';
+
+      if (targetType === 'region') {
+        // Regionssøk er fallback for produsenter IKKE i databasen.
+        // Filtrer ut DB-produsenter (dekkes av fetchProducers) og shuffle resten
+        // slik at små håndverksmessige produsenter ikke taper mot popularitetssortering.
+        var unknowns = products.filter(function(p) {
+          if (!p.id || seen[p.id]) return false;
+          return !ragLookupProducer(p.name || ''); // hold bare ikke-DB-produsenter
+        });
+        // Fisher-Yates shuffle
+        for (var j = unknowns.length - 1; j > 0; j--) {
+          var k = Math.floor(Math.random() * (j + 1));
+          var tmp = unknowns[j]; unknowns[j] = unknowns[k]; unknowns[k] = tmp;
+        }
+        unknowns.forEach(function(p) {
+          seen[p.id] = true; allProducts.push(p);
+        });
+      } else {
+        // Producer- og cellar-søk legges til som de er
+        products.forEach(function(p) {
+          if (p.id && !seen[p.id]) { seen[p.id] = true; allProducts.push(p); }
+        });
+      }
     });
   }
   return allProducts;
