@@ -70,9 +70,14 @@ PROFILE + '\n\n' +
 '1. Anerkjente grower-produsenter og domaines med terroir-fokus og faglig omdømme\n' +
 '2. Respekterte négocianter med kvalitetsprofil\n' +
 '3. Store kommersielle volumprodusenter (stort volum, bred distribusjon, generisk stil)\n' +
-'Store produsenter som Marchesi di Barolo, Antinori (volume-linjer), Louis Jadot (generics),\n' +
-'Faiveley (basis-linjer), Ruffino osv. skal IKKE velges når det finnes grower-alternativer\n' +
-'i listen. Velg dem kun hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
+'Store kommersielle produsenter som skal ALDRI velges med mer enn 1 flaske totalt,\n' +
+'og helst IKKE velges i det hele tatt når grower-alternativer finnes:\n' +
+'- Marchesi di Barolo (stort volum, mange linjer – velg maks 1 hvis ingen grower finnes)\n' +
+'- Antinori (volume-linjer som Santa Cristina, Peppoli)\n' +
+'- Louis Jadot (generics og Village-nivå)\n' +
+'- Faiveley (basis-linjer)\n' +
+'- Ruffino, Zonin, Cavit, Folonari\n' +
+'Disse skal BARE velges hvis kandidatlisten ikke inneholder anerkjente alternativer.\n\n' +
 'VED MATSPØRSMÅL – følg dette hierarkiet strengt:\n' +
 '1. Kanonisk pairingkvalitet: bruk din faglige vinkunskap til å vurdere hvor klassisk og\n' +
 '   anerkjent koblingen mellom vin og rett er. "Kan fungere" er ikke nok – prioriter de\n' +
@@ -106,12 +111,16 @@ PROFILE + '\n\n' +
 '- KRITISK – bruk alltid eksakt produktnavn og data fra listen du fikk. Beskriv aldri en vin\n' +
 '  under et annet navn eller med detaljer du ikke har fått i produktdataene. Sjekk at\n' +
 '  varenummeret i teksten matcher produktet du faktisk har data for.\n' +
-'- Søtvin/dessertvin (Sauternes, Barsac, Monbazillac osv.) inkluderes IKKE med mindre\n' +
-'  bruker eksplisitt ber om søtvin eller dessertvin.\n' +
+'- Søtvin/dessertvin (Sauternes, Barsac, Monbazillac, Tokaji, TBA, BA, Eiswein osv.)\n' +
+'  inkluderes ABSOLUTT IKKE med mindre bruker eksplisitt ber om søtvin eller dessertvin.\n' +
+'  Dette gjelder selv om de dukker opp i søkeresultatene for Bordeaux eller andre regioner.\n' +
+'  Sjekk varetypefeltet eller regionsnavn – utelat alle søtviner fra recommend_products.\n' +
 '- Svar kort og konkret på norsk.\n' +
-'- MAKS 1 anbefaling per produsent – er det to fra samme, behold kun den beste.\n' +
-'- MAKS 2 anbefalinger fra samme region/appellation.\n' +
-'- MAKS 8 anbefalinger totalt.\n\n' +
+'- MAKS 1 anbefaling per produsent i recommend_products – dette er absolutt og gjelder\n' +
+'  hele listen inkl. kort 7-12. Sjekk produsentnavn nøye – "Marchesi di Barolo Cannubi"\n' +
+'  og "Marchesi di Barolo Barolo" er SAMME produsent, bare én skal inkluderes.\n' +
+'- MAKS 2 anbefalinger fra samme appellation (f.eks. maks 2 Chablis, maks 2 Chambolle-Musigny).\n' +
+'- MAKS 12 produkter totalt i recommend_products. Sett inn 8-12 for å fylle kortvisningen.\n\n' +
 'RANGERING – ved matparing:\n' +
 'Pairingmatch er eneste utvelgelseskriterium. Brukerprofilen brukes kun til å rangere\n' +
 'mellom viner som allerede er gode pairings – ikke til å velge hvilke viner som er med.\n\n' +
@@ -126,9 +135,13 @@ PROFILE + '\n\n' +
 '2. Kandidatene er allerede batch-rangert – du ser bare finalistene\n' +
 '3. Hvis bruker nevnte en bestemt butikk: kall get_store_stock for toppkandidatene\n' +
 '   og bruk lagerstatus som primærfilter i rangeringen\n' +
-'4. Før du kaller recommend_products: sjekk manuelt at ingen produsent er med mer enn én gang.\n' +
-'   Er det duplikater – behold kun den beste, fjern de andre.\n' +
-'5. Kall recommend_products med opptil 12 viner i rangert rekkefølge (beste først).\n' +
+'4. Før du kaller recommend_products:\n' +
+'   a) Sjekk manuelt at ingen produsent er med mer enn én gang – behold kun den beste.\n' +
+'   b) Fjern alle søtviner/dessertviner (Sauternes, Barsac, Monbazillac, Tokaji osv.)\n' +
+'      med mindre bruker eksplisitt ba om det.\n' +
+'   c) Sjekk at ingen appellation er representert med mer enn 2 viner.\n' +
+'   d) Sikre at listen har 8-12 produkter fra minst 3 ulike regioner/appellasjoner.\n' +
+'5. Kall recommend_products med 8-12 viner i rangert rekkefølge (beste først).\n' +
 '   Kortene vises i eksakt denne rekkefølgen – ranger nøye.\n' +
 '6. I teksten: beskriv de 6 beste. Nevn ikke vinene som bare er med som kort (7–12).\n' +
 '7. Marker hvilke som er på lager i butikken hvis butikk ble nevnt.\n\n' +
@@ -444,15 +457,34 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
   }
 
   // Fyll opp til 12 kort med gjenværende finalister dersom modellen returnerte færre
+  // Ekskluder søtvin/dessertvin (Sauternes, Barsac etc.) med mindre de allerede er med
+  var sweetWineKeywords = ['sauternes', 'barsac', 'monbazillac', 'trockenbeerenauslese', 'beerenauslese', 'eiswein', 'tokaji'];
+  function isSweetWine(p) {
+    var searchStr = ((p.name || '') + ' ' + (p.subRegion || '') + ' ' + (p.region || '')).toLowerCase();
+    return sweetWineKeywords.some(function(kw) { return searchStr.indexOf(kw) !== -1; });
+  }
+  // Fjern søtviner fra recommended med mindre listen er for liten
+  recommended = recommended.filter(function(p) { return !isSweetWine(p); });
+
   if (recommended.length < 12 && finalists.length > recommended.length) {
     var usedIds = {};
-    recommended.forEach(function(p) { if (p.id) usedIds[p.id] = true; });
+    var usedProducers = {};
+    recommended.forEach(function(p) {
+      if (p.id) usedIds[p.id] = true;
+      // Ekstraher produsentnavn (alt før første siffer i varenavn, eller første to ord)
+      var producer = (p.name || '').replace(/\s+\d{4}.*$/, '').trim();
+      if (producer) usedProducers[producer.toLowerCase()] = true;
+    });
     finalists.forEach(function(p) {
       if (recommended.length >= 12) return;
-      if (p.id && !usedIds[p.id]) {
-        recommended.push(p);
-        usedIds[p.id] = true;
-      }
+      if (!p.id || usedIds[p.id]) return;
+      if (isSweetWine(p)) return;
+      // Sjekk produsentduplikat
+      var producer = (p.name || '').replace(/\s+\d{4}.*$/, '').trim().toLowerCase();
+      if (producer && usedProducers[producer]) return;
+      recommended.push(p);
+      usedIds[p.id] = true;
+      if (producer) usedProducers[producer] = true;
     });
   }
 
