@@ -78,6 +78,11 @@ PROFILE + '\n\n' +
 '3. Brukerprofilen brukes KUN til å rangere mellom viner som allerede er gode pairings.\n' +
 '   Profilen skal IKKE styre hvilke viner som velges – kun hvilken av de gode pairingene\n' +
 '   brukeren vil foretrekke.\n\n' +
+'HVIS BRUKEREN SPESIFISERER "drikke nå", "moden", "klar til å drikkes" eller lignende:\n' +
+'Drikkevindu-match er absolutt primærkriterie – over produsentkvalitet og profil.\n' +
+'En vin som ikke er klar nå skal IKKE velges, uavhengig av produsentnavn eller kvalitetsnivå.\n' +
+'Vurder årgangen mot din kunnskap om typisk utvikling for stilen.\n' +
+'Eks: Bordeaux venstrekyst 2020 er generelt ikke klar nå (2026) – 2015/2016/2017 kan være det.\n\n' +
 'VED ANDRE SPØRSMÅL:\n' +
 'RANGERING:\n' +
 '1. Din faglige vurdering av produsent og faktisk vinkvalitet\n' +
