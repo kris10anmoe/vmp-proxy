@@ -440,10 +440,11 @@ async function batchRank(batch, userQuery, onStatus) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:      'gpt-4o-mini',
-        max_tokens: 200,
-        system:     BATCH_SYSTEM,
-        messages:   [{ role: 'user', content: prompt }]
+        model:       'gpt-4o-mini',
+        max_tokens:  200,
+        temperature: 0,
+        system:      BATCH_SYSTEM,
+        messages:    [{ role: 'user', content: prompt }]
       })
     });
     var data = await res.json();
@@ -575,9 +576,11 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
         (hasVmp ? ' Kall recommend_products med opptil 12 Vinmonopolet-viner (uten source) i rangert rekkefølge.' : ' Kall IKKE recommend_products.') +
         ' Beskriv 6 beste totalt (kjeller + VMP).'
       : 'Skriv en vinanbefaling som svar på: "' + userQuery + '".\n' +
-        'KRITISK – BARE EKTE VINER: Du kan KUN beskrive viner som faktisk finnes i finalistlisten\n' +
-        'ovenfor. OPPFINN ALDRI produkter, varenumre, priser eller viner du vet "burde" vært der\n' +
-        'men som ikke er på listen. Hvis Haut-Brion ikke er på listen, kan du IKKE skrive om den.\n' +
+        'KRITISK – BARE EKTE VINER. De eneste lovlige varenumrene er:\n' +
+        thinList.map(function(p) { return p.id; }).join(', ') + '\n' +
+        'Du kan KUN beskrive og anbefale viner med disse varenumrene. OPPFINN ALDRI produkter,\n' +
+        'varenumre, priser eller viner som ikke er på listen ovenfor.\n' +
+        'Hvis Haut-Brion, Palmer eller andre kjente viner IKKE er på listen – skriv IKKE om dem.\n' +
         'Teksten og recommend_products-kallet MÅ referere til nøyaktig de samme vinene.\n\n' +
         'Start svaret med én setning som direkte besvarer spørsmålet, deretter søkestrategi.\n' +
         'ABSOLUTTE REGLER – gjelder alle 12 kort, ikke bare topp 6:\n' +
@@ -610,11 +613,12 @@ async function finalRound(finalists, history, userQuery, onStatus, noSearchNeede
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model:      'claude-sonnet-4-5-20250929',
-        max_tokens: 2000,
-        system:     AGENT_SYSTEM,
-        tools:      FINAL_TOOLS,
-        messages:   agentHistory
+        model:       'gpt-4o',
+        max_tokens:  2000,
+        temperature: 0,
+        system:      AGENT_SYSTEM,
+        tools:       FINAL_TOOLS,
+        messages:    agentHistory
       })
     });
 
